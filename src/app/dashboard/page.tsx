@@ -325,7 +325,7 @@ export default function DashboardPage() {
 					py: 1,
 					mb: 1,
 					bgcolor: "#eee",
-					cursor:"pointer",
+					cursor: "pointer",
 					":hover": { bgcolor: "#ddd" },
 				}}
 			>
@@ -390,11 +390,21 @@ export default function DashboardPage() {
 				{NavContent}
 			</Drawer>
 
+			<Drawer
+				open
+				anchor="right"
+				variant="permanent"
+				// sx={{ width: `${ToDoNavWidth}px` }}
+			>
+				<Box sx={{ width: `${ToDoNavWidth}px` }}>aaaaddda</Box>
+			</Drawer>
+
 			{/* *********************** contenedor de tareas *********************** */}
 
 			<Box
 				sx={{
 					ml: { xs: 0, sm: `${ToDoNavWidth}px` },
+					mr: { xs: 0, sm: `${ToDoNavWidth}px` },
 					px: 2,
 					pt: 14,
 					pb: 13,
@@ -435,6 +445,7 @@ export default function DashboardPage() {
 					top: 0,
 
 					ml: { xs: 0, sm: `${ToDoNavWidth}px` },
+					mr: { xs: 0, sm: `${ToDoNavWidth}px` },
 
 					px: 3,
 					pb: 1,
@@ -474,6 +485,7 @@ export default function DashboardPage() {
 					left: 0,
 
 					ml: { xs: 0, sm: `${ToDoNavWidth}px` },
+					mr: { xs: 0, sm: `${ToDoNavWidth}px` },
 
 					px: 3,
 					pt: 1,
