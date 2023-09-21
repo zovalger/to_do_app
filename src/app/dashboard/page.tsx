@@ -38,6 +38,7 @@ import SegmentIcon from "@mui/icons-material/Segment";
 import InputBase from "@mui/material/InputBase";
 
 import StarOutlineOutlinedIcon from "@mui/icons-material/StarOutlineOutlined";
+import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
 import AllInclusiveOutlinedIcon from "@mui/icons-material/AllInclusiveOutlined";
@@ -47,7 +48,8 @@ import FlagOutlinedIcon from "@mui/icons-material/FlagOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import PlaylistAddOutlinedIcon from "@mui/icons-material/PlaylistAddOutlined";
-
+import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
+import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
 import { useTheme } from "@mui/material/styles";
 const data = [
 	{ icon: <People />, label: "Authentication" },
@@ -56,6 +58,7 @@ const data = [
 	{ icon: <Public />, label: "Hosting" },
 ];
 
+const ToDoNavWidth = 256;
 const ToDoNav = styled(List)<{ component?: React.ElementType }>({
 	"& .MuiListItemButton-root": {
 		paddingLeft: 16,
@@ -92,10 +95,13 @@ const ToDoNav = styled(List)<{ component?: React.ElementType }>({
 });
 
 export default function DashboardPage() {
-	const [open, setOpen] = useState(true);
-	const [openNav, setOpenNav] = useState(false);
 	const theme = useTheme();
 
+	const [open, setOpen] = useState(true);
+	const [openNav, setOpenNav] = useState(false);
+
+	const [hoverCheck, setHoverCheck] = useState(false);
+	const [important, setImportant] = useState(false);
 	const handdleOpenNav = () => {
 		setOpenNav(!openNav);
 	};
@@ -105,7 +111,6 @@ export default function DashboardPage() {
 			component="nav"
 			disablePadding
 			sx={{
-				maxWidth: 256,
 				display: "flex",
 				flexDirection: "column",
 				height: "100%",
@@ -288,6 +293,9 @@ export default function DashboardPage() {
 					<ListItemText primary={"Lista individual de nombre largo"} />
 				</ListItemButton>
 			</Box>
+
+			{/* *********************** anadir lista o grupo *********************** */}
+
 			<Box sx={{ display: "flex", mt: "auto" }}>
 				<ListItemButton>
 					<ListItemIcon>
@@ -297,33 +305,57 @@ export default function DashboardPage() {
 				</ListItemButton>
 
 				<Tooltip title="Crear nuevo grupo">
-					<Button sx={{ flexShrink: 0, width: 48 }} color="inherit">
+					<IconButton
+						sx={{ flexShrink: 0, width: 48, borderRadius: 0 }}
+						color="inherit"
+					>
 						<PlaylistAddOutlinedIcon />
-					</Button>
+					</IconButton>
 				</Tooltip>
 			</Box>
 		</ToDoNav>
 	);
 
-	const bar = (
-		<AppBar position="fixed">
-			<Toolbar>
+	const Task = (
+		<>
+			<Box
+				sx={{
+					display: "flex",
+					alignItems: "center",
+					py: 1,
+					mb: 1,
+					bgcolor: "#eee",
+					cursor:"pointer",
+					":hover": { bgcolor: "#ddd" },
+				}}
+			>
 				<IconButton
-					color="inherit"
-					aria-label="open drawer"
-					edge="start"
-					onClick={() => {
-						setOpenNav(true);
+					onMouseEnter={() => {
+						setHoverCheck(true);
 					}}
-					// sx={{ mr: 2, display: { sm: "none" } }}
+					onMouseLeave={() => {
+						setHoverCheck(false);
+					}}
 				>
-					<MenuIcon />
+					{hoverCheck ? (
+						<CheckCircleOutlinedIcon />
+					) : (
+						<RadioButtonUncheckedOutlinedIcon />
+					)}
 				</IconButton>
-				<Typography variant="h6" noWrap component="div">
-					Responsive drawer
-				</Typography>
-			</Toolbar>
-		</AppBar>
+
+				<Typography sx={{ flexGrow: 1 }}>Nombre de la tarea</Typography>
+
+				<IconButton
+					color="secondary"
+					onClick={() => {
+						setImportant(!important);
+					}}
+				>
+					{important ? <StarOutlinedIcon /> : <StarOutlineOutlinedIcon />}
+				</IconButton>
+			</Box>
+		</>
 	);
 
 	return (
@@ -332,6 +364,7 @@ export default function DashboardPage() {
 				open
 				variant="permanent"
 				sx={{
+					maxWidth: ToDoNavWidth,
 					[theme.breakpoints.down("sm")]: {
 						display: "none",
 					},
@@ -348,6 +381,7 @@ export default function DashboardPage() {
 					keepMounted: true,
 				}}
 				sx={{
+					maxWidth: ToDoNavWidth,
 					[theme.breakpoints.up("sm")]: {
 						display: "none",
 					},
@@ -356,7 +390,115 @@ export default function DashboardPage() {
 				{NavContent}
 			</Drawer>
 
-			<Button onClick={handdleOpenNav}> open</Button>
+			{/* *********************** contenedor de tareas *********************** */}
+
+			<Box
+				sx={{
+					ml: { xs: 0, sm: `${ToDoNavWidth}px` },
+					px: 2,
+					pt: 14,
+					pb: 13,
+					// position: "relative",
+					// height: "100vh",
+				}}
+			>
+				{Task}
+				{Task}
+				{Task}
+				{Task}
+				{Task}
+				{Task}
+				{Task}
+				{Task}
+				{Task}
+				{Task}
+				{Task}
+				{Task}
+				{Task}
+				{Task}
+				{Task}
+				{Task}
+				{Task}
+				{Task}
+				{Task}
+				{Task}
+			</Box>
+
+			{/* *********************** nav List *********************** */}
+
+			<Box
+				sx={{
+					position: "fixed",
+					right: 0,
+					left: 0,
+
+					top: 0,
+
+					ml: { xs: 0, sm: `${ToDoNavWidth}px` },
+
+					px: 3,
+					pb: 1,
+					backdropFilter: "blur(16px)",
+					bgcolor: "#fff8",
+				}}
+				// boxShadow={3}
+			>
+				<Box sx={{ display: { xs: "block", sm: "none" } }}>
+					<IconButton edge="start" onClick={handdleOpenNav}>
+						<MenuIcon />
+					</IconButton>
+				</Box>
+
+				<Box sx={{ display: "flex", pt: { xs: 0, sm: 2 } }}>
+					<Typography variant="h5" component="div">
+						Titulo de Lista
+					</Typography>
+
+					<Box sx={{ ml: "auto" }}>
+						<IconButton sx={{ borderRadius: 0 }}>
+							<MoreHorizOutlinedIcon />
+						</IconButton>
+					</Box>
+				</Box>
+				<Typography component="div" sx={{ fontSize: 13 }}>
+					{new Date().toDateString()}
+				</Typography>
+			</Box>
+			{/* *********************** botton List *********************** */}
+
+			<Box
+				sx={{
+					position: "fixed",
+					bottom: 0,
+					right: 0,
+					left: 0,
+
+					ml: { xs: 0, sm: `${ToDoNavWidth}px` },
+
+					px: 3,
+					pt: 1,
+					pb: 5,
+					backdropFilter: "blur(16px)",
+					// bgcolor: "#fff8",
+				}}
+			>
+				<Box
+					sx={{
+						display: "flex",
+						alignItems: "center",
+						py: 1,
+						bgcolor: "#eee",
+						":hover": { bgcolor: "#ddd" },
+					}}
+					// boxShadow={1}
+				>
+					<IconButton color="primary">
+						<AddOutlinedIcon />
+					</IconButton>
+
+					<Typography color="primary">Agregar nueva tarea</Typography>
+				</Box>
+			</Box>
 		</>
 	);
 }
