@@ -34,6 +34,7 @@ import Public from "@mui/icons-material/Public";
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
 import SegmentIcon from "@mui/icons-material/Segment";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 import InputBase from "@mui/material/InputBase";
 
@@ -322,11 +323,16 @@ export default function DashboardPage() {
 				sx={{
 					display: "flex",
 					alignItems: "center",
-					py: 1,
+					py: 0.7,
+					px: 0.5,
 					mb: 1,
 					bgcolor: "#eee",
 					cursor: "pointer",
+
 					":hover": { bgcolor: "#ddd" },
+					"& .MuiSvgIcon-root": {
+						fontSize: 20,
+					},
 				}}
 			>
 				<IconButton
@@ -344,7 +350,9 @@ export default function DashboardPage() {
 					)}
 				</IconButton>
 
-				<Typography sx={{ flexGrow: 1 }}>Nombre de la tarea</Typography>
+				<Typography sx={{ flexGrow: 1, fontSize: 13 }}>
+					Nombre de la tarea
+				</Typography>
 
 				<IconButton
 					color="secondary"
@@ -396,7 +404,146 @@ export default function DashboardPage() {
 				variant="permanent"
 				// sx={{ width: `${ToDoNavWidth}px` }}
 			>
-				<Box sx={{ width: `${ToDoNavWidth}px` }}>aaaaddda</Box>
+				<Box sx={{ width: `${ToDoNavWidth}px`, mt: 1 }}>
+					<Box
+						sx={{
+							display: "flex",
+							alignItems: "center",
+							py: 0.7,
+							px: 0.5,
+							mb: 1,
+
+							"& .MuiSvgIcon-root": {
+								fontSize: 20,
+							},
+						}}
+					>
+						<IconButton
+							onMouseEnter={() => {
+								setHoverCheck(true);
+							}}
+							onMouseLeave={() => {
+								setHoverCheck(false);
+							}}
+						>
+							{hoverCheck ? (
+								<CheckCircleOutlinedIcon />
+							) : (
+								<RadioButtonUncheckedOutlinedIcon />
+							)}
+						</IconButton>
+
+						<Typography sx={{ flexGrow: 1, fontSize: 13 }}>
+							Lorem ipsum, dolor sit amet consectetur adipisicing.
+						</Typography>
+
+						<IconButton
+							color="secondary"
+							onClick={() => {
+								setImportant(!important);
+							}}
+						>
+							{important ? <StarOutlinedIcon /> : <StarOutlineOutlinedIcon />}
+						</IconButton>
+					</Box>
+					<Box
+						sx={{
+							display: "flex",
+							alignItems: "center",
+							py: 0.7,
+							px: 0.5,
+							ml: 1.2,
+							"& .MuiSvgIcon-root": {
+								fontSize: 20,
+							},
+						}}
+					>
+						<IconButton
+							onMouseEnter={() => {
+								setHoverCheck(true);
+							}}
+							onMouseLeave={() => {
+								setHoverCheck(false);
+							}}
+						>
+							{hoverCheck ? (
+								<CheckCircleOutlinedIcon />
+							) : (
+								<RadioButtonUncheckedOutlinedIcon />
+							)}
+						</IconButton>
+
+						<Typography sx={{ flexGrow: 1, fontSize: 13 }}>
+							Lorem ipsum, dolor sit amet consectetur adipisicing.
+						</Typography>
+
+						<IconButton color="secondary">
+							<MoreVertIcon />
+						</IconButton>
+					</Box>
+
+					<Divider sx={{ ml: 6, mr: 2 }} />
+					<Box
+						sx={{
+							display: "flex",
+							alignItems: "center",
+							py: 0.7,
+							px: 0.5,
+
+							ml: 1.2,
+							"& .MuiSvgIcon-root": {
+								fontSize: 20,
+							},
+						}}
+					>
+						<IconButton
+							onMouseEnter={() => {
+								setHoverCheck(true);
+							}}
+							onMouseLeave={() => {
+								setHoverCheck(false);
+							}}
+						>
+							{hoverCheck ? (
+								<CheckCircleOutlinedIcon />
+							) : (
+								<RadioButtonUncheckedOutlinedIcon />
+							)}
+						</IconButton>
+
+						<Typography sx={{ flexGrow: 1, fontSize: 13 }}>
+							Lorem ipsum, dolor sit amet
+						</Typography>
+
+						<IconButton color="secondary">
+							<MoreVertIcon />
+						</IconButton>
+					</Box>
+					<Divider sx={{ ml: 6, mr: 2 }} />
+
+					<Box
+						sx={{
+							display: "flex",
+							alignItems: "center",
+							py: 0.7,
+							px: 0.5,
+
+							ml: 1.2,
+							":hover": { bgcolor: "#ddd" },
+						}}
+						// boxShadow={1}
+					>
+						<IconButton color="primary">
+							<AddOutlinedIcon />
+						</IconButton>
+
+						<Typography color="primary" sx={{ fontSize: 13 }}>
+							Agregar Paso
+						</Typography>
+					</Box>
+
+					<Divider />
+				</Box>
 			</Drawer>
 
 			{/* *********************** contenedor de tareas *********************** */}
@@ -489,8 +636,9 @@ export default function DashboardPage() {
 
 					px: 3,
 					pt: 1,
-					pb: 5,
+					pb: 4,
 					backdropFilter: "blur(16px)",
+
 					// bgcolor: "#fff8",
 				}}
 			>
@@ -498,7 +646,8 @@ export default function DashboardPage() {
 					sx={{
 						display: "flex",
 						alignItems: "center",
-						py: 1,
+						py: 0.7,
+						px: 0.5,
 						bgcolor: "#eee",
 						":hover": { bgcolor: "#ddd" },
 					}}
@@ -508,7 +657,9 @@ export default function DashboardPage() {
 						<AddOutlinedIcon />
 					</IconButton>
 
-					<Typography color="primary">Agregar nueva tarea</Typography>
+					<Typography color="primary" sx={{ fontSize: 13 }}>
+						Agregar nueva tarea
+					</Typography>
 				</Box>
 			</Box>
 		</>
