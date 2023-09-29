@@ -15,8 +15,11 @@ import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
+
 import { useTheme } from "@mui/material/styles";
 import { TaskPanelWidth } from "@/config/UISettings";
+import { TextField } from "@mui/material";
 const ToDoNavWidth = 256;
 
 const TaskPanel = () => {
@@ -152,6 +155,32 @@ const TaskPanel = () => {
 			</Box>
 
 			<Divider />
+
+			<Box sx={{ display: "flex", alignItems: "center", py: 2}}>
+				<WbSunnyOutlinedIcon
+					sx={{
+						fontSize: 18,
+						mx: 1.3,
+					}}
+				/>
+
+				<Typography sx={{fontSize:13}}>
+					Agregar a mi día
+				</Typography>
+			</Box>
+
+			<Box sx={{ display: "flex", alignItems: "center", py: 1}}>
+				<WbSunnyOutlinedIcon
+					sx={{
+						fontSize: 18,
+						mx: 1.3,
+					}}
+				/>
+
+				<Typography sx={{fontSize:13}}>
+					Agregar a mi día
+				</Typography>
+			</Box>
 		</Box>
 	);
 
