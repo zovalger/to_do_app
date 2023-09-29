@@ -16,6 +16,12 @@ export interface List {
 	guests: string;
 }
 
+export interface SmartList {
+	_id: string;
+	icon: JSX.Element;
+	label: string;
+}
+
 // ************************************************
 // 										Task
 // ************************************************
@@ -78,7 +84,7 @@ export interface ConfigUser {
 export interface SmartListsConfig {
 	important: boolean;
 	planned: boolean;
-	complete: boolean;
 	todo: boolean;
+	complete: boolean;
 	toMyUser: boolean;
 }

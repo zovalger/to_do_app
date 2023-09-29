@@ -4,11 +4,12 @@ import Box from "@mui/material/Box";
 import { useTheme } from "@mui/material/styles";
 
 import { TaskPanelWidth, ToDoNavWidth } from "@/config/UISettings";
-import ToDoNav from "./components/ToDoNav";
+import ToDoNavList from "./components/ToDoNav/ToDoNavList";
 import TaskPanel from "./components/TaskPanel";
 import TaskItemList from "./components/TaskItemList";
 import ListFooter from "./components/ListFooter";
 import ListHeader from "./components/ListHeader";
+import ToDoNav from "./components/ToDoNav";
 
 export default function DashboardPage() {
 	const theme = useTheme();

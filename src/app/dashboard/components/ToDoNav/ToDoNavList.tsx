@@ -13,7 +13,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Avatar from "@mui/material/Avatar";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
-import Tooltip from "@mui/material/Tooltip";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import People from "@mui/icons-material/People";
 import PermMedia from "@mui/icons-material/PermMedia";
@@ -25,17 +24,10 @@ import SegmentIcon from "@mui/icons-material/Segment";
 
 import InputBase from "@mui/material/InputBase";
 
-import StarOutlineOutlinedIcon from "@mui/icons-material/StarOutlineOutlined";
-import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
-import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
-import AllInclusiveOutlinedIcon from "@mui/icons-material/AllInclusiveOutlined";
-import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import FlagOutlinedIcon from "@mui/icons-material/FlagOutlined";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import PlaylistAddOutlinedIcon from "@mui/icons-material/PlaylistAddOutlined";
 import { useTheme } from "@mui/material/styles";
+import AddButton from "./AddButton";
+import SmartList from "./SmartList";
+import SmartListLabels from "./helper/SmartListLabels";
 
 const data = [
 	{ icon: <People />, label: "Authentication" },
@@ -44,8 +36,7 @@ const data = [
 	{ icon: <Public />, label: "Hosting" },
 ];
 
-const ToDoNavWidth = 256;
-const ToDoNavList = styled(List)<{ component?: React.ElementType }>({
+const ToDoNavListStyled = styled(List)<{ component?: React.ElementType }>({
 	"& .MuiListItemButton-root": {
 		paddingLeft: 16,
 		paddingRight: 16,
@@ -80,20 +71,18 @@ const ToDoNavList = styled(List)<{ component?: React.ElementType }>({
 	},
 });
 
-const ToDoNav = () => {
+const ToDoNavList = () => {
 	const theme = useTheme();
 
 	const [open, setOpen] = useState(true);
 	const [openNav, setOpenNav] = useState(false);
 
-	const [hoverCheck, setHoverCheck] = useState(false);
-	const [important, setImportant] = useState(false);
 	const handdleOpenNav = () => {
 		setOpenNav(!openNav);
 	};
 
-	const NavContent = (
-		<ToDoNavList
+	return (
+		<ToDoNavListStyled
 			component="nav"
 			disablePadding
 			sx={{
@@ -103,7 +92,7 @@ const ToDoNav = () => {
 			}}
 		>
 			<Box>
-				{/* *********************** account *********************** */}
+				{/* *********************** Menu icon *********************** */}
 
 				<ListItemButton
 					onClick={handdleOpenNav}
@@ -161,66 +150,9 @@ const ToDoNav = () => {
 				{/* *********************** Inteligentes *********************** */}
 
 				<Box>
-					<ListItemButton>
-						<ListItemIcon>
-							<WbSunnyOutlinedIcon />
-						</ListItemIcon>
-
-						<ListItemText primary={"Mi día"} />
-					</ListItemButton>
-
-					<ListItemButton>
-						<ListItemIcon>
-							<StarOutlineOutlinedIcon />
-						</ListItemIcon>
-
-						<ListItemText primary={"Importante"} />
-					</ListItemButton>
-
-					<ListItemButton>
-						<ListItemIcon>
-							<ViewWeekOutlinedIcon />
-						</ListItemIcon>
-
-						<ListItemText primary={"Planeado"} />
-					</ListItemButton>
-
-					<ListItemButton>
-						<ListItemIcon>
-							<AllInclusiveOutlinedIcon />
-						</ListItemIcon>
-
-						<ListItemText primary={"Todo"} />
-					</ListItemButton>
-					<ListItemButton>
-						<ListItemIcon>
-							<CheckCircleOutlinedIcon />
-						</ListItemIcon>
-
-						<ListItemText primary={"Completadas"} />
-					</ListItemButton>
-					<ListItemButton>
-						<ListItemIcon>
-							<PersonOutlineOutlinedIcon />
-						</ListItemIcon>
-
-						<ListItemText primary={"Asignadas a mi usuario"} />
-					</ListItemButton>
-
-					<ListItemButton>
-						<ListItemIcon>
-							<FlagOutlinedIcon />
-						</ListItemIcon>
-
-						<ListItemText primary={"Correo electronico marcado"} />
-					</ListItemButton>
-					<ListItemButton>
-						<ListItemIcon>
-							<HomeOutlinedIcon />
-						</ListItemIcon>
-
-						<ListItemText primary={"Tareas"} />
-					</ListItemButton>
+					{SmartListLabels.map((list) => (
+						<SmartList key={list._id} smartList={list} />
+					))}
 				</Box>
 
 				<Divider sx={{ my: 0.5 }} />
@@ -282,59 +214,9 @@ const ToDoNav = () => {
 
 			{/* *********************** anadir lista o grupo *********************** */}
 
-			<Box sx={{ display: "flex", mt: "auto" }}>
-				<ListItemButton>
-					<ListItemIcon>
-						<AddOutlinedIcon />
-					</ListItemIcon>
-					<ListItemText primary={"Nueva Lista"} />
-				</ListItemButton>
-
-				<Tooltip title="Crear nuevo grupo">
-					<IconButton
-						sx={{ flexShrink: 0, width: 48, borderRadius: 0 }}
-						color="inherit"
-					>
-						<PlaylistAddOutlinedIcon />
-					</IconButton>
-				</Tooltip>
-			</Box>
-		</ToDoNavList>
-	);
-
-	return (
-		<>
-			<Drawer
-				open
-				variant="permanent"
-				sx={{
-					maxWidth: ToDoNavWidth,
-					[theme.breakpoints.down("sm")]: {
-						display: "none",
-					},
-				}}
-			>
-				{NavContent}
-			</Drawer>
-
-			<Drawer
-				open={openNav}
-				variant="temporary"
-				onClose={handdleOpenNav}
-				ModalProps={{
-					keepMounted: true,
-				}}
-				sx={{
-					maxWidth: ToDoNavWidth,
-					[theme.breakpoints.up("sm")]: {
-						display: "none",
-					},
-				}}
-			>
-				{NavContent}
-			</Drawer>
-		</>
+			<AddButton />
+		</ToDoNavListStyled>
 	);
 };
 
-export default ToDoNav;
+export default ToDoNavList;
