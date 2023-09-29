@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 
-import { ToDoNavWidth } from "@/config/UISettings";
+import { TaskPanelWidth, ToDoNavWidth } from "@/config/UISettings";
 
 const ListFooter = () => {
 	return (
@@ -17,7 +17,7 @@ const ListFooter = () => {
 				left: 0,
 
 				ml: { xs: 0, sm: `${ToDoNavWidth}px` },
-				mr: { xs: 0, sm: `${ToDoNavWidth}px` },
+				mr: { xs: 0, sm: `${TaskPanelWidth}px` },
 
 				px: 3,
 				pt: 1,

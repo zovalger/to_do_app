@@ -308,6 +308,7 @@ const ToDoNav = () => {
 				open
 				variant="permanent"
 				sx={{
+					scrollbarGutter:"auto",
 					maxWidth: ToDoNavWidth,
 					[theme.breakpoints.down("sm")]: {
 						display: "none",

@@ -3,7 +3,7 @@ import { useState } from "react";
 import Box from "@mui/material/Box";
 import { useTheme } from "@mui/material/styles";
 
-import { ToDoNavWidth } from "@/config/UISettings";
+import { TaskPanelWidth, ToDoNavWidth } from "@/config/UISettings";
 import ToDoNav from "./components/ToDoNav";
 import TaskPanel from "./components/TaskPanel";
 import TaskItemList from "./components/TaskItemList";
@@ -28,35 +28,40 @@ export default function DashboardPage() {
 
 			{/* *********************** contenedor de tareas *********************** */}
 
-			<Box
-				sx={{
-					ml: { xs: 0, sm: `${ToDoNavWidth}px` },
-					mr: { xs: 0, sm: `${ToDoNavWidth}px` },
-					px: 2,
-					pt: 14,
-					pb: 13,
-					// position: "relative",
-					// height: "100vh",
-				}}
-			>
-				<TaskItemList />
-				<TaskItemList />
-				<TaskItemList />
-				<TaskItemList />
-				<TaskItemList />
-				<TaskItemList />
-				<TaskItemList />
-				<TaskItemList />
-				<TaskItemList />
-				<TaskItemList />
-				<TaskItemList />
-				<TaskItemList />
-				<TaskItemList />
-				<TaskItemList />
-				<TaskItemList />
-				<TaskItemList />
-				<TaskItemList />
-				<TaskItemList />
+			<Box sx={{ display: "flex", flexDirection: "column", height: "98vh" }}>
+				<Box
+					sx={{
+						ml: { xs: 0, sm: `${ToDoNavWidth}px` },
+						mr: { xs: 0, sm: `${TaskPanelWidth}px` },
+						px: 2,
+						pt: 14,
+						pb: 13,
+						// position: "relative",
+						flexGrow: 1,
+						maxHeight: "99vh",
+
+						overflowY: "auto",
+					}}
+				>
+					<TaskItemList />
+					<TaskItemList />
+					<TaskItemList />
+					<TaskItemList />
+					<TaskItemList />
+					<TaskItemList />
+					<TaskItemList />
+					<TaskItemList />
+					<TaskItemList />
+					<TaskItemList />
+					<TaskItemList />
+					<TaskItemList />
+					<TaskItemList />
+					<TaskItemList />
+					<TaskItemList />
+					<TaskItemList />
+					<TaskItemList />
+					<TaskItemList />
+				</Box>
 			</Box>
 
 			{/* *********************** nav List *********************** */}

@@ -6,7 +6,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import { useTheme } from "@mui/material/styles";
-import { ToDoNavWidth } from "@/config/UISettings";
+import { TaskPanelWidth, ToDoNavWidth } from "@/config/UISettings";
 
 const ListHeader = () => {
 
@@ -30,7 +30,7 @@ const theme = useTheme();
       top: 0,
 
       ml: { xs: 0, sm: `${ToDoNavWidth}px` },
-      mr: { xs: 0, sm: `${ToDoNavWidth}px` },
+      mr: { xs: 0, sm: `${TaskPanelWidth}px` },
 
       px: 3,
       pb: 1,

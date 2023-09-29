@@ -14,8 +14,9 @@ import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { useTheme } from "@mui/material/styles";
-
+import { TaskPanelWidth } from "@/config/UISettings";
 const ToDoNavWidth = 256;
 
 const TaskPanel = () => {
@@ -74,13 +75,13 @@ const TaskPanel = () => {
 	);
 
 	const Content = (
-		<Box sx={{ width: `${ToDoNavWidth}px`, mt: 1, position: "relative" }}>
+		<Box sx={{ width: `${TaskPanelWidth}px`, mt: 1, position: "relative" }}>
 			<Box
 				sx={{ position: "sticky", top: 0, bgcolor: "#fff", zIndex: 1, pb: 1 }}
 			>
 				<Box sx={{ display: "flex", justifyContent: "flex-end", pr: 0.8 }}>
 					<IconButton>
-						<CheckCircleOutlinedIcon sx={{ fontSize: 15 }} />
+						<CloseOutlinedIcon sx={{ fontSize: 18 }} />
 					</IconButton>
 				</Box>
 				<Box
@@ -134,9 +135,9 @@ const TaskPanel = () => {
 					display: "flex",
 					alignItems: "center",
 					py: 0.7,
-					px: 0.5,
-
-					ml: 1.2,
+					pr: 0.5,
+					pl: 1.5,
+					// ml: 1.2,
 					":hover": { bgcolor: "#ddd" },
 				}}
 				// boxShadow={1}
