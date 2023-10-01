@@ -1,7 +1,7 @@
 import { ListStorageName } from "@/config/OfflineDataSettings";
-import { List } from "@/types";
+import { ListData } from "@/types";
 
-export const getListsLocalStorage = (): List[] => {
+export const getListsLocalStorage = (): ListData[] => {
 	const data = localStorage.getItem(ListStorageName);
 
 	if (!data) return [];
@@ -9,7 +9,7 @@ export const getListsLocalStorage = (): List[] => {
 	return JSON.parse(data);
 };
 
-export const saveListsLocalStorage = (lists: List[]) => {
+export const saveListsLocalStorage = (lists: ListData[]) => {
 	const data = JSON.stringify(lists);
 	localStorage.setItem(ListStorageName, data);
 };

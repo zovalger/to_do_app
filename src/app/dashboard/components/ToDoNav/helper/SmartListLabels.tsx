@@ -6,16 +6,15 @@ import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import FlagOutlinedIcon from "@mui/icons-material/FlagOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import { SmartList } from "@/types";
 
-const SmartListLabels: SmartList[] = [
-	{ key: "myDay", icon: <WbSunnyOutlinedIcon />, label: "Mi día" },
-	{ key: "important", icon: <StarOutlineOutlinedIcon />, label: "Importante" },
-	{ key: "planned", icon: <ViewWeekOutlinedIcon />, label: "Planeado" },
-	{ key: "todo", icon: <AllInclusiveOutlinedIcon />, label: "Todo" },
-	{ key: "complete", icon: <CheckCircleOutlinedIcon />, label: "Completadas" },
-	{ key: "toMyUser", icon: <PersonOutlineOutlinedIcon />, label: "Asignadas a mi usuario" },
-	{ key: "emailMark", icon: <FlagOutlinedIcon />, label: "Correo electronico marcado" },
-	{ key: "task", icon: <HomeOutlinedIcon />, label: "Tareas" },
+const SmartListTitles= [
+	{ _id: "myDay", icon: <WbSunnyOutlinedIcon />, title: "Mi día" },
+	{ _id: "important", icon: <StarOutlineOutlinedIcon />, title: "Importante" },
+	{ _id: "planned", icon: <ViewWeekOutlinedIcon />, title: "Planeado" },
+	{ _id: "todo", icon: <AllInclusiveOutlinedIcon />, title: "Todo" },
+	{ _id: "complete", icon: <CheckCircleOutlinedIcon />, title: "Completadas" },
+	{ _id: "toMyUser", icon: <PersonOutlineOutlinedIcon />, title: "Asignadas a mi usuario" },
+	{ _id: "emailMark", icon: <FlagOutlinedIcon />, title: "Correo electronico marcado" },
+	{ _id: "task", icon: <HomeOutlinedIcon />, title: "Tareas" },
 ];
-export default SmartListLabels;
+export default SmartListTitles;

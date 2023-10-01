@@ -1,7 +1,7 @@
 import { ListGroupStorageName } from "@/config/OfflineDataSettings";
-import { ListGroup } from "@/types";
+import { ListGroupData } from "@/types";
 
-export const getListGroupLocalStorage = (_id: string): ListGroup | null => {
+export const getListGroupLocalStorage = (_id: string): ListGroupData | null => {
 	const data = localStorage.getItem(`${ListGroupStorageName}-${_id}`);
 
 	if (!data) return null;
@@ -9,7 +9,7 @@ export const getListGroupLocalStorage = (_id: string): ListGroup | null => {
 	return JSON.parse(data);
 };
 
-export const saveListGroupLocalStorage = (listGroup: ListGroup) => {
+export const saveListGroupLocalStorage = (listGroup: ListGroupData) => {
 	const { _id } = listGroup;
 
 	const data = JSON.stringify(listGroup);

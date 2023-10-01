@@ -1,17 +1,17 @@
-import { ConfigUser, List, ListGroup, SmartListsConfig } from "./types";
+import { ConfigUser, ListData, ListGroupData, SmartListsConfig } from "./types";
 
 // ************************************************
 // 										Lists
 // ************************************************
 
-export const DefaultListGroup: ListGroup = {
+export const DefaultListGroup: ListGroupData = {
 	_id: "",
 	title: "",
 	lists: [],
 	userId: "",
 };
 
-export const DefaultList: List = {
+export const DefaultList: ListData = {
 	_id: "",
 	title: "Nueva Lista",
 	userId: "",

@@ -2,25 +2,21 @@
 // 										Lists
 // ************************************************
 
-export interface ListGroup {
+export interface ListGroupData {
 	_id: string;
 	title: string;
 	lists: string[];
 	userId: string;
 }
 
-export interface List {
+export interface ListData {
 	_id: string;
 	title: string;
 	userId: string;
-	guests: string;
+	guests: string[];
 }
 
-export interface SmartList {
-	_id: string;
-	icon: JSX.Element;
-	label: string;
-}
+
 
 // ************************************************
 // 										Task
