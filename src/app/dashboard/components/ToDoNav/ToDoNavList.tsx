@@ -20,9 +20,9 @@ import InputBase from "@mui/material/InputBase";
 import { useTheme } from "@mui/material/styles";
 import AddButton from "./AddButton";
 import ListInNav from "./ListInNav";
-import SmartListTitles from "./helper/SmartListLabels";
+import SmartListTitles from "./SmartListLabels";
 import GroupListInNav from "./GroupListInNav";
-import { formateGroups } from "./helper/Group.helper";
+import { formateGroups } from "../../../helper/Group.helper";
 import { ListData, ListGroupData } from "@/types";
 import { useListAndGroupContext } from "@/app/contexts/ListAndGroup.context";
 import { useGlobalContext } from "@/app/contexts/Global.context";
@@ -66,7 +66,7 @@ const ToDoNavList = () => {
 	const theme = useTheme();
 
 	const { handleAsidePanelToggle } = useGlobalContext();
-	
+
 	const { lists, listGroups } = useListAndGroupContext();
 
 	const [open, setOpen] = useState(true);
