@@ -8,11 +8,27 @@ import StarOutlineOutlinedIcon from "@mui/icons-material/StarOutlineOutlined";
 import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
+import { TaskData } from "@/types";
 
-const TaskItemList = () => {
+interface props {
+	data: TaskData;
+}
+const TaskItemList = ({ data }: props) => {
+	const { _id, title, important, complete } = data;
 
 	const [hoverCheck, setHoverCheck] = useState(false);
-	const [important, setImportant] = useState(false);
+
+	const handleImportantButton = () => {};
+	const handleCompleteButton = () => {};
+	
+
+	const iconCheck = complete ? (
+		<CheckCircleOutlinedIcon />
+	) : hoverCheck ? (
+		<CheckCircleOutlinedIcon />
+	) : (
+		<RadioButtonUncheckedOutlinedIcon />
+	);
 
 	return (
 		<>
@@ -33,6 +49,7 @@ const TaskItemList = () => {
 				}}
 			>
 				<IconButton
+					onClick={handleCompleteButton}
 					onMouseEnter={() => {
 						setHoverCheck(true);
 					}}
@@ -40,23 +57,12 @@ const TaskItemList = () => {
 						setHoverCheck(false);
 					}}
 				>
-					{hoverCheck ? (
-						<CheckCircleOutlinedIcon />
-					) : (
-						<RadioButtonUncheckedOutlinedIcon />
-					)}
+					{iconCheck}
 				</IconButton>
 
-				<Typography sx={{ flexGrow: 1, fontSize: 13 }}>
-					Nombre de la tarea
-				</Typography>
+				<Typography sx={{ flexGrow: 1, fontSize: 13 }}>{title}</Typography>
 
-				<IconButton
-					color="secondary"
-					onClick={() => {
-						setImportant(!important);
-					}}
-				>
+				<IconButton color="secondary" onClick={handleImportantButton}>
 					{important ? <StarOutlinedIcon /> : <StarOutlineOutlinedIcon />}
 				</IconButton>
 			</Box>

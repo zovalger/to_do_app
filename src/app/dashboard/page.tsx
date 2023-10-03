@@ -1,18 +1,20 @@
 "use client";
 import { useState } from "react";
 import Box from "@mui/material/Box";
-import { useTheme } from "@mui/material/styles";
 
 import { TaskPanelWidth, ToDoNavWidth } from "@/config/UISettings";
-import ToDoNavList from "./components/ToDoNav/ToDoNavList";
 import TaskPanel from "./components/TaskPanel";
 import TaskItemList from "./components/TaskItemList";
 import ListFooter from "./components/ListFooter";
 import ListHeader from "./components/ListHeader";
 import ToDoNav from "./components/ToDoNav";
+import { useTaskContext } from "../contexts/Task.context";
+import { useListAndGroupContext } from "../contexts/ListAndGroup.context";
+import { taskByListId } from "../helper/Task.helper";
 
 export default function DashboardPage() {
-	const theme = useTheme();
+	const { listSelected } = useListAndGroupContext();
+	const { tasks } = useTaskContext();
 
 	const [open, setOpen] = useState(true);
 	const [openNav, setOpenNav] = useState(false);
@@ -20,6 +22,8 @@ export default function DashboardPage() {
 	const handdleOpenNav = () => {
 		setOpenNav(!openNav);
 	};
+
+	const taskToSee = taskByListId(tasks, listSelected);
 
 	return (
 		<>
@@ -44,24 +48,9 @@ export default function DashboardPage() {
 						overflowY: "auto",
 					}}
 				>
-					<TaskItemList />
-					<TaskItemList />
-					<TaskItemList />
-					<TaskItemList />
-					<TaskItemList />
-					<TaskItemList />
-					<TaskItemList />
-					<TaskItemList />
-					<TaskItemList />
-					<TaskItemList />
-					<TaskItemList />
-					<TaskItemList />
-					<TaskItemList />
-					<TaskItemList />
-					<TaskItemList />
-					<TaskItemList />
-					<TaskItemList />
-					<TaskItemList />
+					{taskToSee.map((t) => (
+						<TaskItemList key={t._id} data={t} />
+					))}
 				</Box>
 			</Box>
 

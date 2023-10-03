@@ -1,4 +1,10 @@
-import { ConfigUser, ListData, ListGroupData, SmartListsConfig } from "./types";
+import {
+	ConfigUser,
+	ListData,
+	ListGroupData,
+	SmartListsConfig,
+	TaskData,
+} from "./types";
 
 // ************************************************
 // 										Lists
@@ -7,15 +13,35 @@ import { ConfigUser, ListData, ListGroupData, SmartListsConfig } from "./types";
 export const DefaultListGroup: ListGroupData = {
 	_id: "",
 	title: "",
-	lists: [],
 	userId: "",
+	lists: [],
 };
 
 export const DefaultList: ListData = {
 	_id: "",
 	title: "Nueva Lista",
 	userId: "",
-	guests: "",
+	guests: [],
+};
+
+// ************************************************
+// 										Lists
+// ************************************************
+
+export const DefaultTask: TaskData = {
+	_id: "",
+	title: "",
+	steps: [],
+	note: "",
+	remindMe: new Date(),
+	dueDate: new Date(),
+	repeat: "",
+	myDay: false,
+	complete: false,
+	important: false,
+	listId: "",
+	files: [],
+	assignedUser: "",
 };
 
 // ************************************************

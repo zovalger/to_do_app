@@ -24,6 +24,7 @@ import SmartListTitles from "./helper/SmartListLabels";
 import GroupListInNav from "./GroupListInNav";
 import { formateGroups } from "./helper/Group.helper";
 import { ListData, ListGroupData } from "@/types";
+import { useListAndGroupContext } from "@/app/contexts/ListAndGroup.context";
 
 const ToDoNavListStyled = styled(List)<{ component?: React.ElementType }>({
 	"& .MuiListItemButton-root": {
@@ -60,16 +61,6 @@ const ToDoNavListStyled = styled(List)<{ component?: React.ElementType }>({
 	},
 });
 
-const Lists: ListData[] = [
-	{ _id: "1", title: "lista 1", userId: "", guests: [] },
-	{ _id: "2", title: "lista 2", userId: "", guests: [] },
-	{ _id: "3", title: "lista 3", userId: "", guests: [] },
-	{ _id: "4", title: "lista 4", userId: "", guests: [] },
-	{ _id: "5", title: "lista 5", userId: "", guests: [] },
-	{ _id: "6", title: "lista 6", userId: "", guests: [] },
-	{ _id: "7", title: "lista 7", userId: "", guests: [] },
-];
-
 const Groups: ListGroupData[] = [
 	{ _id: "1", title: "grupo 1", userId: "", lists: ["3"] },
 	{ _id: "2", title: "grupo 2", userId: "", lists: ["7", "6"] },
@@ -77,6 +68,7 @@ const Groups: ListGroupData[] = [
 
 const ToDoNavList = () => {
 	const theme = useTheme();
+	const { lists } = useListAndGroupContext();
 
 	const [open, setOpen] = useState(true);
 	const [openNav, setOpenNav] = useState(false);
@@ -85,7 +77,7 @@ const ToDoNavList = () => {
 		setOpenNav(!openNav);
 	};
 
-	const { groupAndLists, restLists } = formateGroups(Groups, Lists);
+	const { groupAndLists, restLists } = formateGroups(Groups, lists);
 
 	return (
 		<ToDoNavListStyled

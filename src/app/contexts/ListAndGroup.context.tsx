@@ -1,43 +1,58 @@
 "use client";
 
-import { createContext, useState, useContext } from "react";
+import { ListData } from "@/types";
+import {
+	createContext,
+	useState,
+	useContext,
+	Dispatch,
+	SetStateAction,
+	useEffect,
+} from "react";
+import { getListsLocalStorage } from "../dashboard/services/offline/ListsOffline";
+import { getLists } from "../dashboard/services/ListsService";
 
 interface ContextProps {
-	asidePanelMobileOpen: boolean;
-	handleAsidePanelToggle(): void;
-
-	asideMultiToolsOpen: boolean;
-	handleAsideMultiToolsToggle(): void;
+	lists: ListData[];
+	setLists: Dispatch<SetStateAction<ListData[]>>;
+	listSelected: string | null;
+	setListSelected: Dispatch<SetStateAction<string | null>>;
 }
 
 const ListAndGroupContext = createContext<ContextProps>({
-	asidePanelMobileOpen: false,
-	handleAsidePanelToggle: (): void => {},
-
-	asideMultiToolsOpen: false,
-	handleAsideMultiToolsToggle: (): void => {},
+	lists: [],
+	setLists: (): ListData[] => [],
+	listSelected: "",
+	setListSelected: (): string => "",
 });
 
-export const ListAndGroupContextProvider = ({ children }: { children: any }) => {
-	// ****************************************************************************
-	// 										          Panel lateral
-	// ****************************************************************************
+export const ListAndGroupContextProvider = ({
+	children,
+}: {
+	children: any;
+}) => {
+	const [lists, setLists] = useState<ListData[]>([]);
+	const [listSelected, setListSelected] = useState<string | null>(null);
 
-	const [asidePanelMobileOpen, setAsidePanelMobilOpen] = useState(false);
-	const handleAsidePanelToggle = () => setAsidePanelMobilOpen((prev) => !prev);
+	useEffect(() => {
+		const localLists = getListsLocalStorage();
 
-	const [asideMultiToolsOpen, setAsideMultiToolsOpen] = useState(false);
-	const handleAsideMultiToolsToggle = () =>
-		setAsideMultiToolsOpen((prev) => !prev);
+		setLists(localLists);
+
+		getLists()
+			.then((l) => setLists(l))
+			.catch((error) => console.log(error));
+
+		return () => {};
+	}, []);
 
 	return (
 		<ListAndGroupContext.Provider
 			value={{
-				asidePanelMobileOpen,
-				handleAsidePanelToggle,
-
-				asideMultiToolsOpen,
-				handleAsideMultiToolsToggle,
+				lists,
+				setLists,
+				listSelected,
+				setListSelected,
 			}}
 		>
 			{children}

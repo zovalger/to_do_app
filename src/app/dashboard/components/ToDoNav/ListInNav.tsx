@@ -1,6 +1,8 @@
 import React from "react";
+import { useListAndGroupContext } from "@/app/contexts/ListAndGroup.context";
 import { FormatListBulletedOutlined } from "@mui/icons-material";
 import { ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+
 import { ListData } from "@/types";
 
 interface props {
@@ -11,10 +13,19 @@ interface props {
 }
 
 const ListInNav = ({ data, icon, inGroup = false }: props) => {
-	const { title } = data;
+	const { listSelected, setListSelected } = useListAndGroupContext();
+	const { _id, title } = data;
+
+	const onClick = () => {
+		setListSelected(_id);
+	};
 
 	return (
-		<ListItemButton sx={inGroup ? { ml: 4 } : {}}>
+		<ListItemButton
+			onClick={onClick}
+			selected={_id === listSelected}
+			sx={inGroup ? { ml: 4 } : {}}
+		>
 			<ListItemIcon>{icon || <FormatListBulletedOutlined />}</ListItemIcon>
 
 			<ListItemText primary={title} />

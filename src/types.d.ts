@@ -33,7 +33,7 @@ export interface Steps {
 	complete: boolean;
 }
 
-export interface Task {
+export interface TaskData {
 	_id: string;
 	title: string;
 	steps: Steps[];
