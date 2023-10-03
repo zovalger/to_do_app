@@ -1,18 +1,43 @@
-// import { ListGroupStorageName } from "@/config/OfflineDataSettings";
-// import { ListGroupData } from "@/types";
+import { ListGroupStorageName } from "@/config/OfflineDataSettings";
+import {  ListGroupData } from "@/types";
 
-// export const getListGroupLocalStorage = (_id: string): ListGroupData | null => {
-// 	const data = localStorage.getItem(`${ListGroupStorageName}-${_id}`);
+// ******************************************************************
+// 												individual
+// ******************************************************************
 
-// 	if (!data) return null;
+export const getListGroupLocalStorage = (_id: string): ListGroupData | null => {
+	const data = localStorage.getItem(`${ListGroupStorageName}-${_id}`);
 
-// 	return JSON.parse(data);
-// };
+	if (!data) return null;
 
-// export const saveListGroupLocalStorage = (listGroup: ListGroupData) => {
-// 	const { _id } = listGroup;
+	return JSON.parse(data);
+};
 
-// 	const data = JSON.stringify(listGroup);
+export const setListGroupLocalStorage = (group: ListGroupData) => {
+	const { _id } = group;
 
-// 	localStorage.setItem(`${ListGroupStorageName}-${_id}`, data);
-// };
+	const data = JSON.stringify(group);
+
+	localStorage.setItem(`${ListGroupStorageName}-${_id}`, data);
+};
+
+export const deleteListGroupLocalStorage = (_id: string) => {
+	localStorage.setItem(`${ListGroupStorageName}-${_id}`, "");
+};
+
+// ******************************************************************
+// 										conjunto completo
+// ******************************************************************
+export const getListGroupsLocalStorage = (): ListGroupData[] => {
+	const data = localStorage.getItem(`${ListGroupStorageName}`);
+
+	if (!data) return [];
+
+	return JSON.parse(data);
+};
+
+export const setListGroupsLocalStorage = (groups: ListGroupData[]) => {
+	const data = JSON.stringify(groups);
+
+	localStorage.setItem(`${ListGroupStorageName}`, data);
+};

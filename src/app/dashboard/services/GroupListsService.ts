@@ -1,18 +1,33 @@
 import { v4 as uuid } from "uuid";
+import {  DefaultListGroup } from "@/defaultValues";
+import { ListGroupData } from "@/types";
+
+import { getListGroupLocalStorage, getListGroupsLocalStorage, setListGroupLocalStorage } from "./offline/ListGroupOffline";
 
 // dar datos de una lista
-export const getGroupLists = async (_id: string): Promise<GroupListsData | null> => {
-	return DefaultGroupLists;
+export const getListGroup = async (
+	_id: string
+): Promise<ListGroupData | null> => {
+	const listGroup = getListGroupLocalStorage(_id);
+
+	if (!listGroup) return null;
+
+	return listGroup;
+};
+
+// dar datos de una lista
+export const getListGroups = async (): Promise<ListGroupData[]> => {
+	return getListGroupsLocalStorage();
 };
 
 // crear una lista datos de una lista
 
-export const createGroupLists = async (list?: GroupListsData): Promise<GroupListsData> => {
-	const currentGroupLists = { ...(list || DefaultGroupLists), _id: uuid() };
+export const createList = async (
+	listGroup?: ListGroupData
+): Promise<ListGroupData> => {
+	const currentList = { ...(listGroup || DefaultListGroup), _id: uuid() };
 
-	setGroupListsLocalStorage(currentGroupLists);
+	setListGroupLocalStorage(currentList);
 
-	return currentGroupLists;
+	return currentList;
 };
-
-

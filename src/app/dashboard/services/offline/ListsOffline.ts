@@ -14,13 +14,15 @@ export const getListLocalStorage = (_id: string): ListData | null => {
 };
 
 export const setListLocalStorage = (List: ListData) => {
-
-
 	const { _id } = List;
 
 	const data = JSON.stringify(List);
 
 	localStorage.setItem(`${ListStorageName}-${_id}`, data);
+};
+
+export const deleteListLocalStorage = (_id: string) => {
+	localStorage.setItem(`${ListStorageName}-${_id}`, "");
 };
 
 // ******************************************************************

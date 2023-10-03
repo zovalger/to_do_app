@@ -7,17 +7,14 @@ import Typography from "@mui/material/Typography";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import { useTheme } from "@mui/material/styles";
 import { TaskPanelWidth, ToDoNavWidth } from "@/config/UISettings";
+import { useGlobalContext } from "@/app/contexts/Global.context";
 
 const ListHeader = () => {
 
 const theme = useTheme();
+const {  handleAsidePanelToggle } = useGlobalContext();
 
 	const [open, setOpen] = useState(true);
-	const [openNav, setOpenNav] = useState(false);
-
-	const handdleOpenNav = () => {
-		setOpenNav(!openNav);
-	};
 
 
   return (
@@ -40,7 +37,7 @@ const theme = useTheme();
     // boxShadow={3}
   >
     <Box sx={{ display: { xs: "block", sm: "none" } }}>
-      <IconButton edge="start" onClick={handdleOpenNav}>
+      <IconButton edge="start" onClick={handleAsidePanelToggle}>
         <MenuIcon />
       </IconButton>
     </Box>

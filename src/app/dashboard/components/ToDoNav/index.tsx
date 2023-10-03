@@ -4,16 +4,11 @@ import Drawer from "@mui/material/Drawer";
 import { useTheme } from "@mui/material/styles";
 import ToDoNavList from "./ToDoNavList";
 import { ToDoNavWidth } from "@/config/UISettings";
-
+import { useGlobalContext } from "@/app/contexts/Global.context";
 
 const ToDoNav = () => {
 	const theme = useTheme();
-
-	const [openNav, setOpenNav] = useState(false);
-
-	const handdleOpenNav = () => {
-		setOpenNav(!openNav);
-	};
+	const { asidePanelMobileOpen, handleAsidePanelToggle } = useGlobalContext();
 
 	return (
 		<>
@@ -31,9 +26,9 @@ const ToDoNav = () => {
 			</Drawer>
 
 			<Drawer
-				open={openNav}
+				open={asidePanelMobileOpen}
 				variant="temporary"
-				onClose={handdleOpenNav}
+				onClose={handleAsidePanelToggle}
 				ModalProps={{
 					keepMounted: true,
 				}}

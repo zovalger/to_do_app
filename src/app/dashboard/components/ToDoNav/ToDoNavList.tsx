@@ -25,6 +25,7 @@ import GroupListInNav from "./GroupListInNav";
 import { formateGroups } from "./helper/Group.helper";
 import { ListData, ListGroupData } from "@/types";
 import { useListAndGroupContext } from "@/app/contexts/ListAndGroup.context";
+import { useGlobalContext } from "@/app/contexts/Global.context";
 
 const ToDoNavListStyled = styled(List)<{ component?: React.ElementType }>({
 	"& .MuiListItemButton-root": {
@@ -61,23 +62,16 @@ const ToDoNavListStyled = styled(List)<{ component?: React.ElementType }>({
 	},
 });
 
-const Groups: ListGroupData[] = [
-	{ _id: "1", title: "grupo 1", userId: "", lists: ["3"] },
-	{ _id: "2", title: "grupo 2", userId: "", lists: ["7", "6"] },
-];
-
 const ToDoNavList = () => {
 	const theme = useTheme();
-	const { lists } = useListAndGroupContext();
+
+	const { handleAsidePanelToggle } = useGlobalContext();
+	
+	const { lists, listGroups } = useListAndGroupContext();
 
 	const [open, setOpen] = useState(true);
-	const [openNav, setOpenNav] = useState(false);
 
-	const handdleOpenNav = () => {
-		setOpenNav(!openNav);
-	};
-
-	const { groupAndLists, restLists } = formateGroups(Groups, lists);
+	const { groupAndLists, restLists } = formateGroups(listGroups, lists);
 
 	return (
 		<ToDoNavListStyled
@@ -93,7 +87,7 @@ const ToDoNavList = () => {
 				{/* *********************** Menu icon *********************** */}
 
 				<ListItemButton
-					onClick={handdleOpenNav}
+					onClick={handleAsidePanelToggle}
 					sx={{
 						[theme.breakpoints.up("sm")]: { display: "none" },
 					}}

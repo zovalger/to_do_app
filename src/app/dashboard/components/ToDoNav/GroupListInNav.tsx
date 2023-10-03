@@ -1,14 +1,19 @@
 import React, { useState } from "react";
-import { Box, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import {
+	Box,
+	IconButton,
+	ListItemButton,
+	ListItemIcon,
+	ListItemText,
+	Menu,
+	MenuItem,
+} from "@mui/material";
 import SegmentIcon from "@mui/icons-material/Segment";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
-import People from "@mui/icons-material/People";
-import PermMedia from "@mui/icons-material/PermMedia";
-import Dns from "@mui/icons-material/Dns";
-import Public from "@mui/icons-material/Public";
+import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
+
 import { ListData, ListGroupData } from "@/types";
 import ListInNav from "./ListInNav";
-
 
 interface props {
 	data: ListGroupData;
@@ -18,31 +23,62 @@ interface props {
 const GroupListInNav = ({ data, lists }: props) => {
 	const { title } = data;
 
-	const [open, setOpen] = useState(true);
+	const [ungrouped, setUngrouped] = useState(true);
+
+	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+	
+	const open = Boolean(anchorEl);
+	
+	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+		setAnchorEl(event.currentTarget);
+	};
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
 
 	return (
-		<Box>
-			<ListItemButton onClick={() => setOpen(!open)}>
-				<ListItemIcon>
-					<SegmentIcon />
-				</ListItemIcon>
+		<>
+			<Box>
+				<ListItemButton onClick={() => setUngrouped(!ungrouped)}>
+					<ListItemIcon>
+						<SegmentIcon />
+					</ListItemIcon>
 
-				<ListItemText primary={title} />
-				<KeyboardArrowDown
-					sx={{
-						mr: -1,
-						// opacity:,
-						transform: open ? "rotate(-180deg)" : "rotate(0)",
-						transition: "0.2s",
-					}}
-				/>
-			</ListItemButton>
+					<ListItemText primary={title} />
+					<IconButton onClick={handleClick}>
+						<MoreVertOutlinedIcon />
+					</IconButton>
 
-			{open &&
-				lists.map((list) => (
-					<ListInNav key={list._id} data={list} inGroup={true} />
-				))}
-		</Box>
+					<KeyboardArrowDown
+						sx={{
+							mr: -1,
+							// opacity:,
+							transform: ungrouped ? "rotate(-180deg)" : "rotate(0)",
+							transition: "0.2s",
+						}}
+					/>
+				</ListItemButton>
+
+				{ungrouped &&
+					lists.map((list) => (
+						<ListInNav key={list._id} data={list} inGroup={true} />
+					))}
+			</Box>
+
+			<Menu
+				id="basic-menu"
+				anchorEl={anchorEl}
+				open={open}
+				onClose={handleClose}
+				MenuListProps={{
+					"aria-labelledby": "basic-button",
+				}}
+			>
+				<MenuItem onClick={handleClose}>Profile</MenuItem>
+				<MenuItem onClick={handleClose}>My account</MenuItem>
+				<MenuItem onClick={handleClose}>Logout</MenuItem>
+			</Menu>
+		</>
 	);
 };
 
