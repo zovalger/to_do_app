@@ -1,5 +1,6 @@
 import { v4 as uuid } from "uuid";
 import {
+	deleteTaskLocalStorage,
 	getTaskLocalStorage,
 	getTasksLocalStorage,
 	setTaskLocalStorage,
@@ -24,4 +25,19 @@ export const createTask = async (task: TaskData): Promise<TaskData> => {
 	setTaskLocalStorage(currentTask);
 
 	return currentTask;
+};
+
+export const deleteTask = async (_id: string): Promise<void> => {
+	deleteTaskLocalStorage(_id);
+};
+
+export const deleteTaskByListId = async (
+	task: TaskData[],
+	listId: string
+): Promise<void> => {
+	// const toDelete:TaskData[] = []
+	// const rest =
+	// task.filter((t) =>{
+	// });
+	// deleteTaskLocalStorage(_id);
 };

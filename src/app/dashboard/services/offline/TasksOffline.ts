@@ -14,13 +14,15 @@ export const getTaskLocalStorage = (_id: string): TaskData | null => {
 };
 
 export const setTaskLocalStorage = (Task: TaskData) => {
-
-
 	const { _id } = Task;
 
 	const data = JSON.stringify(Task);
 
 	localStorage.setItem(`${TaskStorageName}-${_id}`, data);
+};
+
+export const deleteTaskLocalStorage = (_id: string) => {
+	localStorage.setItem(`${TaskStorageName}-${_id}`, "");
 };
 
 // ******************************************************************
