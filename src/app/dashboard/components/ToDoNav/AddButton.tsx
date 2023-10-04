@@ -9,9 +9,9 @@ import {
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import PlaylistAddOutlinedIcon from "@mui/icons-material/PlaylistAddOutlined";
 import Tooltip from "@mui/material/Tooltip";
-import { createList } from "../../services/ListsService";
+import { createList } from "../../../services/ListsService";
 import { useListAndGroupContext } from "@/app/contexts/ListAndGroup.context";
-import { setListsLocalStorage } from "../../services/offline/ListsOffline";
+import { setListsLocalStorage } from "../../../services/offline/ListsOffline";
 
 const AddButton = () => {
 	const { lists, setLists } = useListAndGroupContext();

@@ -9,7 +9,6 @@ export enum SmartListsIds {
 	task = "task",
 }
 
-
 export enum SmartListsLabels {
 	myDay = "Mi día",
 	important = "Importante",

@@ -6,44 +6,48 @@ import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import FlagOutlinedIcon from "@mui/icons-material/FlagOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import { SmartListsLabels } from "@/enums";
+import { SmartListsIds, SmartListsLabels } from "@/enums";
 
 const SmartListTitles = [
 	{
-		_id: "myDay",
+		_id: SmartListsIds.myDay,
 		icon: <WbSunnyOutlinedIcon />,
 		title: SmartListsLabels.myDay,
 	},
 	{
-		_id: "important",
+		_id: SmartListsIds.important,
 		icon: <StarOutlineOutlinedIcon />,
 		title: SmartListsLabels.important,
 	},
 	{
-		_id: "planned",
+		_id: SmartListsIds.planned,
 		icon: <ViewWeekOutlinedIcon />,
 		title: SmartListsLabels.planned,
 	},
 	{
-		_id: "todo",
+		_id: SmartListsIds.todo,
 		icon: <AllInclusiveOutlinedIcon />,
 		title: SmartListsLabels.todo,
 	},
 	{
-		_id: "complete",
+		_id: SmartListsIds.complete,
 		icon: <CheckCircleOutlinedIcon />,
 		title: SmartListsLabels.complete,
 	},
 	{
-		_id: "toMyUser",
+		_id: SmartListsIds.toMyUser,
 		icon: <PersonOutlineOutlinedIcon />,
 		title: SmartListsLabels.toMyUser,
 	},
 	{
-		_id: "emailMark",
+		_id: SmartListsIds.emailMark,
 		icon: <FlagOutlinedIcon />,
+		title: SmartListsLabels.emailMark,
+	},
+	{
+		_id: SmartListsIds.task,
+		icon: <HomeOutlinedIcon />,
 		title: SmartListsLabels.task,
 	},
-	{ _id: "task", icon: <HomeOutlinedIcon />, title: "Tareas" },
 ];
 export default SmartListTitles;

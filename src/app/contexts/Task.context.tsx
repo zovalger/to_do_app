@@ -9,8 +9,8 @@ import {
 	SetStateAction,
 	useEffect,
 } from "react";
-import { getTasks } from "../dashboard/services/TasksService";
-import { getTasksLocalStorage } from "../dashboard/services/offline/TasksOffline";
+import { getTasks } from "../services/TasksService";
+import { getTasksLocalStorage } from "../services/offline/TasksOffline";
 
 interface ContextProps {
 	tasks: TaskData[];

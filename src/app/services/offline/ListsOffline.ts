@@ -13,9 +13,7 @@ export const getListLocalStorage = (_id: string): ListData | null => {
 	return JSON.parse(data);
 };
 
-export const setListLocalStorage = (List: ListData) => {
-	const { _id } = List;
-
+export const setListLocalStorage = (_id: string, List: ListData) => {
 	const data = JSON.stringify(List);
 
 	localStorage.setItem(`${ListStorageName}-${_id}`, data);

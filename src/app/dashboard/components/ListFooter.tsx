@@ -16,9 +16,9 @@ import { TaskPanelWidth, ToDoNavWidth } from "@/config/UISettings";
 import { useListAndGroupContext } from "@/app/contexts/ListAndGroup.context";
 import { useTaskContext } from "@/app/contexts/Task.context";
 import { TaskData } from "@/types";
-import { createTask } from "../services/TasksService";
+import { createTask } from "../../services/TasksService";
 import { DefaultTask } from "@/defaultValues";
-import { setTasksLocalStorage } from "../services/offline/TasksOffline";
+import { setTasksLocalStorage } from "../../services/offline/TasksOffline";
 
 const ListFooter = () => {
 	const { listSelected } = useListAndGroupContext();

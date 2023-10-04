@@ -9,10 +9,10 @@ import {
 	SetStateAction,
 	useEffect,
 } from "react";
-import { getListsLocalStorage } from "../dashboard/services/offline/ListsOffline";
-import { getLists } from "../dashboard/services/ListsService";
-import { getListGroupsLocalStorage } from "../dashboard/services/offline/ListGroupOffline";
-import { getListGroups } from "../dashboard/services/GroupListsService";
+import { getListsLocalStorage } from "../services/offline/ListsOffline";
+import { getLists } from "../services/ListsService";
+import { getListGroupsLocalStorage } from "../services/offline/ListGroupOffline";
+import { getListGroups } from "../services/GroupListsService";
 
 interface ContextProps {
 	lists: ListData[];

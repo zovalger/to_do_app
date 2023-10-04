@@ -16,7 +16,8 @@ import { TaskPanelWidth, ToDoNavWidth } from "@/config/UISettings";
 import { useGlobalContext } from "@/app/contexts/Global.context";
 import { useListAndGroupContext } from "@/app/contexts/ListAndGroup.context";
 import { ListItemIcon, Menu, MenuItem } from "@mui/material";
-import { deleteList } from "../services/ListsService";
+import { deleteList } from "../../services/ListsService";
+import { getSmartListName } from "@/app/helper/List.helper";
 
 const ListHeader = () => {
 	const { handleAsidePanelToggle } = useGlobalContext();
@@ -56,8 +57,9 @@ const ListHeader = () => {
 
 	// **************************** render ****************************
 
-	const currentList = lists.find((l) => l._id == listSelected);
-	const title = currentList ? currentList.title : "Titulo de Lista";
+	const smartTitle = listSelected && getSmartListName(listSelected);
+	const currentList = lists.find((l) => l._id == listSelected)?.title;
+	const title = smartTitle || currentList || "Titulo de Lista";
 
 	return (
 		<>
@@ -150,8 +152,10 @@ const ListHeader = () => {
 					{`Seguro que quiere eliminar "${title}"`}
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleClose} autoFocus>Cancelar</Button>
-					<Button onClick={handleDelete}  color="error">
+					<Button onClick={handleClose} autoFocus>
+						Cancelar
+					</Button>
+					<Button onClick={handleDelete} color="error">
 						Eliminar
 					</Button>
 				</DialogActions>

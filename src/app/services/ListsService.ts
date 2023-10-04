@@ -23,9 +23,21 @@ export const getLists = async (): Promise<ListData[]> => {
 // crear una lista datos de una lista
 
 export const createList = async (list?: ListData): Promise<ListData> => {
-	const currentList = { ...(list || DefaultList), _id: uuid() };
+	const temporalID = uuid();
+	const currentList = { ...(list || DefaultList), _id: temporalID };
 
-	setListLocalStorage(currentList);
+	setListLocalStorage(temporalID, currentList);
+
+	return currentList;
+};
+
+export const updateList = async (
+	_id: string,
+	list: ListData
+): Promise<ListData> => {
+	const currentList = list;
+
+	setListLocalStorage(_id, currentList);
 
 	return currentList;
 };
