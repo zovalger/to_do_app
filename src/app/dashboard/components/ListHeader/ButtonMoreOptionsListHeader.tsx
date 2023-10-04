@@ -1,27 +1,25 @@
-"use client";
+import React from "react";
+
 import { useState } from "react";
-import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import Typography from "@mui/material/Typography";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import { TaskPanelWidth, ToDoNavWidth } from "@/config/UISettings";
+import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
+import { ListItemIcon, Menu, MenuItem } from "@mui/material";
+
 import { useGlobalContext } from "@/app/contexts/Global.context";
 import { useListAndGroupContext } from "@/app/contexts/ListAndGroup.context";
-import { ListItemIcon, Menu, MenuItem } from "@mui/material";
-import { deleteList } from "../../services/ListsService";
-import { getSmartListName } from "@/app/helper/List.helper";
+import { deleteList } from "../../../services/ListsService";
+import { getNameList, getSmartListName } from "@/app/helper/List.helper";
 
-const ListHeader = () => {
-	const { handleAsidePanelToggle } = useGlobalContext();
+const ButtonMoreOptionsListHeader = () => {
 	const { lists, setLists, listSelected } = useListAndGroupContext();
+
+
 
 	// **************************** menu desplegable ****************************
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -35,14 +33,14 @@ const ListHeader = () => {
 
 	// **************************** menu eliminar ****************************
 
-	const [open, setOpen] = useState(false);
+	const [openConfirmDelete, setOpenConfirmDelete] = useState(false);
 
-	const handleClickOpen = () => {
-		setOpen(true);
+	const handleClickOpenConfirmDelete = () => {
+		setOpenConfirmDelete(true);
 	};
 
-	const handleClose = () => {
-		setOpen(false);
+	const handleCloseConfirmDelete = () => {
+		setOpenConfirmDelete(false);
 	};
 
 	const handleDelete = async () => {
@@ -52,59 +50,19 @@ const ListHeader = () => {
 
 		setLists(newLists);
 
-		handleClose();
+		handleCloseConfirmDelete();
 	};
 
-	// **************************** render ****************************
+  	// **************************** render ****************************
 
-	const smartTitle = listSelected && getSmartListName(listSelected);
-	const currentList = lists.find((l) => l._id == listSelected)?.title;
-	const title = smartTitle || currentList || "Titulo de Lista";
+	if (!listSelected) return;
 
+	const title = getNameList(lists, listSelected);
 	return (
 		<>
-			<Box
-				sx={{
-					position: "fixed",
-					right: 0,
-					left: 0,
-
-					top: 0,
-
-					ml: { xs: 0, sm: `${ToDoNavWidth}px` },
-					mr: { xs: 0, sm: `${TaskPanelWidth}px` },
-
-					px: 3,
-					pb: 1,
-					backdropFilter: "blur(16px)",
-					bgcolor: "#fff8",
-				}}
-				// boxShadow={3}
-			>
-				<Box sx={{ display: { xs: "block", sm: "none" } }}>
-					<IconButton edge="start" onClick={handleAsidePanelToggle}>
-						<MenuIcon />
-					</IconButton>
-				</Box>
-
-				<Box sx={{ display: "flex", pt: { xs: 0, sm: 2 } }}>
-					<Typography variant="h5" component="div">
-						{title}
-					</Typography>
-
-					<Box sx={{ ml: "auto" }}>
-						<IconButton
-							onClick={handleClickMoreButton}
-							sx={{ borderRadius: 0 }}
-						>
-							<MoreHorizOutlinedIcon />
-						</IconButton>
-					</Box>
-				</Box>
-				<Typography component="div" sx={{ fontSize: 13 }}>
-					{new Date().toDateString()}
-				</Typography>
-			</Box>
+			<IconButton onClick={handleClickMoreButton} sx={{ borderRadius: 0 }}>
+				<MoreHorizOutlinedIcon />
+			</IconButton>
 
 			<Menu
 				id="More-option-list"
@@ -125,8 +83,20 @@ const ListHeader = () => {
 			>
 				<MenuItem
 					onClick={() => {
+						// handleCloseMoreButton();
+						// handleClickOpenConfirmDelete();
+					}}
+				>
+					<ListItemIcon>
+						<DriveFileRenameOutlineOutlinedIcon fontSize="small" />
+					</ListItemIcon>
+					Cambiar nombre
+				</MenuItem>
+
+				<MenuItem
+					onClick={() => {
 						handleCloseMoreButton();
-						handleClickOpen();
+						handleClickOpenConfirmDelete();
 					}}
 				>
 					<ListItemIcon>
@@ -137,8 +107,8 @@ const ListHeader = () => {
 			</Menu>
 
 			<Dialog
-				open={open}
-				onClose={handleClose}
+				open={openConfirmDelete}
+				onClose={handleCloseConfirmDelete}
 				aria-labelledby="alert-dialog-title"
 				aria-describedby="alert-dialog-description"
 			>
@@ -152,7 +122,7 @@ const ListHeader = () => {
 					{`Seguro que quiere eliminar "${title}"`}
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleClose} autoFocus>
+					<Button onClick={handleCloseConfirmDelete} autoFocus>
 						Cancelar
 					</Button>
 					<Button onClick={handleDelete} color="error">
@@ -164,4 +134,4 @@ const ListHeader = () => {
 	);
 };
 
-export default ListHeader;
+export default ButtonMoreOptionsListHeader;
