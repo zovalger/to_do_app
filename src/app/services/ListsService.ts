@@ -1,7 +1,6 @@
 import { v4 as uuid } from "uuid";
-import { TaskStorageName } from "@/config/OfflineDataSettings";
 import { DefaultList } from "@/defaultValues";
-import { ListData, TaskData } from "@/types";
+import { ListData } from "@/types";
 import {
 	deleteListLocalStorage,
 	getListLocalStorage,

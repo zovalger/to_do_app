@@ -12,7 +12,7 @@ import {
 
 export const DefaultListGroup: ListGroupData = {
 	_id: "",
-	title: "",
+	title: "Nuevo grupo",
 	userId: "",
 	lists: [],
 };

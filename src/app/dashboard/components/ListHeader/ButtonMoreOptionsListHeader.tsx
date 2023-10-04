@@ -81,7 +81,8 @@ const ButtonMoreOptionsListHeader = () => {
 					horizontal: "right",
 				}}
 			>
-				<MenuItem
+				{/* // todo: hacer que el boton cambiar nombre funcione */}
+				{/* <MenuItem
 					onClick={() => {
 						// handleCloseMoreButton();
 						// handleClickOpenConfirmDelete();
@@ -91,7 +92,7 @@ const ButtonMoreOptionsListHeader = () => {
 						<DriveFileRenameOutlineOutlinedIcon fontSize="small" />
 					</ListItemIcon>
 					Cambiar nombre
-				</MenuItem>
+				</MenuItem> */}
 
 				<MenuItem
 					onClick={() => {

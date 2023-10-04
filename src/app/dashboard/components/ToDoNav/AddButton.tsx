@@ -9,12 +9,16 @@ import {
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import PlaylistAddOutlinedIcon from "@mui/icons-material/PlaylistAddOutlined";
 import Tooltip from "@mui/material/Tooltip";
+
 import { createList } from "../../../services/ListsService";
 import { useListAndGroupContext } from "@/app/contexts/ListAndGroup.context";
 import { setListsLocalStorage } from "../../../services/offline/ListsOffline";
+import { createListGroup } from "@/app/services/GroupListsService";
+import { setListGroupsLocalStorage } from "@/app/services/offline/ListGroupOffline";
 
 const AddButton = () => {
-	const { lists, setLists } = useListAndGroupContext();
+	const { lists, setLists, listGroups, setListGroups } =
+		useListAndGroupContext();
 
 	const handleClickList = async () => {
 		const list = await createList();
@@ -22,6 +26,15 @@ const AddButton = () => {
 
 		setListsLocalStorage(newLists);
 		setLists(newLists);
+	};
+
+	const handleClickListGroup = async () => {
+		const newGroup = await createListGroup();
+
+		const newGroups = [...listGroups, newGroup];
+
+		setListGroupsLocalStorage(newGroups);
+		setListGroups(newGroups);
 	};
 
 	return (
@@ -35,7 +48,12 @@ const AddButton = () => {
 
 			<Tooltip title="Crear nuevo grupo">
 				<IconButton
-					sx={{ flexShrink: 0, width: 48, borderRadius: 0 }}
+					onClick={handleClickListGroup}
+					sx={{
+						borderRadius: 0,
+						flexShrink: 0,
+						width: 48,
+					}}
 					color="inherit"
 				>
 					<PlaylistAddOutlinedIcon />
