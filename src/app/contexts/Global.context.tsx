@@ -6,16 +6,16 @@ interface ContextProps {
 	asidePanelMobileOpen: boolean;
 	handleAsidePanelToggle(): void;
 
-	asideMultiToolsOpen: boolean;
-	handleAsideMultiToolsToggle(): void;
+	taskPanelOpen: boolean;
+	handleTaskPanelOpen(value?: boolean): void;
 }
 
 const GlobalContext = createContext<ContextProps>({
 	asidePanelMobileOpen: false,
 	handleAsidePanelToggle: (): void => {},
 
-	asideMultiToolsOpen: false,
-	handleAsideMultiToolsToggle: (): void => {},
+	taskPanelOpen: false,
+	handleTaskPanelOpen: (value?: boolean): void => {},
 });
 
 export const GlobalContextProvider = ({ children }: { children: any }) => {
@@ -26,9 +26,11 @@ export const GlobalContextProvider = ({ children }: { children: any }) => {
 	const [asidePanelMobileOpen, setAsidePanelMobilOpen] = useState(false);
 	const handleAsidePanelToggle = () => setAsidePanelMobilOpen((prev) => !prev);
 
-	const [asideMultiToolsOpen, setAsideMultiToolsOpen] = useState(false);
-	const handleAsideMultiToolsToggle = () =>
-		setAsideMultiToolsOpen((prev) => !prev);
+	const [taskPanelOpen, setAsideMultiToolsOpen] = useState(false);
+	const handleTaskPanelOpen = (value?: boolean) =>
+		setAsideMultiToolsOpen((prev) =>
+			typeof value == "boolean" ? value : !prev
+		);
 
 	return (
 		<GlobalContext.Provider
@@ -36,8 +38,8 @@ export const GlobalContextProvider = ({ children }: { children: any }) => {
 				asidePanelMobileOpen,
 				handleAsidePanelToggle,
 
-				asideMultiToolsOpen,
-				handleAsideMultiToolsToggle,
+				taskPanelOpen,
+				handleTaskPanelOpen,
 			}}
 		>
 			{children}

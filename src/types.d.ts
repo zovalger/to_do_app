@@ -2,6 +2,8 @@
 // 										Lists
 // ************************************************
 
+import { Frequencys } from "./enums";
+
 export interface ListGroupData {
 	_id: string;
 	title: string;
@@ -16,8 +18,6 @@ export interface ListData {
 	guests: string[];
 }
 
-
-
 // ************************************************
 // 										Task
 // ************************************************
@@ -28,19 +28,25 @@ export interface FileSchema {
 	publicId: string;
 }
 
-export interface Steps {
+export interface StepTask {
 	title: string;
 	complete: boolean;
+}
+
+export interface RepeatFrequency {
+	frequency: Frequencys;
+	skip: number;
+	// days:
 }
 
 export interface TaskData {
 	_id: string;
 	title: string;
-	steps: Steps[];
+	steps: StepTask[];
 	note: string;
 	remindMe: Date;
 	dueDate: Date;
-	repeat: string;
+	repeat: RepeatFrequency;
 	myDay: boolean;
 	complete: boolean;
 	important: boolean;

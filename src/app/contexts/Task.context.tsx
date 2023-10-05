@@ -15,15 +15,22 @@ import { getTasksLocalStorage } from "../services/offline/TasksOffline";
 interface ContextProps {
 	tasks: TaskData[];
 	setTasks: Dispatch<SetStateAction<TaskData[]>>;
+
+	taskEditing: TaskData | null;
+	setTaskEditing: Dispatch<SetStateAction<TaskData | null>>;
 }
 
 const TaskContext = createContext<ContextProps>({
 	tasks: [],
 	setTasks: (): TaskData[] => [],
+
+	taskEditing: null,
+	setTaskEditing: (): TaskData | null => null,
 });
 
 export const TaskContextProvider = ({ children }: { children: any }) => {
 	const [tasks, setTasks] = useState<TaskData[]>([]);
+	const [taskEditing, setTaskEditing] = useState<TaskData | null>(null);
 
 	useEffect(() => {
 		const localTasks = getTasksLocalStorage();
@@ -42,6 +49,8 @@ export const TaskContextProvider = ({ children }: { children: any }) => {
 			value={{
 				tasks,
 				setTasks,
+				taskEditing,
+				setTaskEditing,
 			}}
 		>
 			{children}

@@ -9,15 +9,24 @@ import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
 import { TaskData } from "@/types";
+import { useTaskContext } from "@/app/contexts/Task.context";
+import { useGlobalContext } from "@/app/contexts/Global.context";
 
 interface props {
 	data: TaskData;
 }
 const TaskItemList = ({ data }: props) => {
+	const {handleTaskPanelOpen}=useGlobalContext()
+	const {setTaskEditing}=useTaskContext()
 	const { _id, title, important, complete } = data;
 
 	const [hoverCheck, setHoverCheck] = useState(false);
 
+
+	const handleClickContent = ()=>{
+		setTaskEditing(data)
+		handleTaskPanelOpen(true)
+	}
 	const handleImportantButton = () => {};
 	const handleCompleteButton = () => {};
 	
@@ -33,6 +42,10 @@ const TaskItemList = ({ data }: props) => {
 	return (
 		<>
 			<Box
+			onClick={
+				handleClickContent
+
+			}
 				sx={{
 					display: "flex",
 					alignItems: "center",

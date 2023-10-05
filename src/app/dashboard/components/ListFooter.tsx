@@ -19,8 +19,10 @@ import { TaskData } from "@/types";
 import { createTask } from "../../services/TasksService";
 import { DefaultTask } from "@/defaultValues";
 import { setTasksLocalStorage } from "../../services/offline/TasksOffline";
+import { useGlobalContext } from "@/app/contexts/Global.context";
 
 const ListFooter = () => {
+	const { taskPanelOpen } = useGlobalContext();
 	const { listSelected } = useListAndGroupContext();
 
 	const { tasks, setTasks } = useTaskContext();
@@ -60,7 +62,7 @@ const ListFooter = () => {
 				left: 0,
 
 				ml: { xs: 0, sm: `${ToDoNavWidth}px` },
-				mr: { xs: 0, sm: `${TaskPanelWidth}px` },
+				mr: { xs: 0, sm: taskPanelOpen ? `${TaskPanelWidth}px` : "" },
 
 				px: 3,
 				pt: 1,

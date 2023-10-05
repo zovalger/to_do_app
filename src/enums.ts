@@ -19,3 +19,15 @@ export enum SmartListsLabels {
 	emailMark = "Correo electronico marcado",
 	task = "Tareas",
 }
+
+export enum Frequencys {
+	daily = "daily",
+	businessDays = "businessDays",
+	weekly = "weekly",
+	monthly = "monthly",
+	yearly = "yearly",
+}
+
+// export enum WeekDays{
+
+// }

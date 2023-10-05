@@ -11,7 +11,7 @@ import TitleListHeader from "./TitleListHeader";
 import ButtonMoreOptionsListHeader from "./ButtonMoreOptionsListHeader";
 
 const ListHeader = () => {
-	const { handleAsidePanelToggle } = useGlobalContext();
+	const { handleAsidePanelToggle ,taskPanelOpen} = useGlobalContext();
 	const { listSelected } = useListAndGroupContext();
 
 	// **************************** render ****************************
@@ -29,7 +29,7 @@ const ListHeader = () => {
 					top: 0,
 
 					ml: { xs: 0, sm: `${ToDoNavWidth}px` },
-					mr: { xs: 0, sm: `${TaskPanelWidth}px` },
+					mr: { xs: 0, sm: taskPanelOpen ? `${TaskPanelWidth}px` : "" },
 
 					px: 3,
 					pb: 1,

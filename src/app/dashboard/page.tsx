@@ -11,9 +11,12 @@ import ToDoNav from "./components/ToDoNav";
 import { useTaskContext } from "../contexts/Task.context";
 import { useListAndGroupContext } from "../contexts/ListAndGroup.context";
 import { taskByListId } from "../helper/Task.helper";
+import { useGlobalContext } from "../contexts/Global.context";
 
 export default function DashboardPage() {
+	const { taskPanelOpen } = useGlobalContext();
 	const { listSelected } = useListAndGroupContext();
+
 	const { tasks } = useTaskContext();
 
 	const [open, setOpen] = useState(true);
@@ -37,7 +40,7 @@ export default function DashboardPage() {
 				<Box
 					sx={{
 						ml: { xs: 0, sm: `${ToDoNavWidth}px` },
-						mr: { xs: 0, sm: `${TaskPanelWidth}px` },
+						mr: { xs: 0, sm: taskPanelOpen ? `${TaskPanelWidth}px` : "" },
 						px: 2,
 						pt: 14,
 						pb: 13,
