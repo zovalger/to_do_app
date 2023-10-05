@@ -48,7 +48,7 @@ export const updateListGroup = async (
 	return currentList;
 };
 
-export const deleteList = async (
+export const deleteListGroup = async (
 	listGroups: ListGroupData[],
 	_id: string
 ): Promise<ListGroupData[]> => {

@@ -34,8 +34,8 @@ export const getListGroupsLocalStorage = (): ListGroupData[] => {
 	return JSON.parse(data);
 };
 
-export const setListGroupsLocalStorage = (lists: ListGroupData[]) => {
-	const data = JSON.stringify(lists);
+export const setListGroupsLocalStorage = (listGroups: ListGroupData[]) => {
+	const data = JSON.stringify(listGroups);
 
 	localStorage.setItem(`${ListGroupStorageName}`, data);
 };

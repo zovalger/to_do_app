@@ -5,7 +5,7 @@ export const taskBySmartList = (
 	tasks: TaskData[],
 	listId: string | null
 ): TaskData[] | null => {
-	if (listId == SmartListsIds.task) return tasks;
+	if (listId == SmartListsIds.todo) return tasks;
 
 	return null;
 };

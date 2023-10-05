@@ -2,8 +2,6 @@ import { ListData, ListGroupData } from "@/types";
 
 export const orderGroupAndList = () => {};
 
-
-
 export const formateGroups = (
 	listGroups: ListGroupData[],
 	lists: ListData[]
@@ -30,4 +28,21 @@ export const formateGroups = (
 		groupAndLists,
 		restLists,
 	};
+};
+
+export const getRemainingLists = (
+	listGroups: ListGroupData[],
+	lists: ListData[]
+): ListData[] => {
+	const listsUngrouped: ListData[] = [];
+
+	listGroups.map((g) =>
+		lists.map((l) => {
+			if (!g.lists.includes(l._id)) listsUngrouped.push(l);
+		})
+	);
+
+	console.log(listsUngrouped);
+
+	return listsUngrouped;
 };

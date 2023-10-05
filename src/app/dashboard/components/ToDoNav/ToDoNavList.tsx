@@ -69,8 +69,6 @@ const ToDoNavList = () => {
 
 	const { lists, listGroups } = useListAndGroupContext();
 
-	const [open, setOpen] = useState(true);
-
 	const { groupAndLists, restLists } = formateGroups(listGroups, lists);
 
 	return (
