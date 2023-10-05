@@ -4,6 +4,7 @@ import {
 	getTaskLocalStorage,
 	getTasksLocalStorage,
 	setTaskLocalStorage,
+	setTasksLocalStorage,
 } from "./offline/TasksOffline";
 import { TaskData } from "@/types";
 
@@ -34,10 +35,20 @@ export const deleteTask = async (_id: string): Promise<void> => {
 export const deleteTaskByListId = async (
 	task: TaskData[],
 	listId: string
-): Promise<void> => {
-	// const toDelete:TaskData[] = []
-	// const rest =
-	// task.filter((t) =>{
-	// });
-	// deleteTaskLocalStorage(_id);
+): Promise<TaskData[]> => {
+	const toDelete: TaskData[] = [];
+
+	const rest = task.filter((t) => {
+		const a = t.listId != listId;
+
+		if (!a) toDelete.push(t);
+
+		return a;
+	});
+
+	await Promise.all(toDelete.map((t) => deleteTask(t._id)));
+
+	setTasksLocalStorage(rest);
+
+	return rest;
 };

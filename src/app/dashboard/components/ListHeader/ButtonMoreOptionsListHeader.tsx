@@ -15,11 +15,13 @@ import { useGlobalContext } from "@/app/contexts/Global.context";
 import { useListAndGroupContext } from "@/app/contexts/ListAndGroup.context";
 import { deleteList } from "../../../services/ListsService";
 import { getNameList, getSmartListName } from "@/app/helper/List.helper";
+import { getTasksLocalStorage } from "@/app/services/offline/TasksOffline";
+import { useTaskContext } from "@/app/contexts/Task.context";
+import { deleteTaskByListId } from "@/app/services/TasksService";
 
 const ButtonMoreOptionsListHeader = () => {
 	const { lists, setLists, listSelected } = useListAndGroupContext();
-
-
+	const { tasks, setTasks } = useTaskContext();
 
 	// **************************** menu desplegable ****************************
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -50,10 +52,14 @@ const ButtonMoreOptionsListHeader = () => {
 
 		setLists(newLists);
 
+		const newTasks = await deleteTaskByListId(tasks, listSelected);
+
+		setTasks(newTasks);
+
 		handleCloseConfirmDelete();
 	};
 
-  	// **************************** render ****************************
+	// **************************** render ****************************
 
 	if (!listSelected) return;
 
