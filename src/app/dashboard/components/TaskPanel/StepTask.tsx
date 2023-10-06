@@ -13,6 +13,7 @@ import { TextField } from "@mui/material";
 import { StepTaskData } from "@/types";
 import { useTaskContext } from "@/app/contexts/Task.context";
 import { updateStepOfTask } from "@/app/helper/Task.helper";
+import HoverIconButtom from "../HoverIconButtom";
 
 interface props {
 	data: StepTaskData;
@@ -66,18 +67,6 @@ const StepTask = ({ data }: props) => {
 		setTaskEditing(newTask);
 	};
 
-	// *************************** estetica ***************************
-
-	const [checkHover, setCheckHover] = useState(false);
-
-	const completeIcon = complete ? (
-		<CheckCircleOutlinedIcon />
-	) : checkHover ? (
-		<CheckCircleOutlinedIcon />
-	) : (
-		<RadioButtonUncheckedOutlinedIcon />
-	);
-
 	return (
 		<>
 			<Box
@@ -92,13 +81,12 @@ const StepTask = ({ data }: props) => {
 					},
 				}}
 			>
-				<IconButton
+				<HoverIconButtom
+					active={complete}
+					hoverIcon={<CheckCircleOutlinedIcon />}
+					idleIcon={<RadioButtonUncheckedOutlinedIcon />}
 					onClick={handleComplete}
-					onMouseEnter={() => setCheckHover(true)}
-					onMouseLeave={() => setCheckHover(false)}
-				>
-					{completeIcon}
-				</IconButton>
+				/>
 
 				{titleEditing ? (
 					<TextField

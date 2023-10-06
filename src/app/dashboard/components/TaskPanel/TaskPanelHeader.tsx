@@ -12,6 +12,7 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { TextField } from "@mui/material";
 
 import { useTaskContext } from "@/app/contexts/Task.context";
+import HoverIconButtom from "../HoverIconButtom";
 
 const TaskPanelHeader = () => {
 	const { taskEditing, setTaskEditing } = useTaskContext();
@@ -58,26 +59,6 @@ const TaskPanelHeader = () => {
 		setTaskEditing({ ...taskEditing, important: !important });
 	};
 
-	// *************************** estetica ***************************
-
-	const [checkHover, setCheckHover] = useState(false);
-	const [importantHover, setImportantHover] = useState(false);
-
-	const importantIcon = taskEditing?.important ? (
-		<StarOutlinedIcon />
-	) : importantHover ? (
-		<StarOutlinedIcon />
-	) : (
-		<StarOutlineOutlinedIcon />
-	);
-
-	const completeIcon = taskEditing?.complete ? (
-		<CheckCircleOutlinedIcon />
-	) : checkHover ? (
-		<CheckCircleOutlinedIcon />
-	) : (
-		<RadioButtonUncheckedOutlinedIcon />
-	);
 	// *************************** render ***************************
 
 	return (
@@ -100,13 +81,12 @@ const TaskPanelHeader = () => {
 					},
 				}}
 			>
-				<IconButton
+				<HoverIconButtom
+					active={taskEditing?.complete}
+					hoverIcon={<CheckCircleOutlinedIcon />}
+					idleIcon={<RadioButtonUncheckedOutlinedIcon />}
 					onClick={handleComplete}
-					onMouseEnter={() => setCheckHover(true)}
-					onMouseLeave={() => setCheckHover(false)}
-				>
-					{completeIcon}
-				</IconButton>
+				/>
 
 				{titleEditing ? (
 					<TextField
@@ -125,16 +105,13 @@ const TaskPanelHeader = () => {
 					</Typography>
 				)}
 
-				<IconButton
+				<HoverIconButtom
 					color="secondary"
+					active={taskEditing?.important}
+					hoverIcon={<StarOutlinedIcon />}
+					idleIcon={<StarOutlineOutlinedIcon />}
 					onClick={handleImportant}
-					onMouseEnter={() => setImportantHover(true)}
-					onMouseLeave={() => setImportantHover(false)}
-
-					// onClick={() => setImportantHover(!importantHover)}
-				>
-					{importantIcon}
-				</IconButton>
+				/>
 			</Box>
 		</Box>
 	);
