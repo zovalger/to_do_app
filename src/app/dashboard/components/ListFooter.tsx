@@ -1,37 +1,30 @@
 "use client";
 
 import { useState } from "react";
-import { v4 as uuid } from "uuid";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-
-import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 
 import { TaskPanelWidth, ToDoNavWidth } from "@/config/UISettings";
 import { useListAndGroupContext } from "@/app/contexts/ListAndGroup.context";
 import { useTaskContext } from "@/app/contexts/Task.context";
-import { TaskData } from "@/types";
 import { createTask } from "../../services/TasksService";
 import { DefaultTask } from "@/defaultValues";
 import { setTasksLocalStorage } from "../../services/offline/TasksOffline";
-import { useGlobalContext } from "@/app/contexts/Global.context";
 
 const ListFooter = () => {
-	const { taskPanelOpen } = useGlobalContext();
 	const { listSelected } = useListAndGroupContext();
 
-	const { tasks, setTasks } = useTaskContext();
+	const { taskEditing, tasks, setTasks } = useTaskContext();
 
 	const [focus, setFocus] = useState(false);
 
 	const [title, setTitle] = useState("");
 
-	if (!listSelected) return;
+	if (!listSelected) return <></>;
 
 	const handleChange = (value: string) => {
 		setTitle(value);
@@ -62,7 +55,7 @@ const ListFooter = () => {
 				left: 0,
 
 				ml: { xs: 0, sm: `${ToDoNavWidth}px` },
-				mr: { xs: 0, sm: taskPanelOpen ? `${TaskPanelWidth}px` : "" },
+				mr: { xs: 0, sm: taskEditing ? `${TaskPanelWidth}px` : "" },
 
 				px: 3,
 				pt: 1,

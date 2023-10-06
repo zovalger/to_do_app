@@ -15,7 +15,6 @@ import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-
 import { FormatListBulletedOutlined } from "@mui/icons-material";
 
 import { ListData, ListGroupData } from "@/types";

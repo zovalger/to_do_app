@@ -8,7 +8,6 @@ import Typography from "@mui/material/Typography";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
-import { useTheme } from "@mui/material/styles";
 import { TextField } from "@mui/material";
 
 import { StepTaskData } from "@/types";

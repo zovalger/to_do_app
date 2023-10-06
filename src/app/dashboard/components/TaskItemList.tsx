@@ -1,7 +1,5 @@
 "use client";
-import { useState } from "react";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 
 import StarOutlineOutlinedIcon from "@mui/icons-material/StarOutlineOutlined";
@@ -10,42 +8,47 @@ import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
 import { TaskData } from "@/types";
 import { useTaskContext } from "@/app/contexts/Task.context";
-import { useGlobalContext } from "@/app/contexts/Global.context";
+import HoverIconButtom from "./HoverIconButtom";
+import { updateTask } from "@/app/services/TasksService";
+import { updateTaskInArr } from "@/app/helper/Task.helper";
 
 interface props {
 	data: TaskData;
 }
 const TaskItemList = ({ data }: props) => {
-	const {handleTaskPanelOpen}=useGlobalContext()
-	const {setTaskEditing}=useTaskContext()
-	const { _id, title, important, complete } = data;
+	const { setTaskEditing, tasks, setTasks } = useTaskContext();
+	const { _id, title, important, complete, steps } = data;
 
-	const [hoverCheck, setHoverCheck] = useState(false);
+	const handleClickContent = () => {
+		setTaskEditing(data);
+	};
 
+	const handleImportantButton = async () => {
+		const newTask = await updateTask(_id, { ...data, important: !important });
 
-	const handleClickContent = ()=>{
-		setTaskEditing(data)
-		handleTaskPanelOpen(true)
-	}
-	const handleImportantButton = () => {};
-	const handleCompleteButton = () => {};
-	
+		const newTasks = updateTaskInArr(tasks, _id, newTask);
 
-	const iconCheck = complete ? (
-		<CheckCircleOutlinedIcon />
-	) : hoverCheck ? (
-		<CheckCircleOutlinedIcon />
-	) : (
-		<RadioButtonUncheckedOutlinedIcon />
-	);
+		setTasks(newTasks);
+		setTaskEditing(null);
+	};
+
+	const handleCompleteButton = async () => {
+		const newTask = await updateTask(_id, { ...data, complete: !complete });
+
+		const newTasks = updateTaskInArr(tasks, _id, newTask);
+
+		setTasks(newTasks);
+		setTaskEditing(null);
+	};
+
+	const textSteps = steps.length
+		? `${steps.filter((st) => st.complete).length} de ${steps.length}`
+		: "";
 
 	return (
 		<>
 			<Box
-			onClick={
-				handleClickContent
-
-			}
+				onClick={handleClickContent}
 				sx={{
 					display: "flex",
 					alignItems: "center",
@@ -61,23 +64,25 @@ const TaskItemList = ({ data }: props) => {
 					},
 				}}
 			>
-				<IconButton
+				<HoverIconButtom
+					active={complete}
+					hoverIcon={<CheckCircleOutlinedIcon />}
+					idleIcon={<RadioButtonUncheckedOutlinedIcon />}
 					onClick={handleCompleteButton}
-					onMouseEnter={() => {
-						setHoverCheck(true);
-					}}
-					onMouseLeave={() => {
-						setHoverCheck(false);
-					}}
-				>
-					{iconCheck}
-				</IconButton>
+				/>
 
-				<Typography sx={{ flexGrow: 1, fontSize: 13 }}>{title}</Typography>
+				<Box sx={{ flexGrow: 1 }}>
+					<Typography sx={{ fontSize: 13 }}>{title}</Typography>
+					<Typography sx={{ fontSize: 11 }}>{textSteps}</Typography>
+				</Box>
 
-				<IconButton color="secondary" onClick={handleImportantButton}>
-					{important ? <StarOutlinedIcon /> : <StarOutlineOutlinedIcon />}
-				</IconButton>
+				<HoverIconButtom
+					active={important}
+					color="secondary"
+					hoverIcon={<StarOutlinedIcon />}
+					idleIcon={<StarOutlineOutlinedIcon />}
+					onClick={handleImportantButton}
+				/>
 			</Box>
 		</>
 	);

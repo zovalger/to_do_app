@@ -1,28 +1,25 @@
 "use client";
 import Drawer from "@mui/material/Drawer";
 import { useTheme } from "@mui/material/styles";
+
 import { TaskPanelWidth } from "@/config/UISettings";
 import { useTaskContext } from "@/app/contexts/Task.context";
 import TaskPanelContent from "./TaskPanelContent";
-import { useGlobalContext } from "@/app/contexts/Global.context";
 
 const TaskPanel = () => {
 	const theme = useTheme();
 
-	const { taskPanelOpen, handleTaskPanelOpen } = useGlobalContext();
-
-	const { taskEditing } = useTaskContext();
-
-	if (!taskPanelOpen) return;
-	if (!taskEditing) return;
+	const { taskEditing, setTaskEditing } = useTaskContext();
 
 	const Content = <TaskPanelContent />;
+
+	
 
 	return (
 		<>
 			<Drawer
-				open={taskPanelOpen}
-				variant="permanent"
+				open={!!taskEditing}
+				variant="persistent"
 				anchor="right"
 				sx={{
 					maxWidth: TaskPanelWidth,
@@ -35,10 +32,10 @@ const TaskPanel = () => {
 			</Drawer>
 
 			<Drawer
-				open={taskPanelOpen}
+				open={!!taskEditing}
 				anchor="right"
 				variant="temporary"
-				onClose={() => handleTaskPanelOpen(false)}
+				onClose={() => setTaskEditing(null)}
 				ModalProps={{
 					keepMounted: true,
 				}}

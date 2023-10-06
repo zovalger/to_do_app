@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
+import { TextField } from "@mui/material";
+
 import {
 	getNameList,
 	getSmartListName,
 	uptadeListInArray,
 } from "@/app/helper/List.helper";
 import { useListAndGroupContext } from "@/app/contexts/ListAndGroup.context";
-import { TextField } from "@mui/material";
 import { updateList } from "@/app/services/ListsService";
 import { setListsLocalStorage } from "@/app/services/offline/ListsOffline";
 

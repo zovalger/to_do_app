@@ -9,14 +9,16 @@ import { useGlobalContext } from "@/app/contexts/Global.context";
 import { useListAndGroupContext } from "@/app/contexts/ListAndGroup.context";
 import TitleListHeader from "./TitleListHeader";
 import ButtonMoreOptionsListHeader from "./ButtonMoreOptionsListHeader";
+import { useTaskContext } from "@/app/contexts/Task.context";
 
 const ListHeader = () => {
-	const { handleAsidePanelToggle ,taskPanelOpen} = useGlobalContext();
+	const { handleAsidePanelToggle } = useGlobalContext();
 	const { listSelected } = useListAndGroupContext();
+	const {taskEditing} = useTaskContext()
 
 	// **************************** render ****************************
 
-	if (!listSelected) return;
+	if (!listSelected) return <></>;
 
 	return (
 		<>
@@ -29,7 +31,7 @@ const ListHeader = () => {
 					top: 0,
 
 					ml: { xs: 0, sm: `${ToDoNavWidth}px` },
-					mr: { xs: 0, sm: taskPanelOpen ? `${TaskPanelWidth}px` : "" },
+					mr: { xs: 0, sm: taskEditing ? `${TaskPanelWidth}px` : "" },
 
 					px: 3,
 					pb: 1,

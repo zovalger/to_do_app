@@ -8,14 +8,11 @@ import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
 import { ListItemIcon, Menu, MenuItem } from "@mui/material";
 
-import { useGlobalContext } from "@/app/contexts/Global.context";
 import { useListAndGroupContext } from "@/app/contexts/ListAndGroup.context";
 import { deleteList } from "../../../services/ListsService";
-import { getNameList, getSmartListName } from "@/app/helper/List.helper";
-import { getTasksLocalStorage } from "@/app/services/offline/TasksOffline";
+import { getNameList,  } from "@/app/helper/List.helper";
 import { useTaskContext } from "@/app/contexts/Task.context";
 import { deleteTaskByListId } from "@/app/services/TasksService";
 
@@ -61,7 +58,7 @@ const ButtonMoreOptionsListHeader = () => {
 
 	// **************************** render ****************************
 
-	if (!listSelected) return;
+	if (!listSelected) return <></>;
 
 	const title = getNameList(lists, listSelected);
 	return (

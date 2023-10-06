@@ -13,6 +13,7 @@ import { getListsLocalStorage } from "../services/offline/ListsOffline";
 import { getLists } from "../services/ListsService";
 import { getListGroupsLocalStorage } from "../services/offline/ListGroupOffline";
 import { getListGroups } from "../services/GroupListsService";
+import { SmartListsIds } from "@/enums";
 
 interface ContextProps {
 	lists: ListData[];
@@ -42,7 +43,7 @@ export const ListAndGroupContextProvider = ({
 	children: any;
 }) => {
 	const [lists, setLists] = useState<ListData[]>([]);
-	const [listSelected, setListSelected] = useState<string | null>(null);
+	const [listSelected, setListSelected] = useState<string | null>(SmartListsIds.myDay);
 
 	const [listGroups, setListGroups] = useState<ListGroupData[]>([]);
 

@@ -1,5 +1,3 @@
-"use client";
-import { useState } from "react";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
@@ -14,16 +12,14 @@ import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
-
 import InputBase from "@mui/material/InputBase";
-
 import { useTheme } from "@mui/material/styles";
+
 import AddButton from "./AddButton";
 import ListInNav from "./ListInNav";
 import SmartListTitles from "./SmartListLabels";
 import GroupListInNav from "./GroupListInNav";
 import { formateGroups } from "../../../helper/Group.helper";
-import { ListData, ListGroupData } from "@/types";
 import { useListAndGroupContext } from "@/app/contexts/ListAndGroup.context";
 import { useGlobalContext } from "@/app/contexts/Global.context";
 
