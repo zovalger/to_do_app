@@ -2,14 +2,23 @@ import { v4 as uuid } from "uuid";
 import { DefaultStepTask } from "@/defaultValues";
 import { SmartListsIds } from "@/enums";
 import { StepTaskData, TaskData } from "@/types";
+import moment from "moment";
 
-// ************************** by list *************************
+// ************************** by smart list  *************************
 
 export const taskBySmartList = (
 	tasks: TaskData[],
 	listId: string | null
 ): TaskData[] | null => {
+	if (listId == SmartListsIds.myDay)
+		return tasks.filter((t) => !!t.myDay && moment().isSame(t.myDay, "day"));
+
+	if (listId == SmartListsIds.important)
+		return tasks.filter((t) => t.important);
+
 	if (listId == SmartListsIds.todo) return tasks;
+	
+	if (listId == SmartListsIds.complete) return tasks.filter((t) => t.complete);
 
 	return null;
 };

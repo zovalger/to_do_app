@@ -50,7 +50,7 @@ export const DefaultTask: TaskData = {
 	remindMe: new Date(),
 	dueDate: new Date(),
 	repeat: DefaultRepeatFrequency,
-	myDay: false,
+	myDay: null,
 	complete: false,
 	important: false,
 	listId: "",

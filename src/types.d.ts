@@ -48,7 +48,7 @@ export interface TaskData {
 	remindMe: Date;
 	dueDate: Date;
 	repeat: RepeatFrequency;
-	myDay: boolean;
+	myDay: Date | null;
 	complete: boolean;
 	important: boolean;
 	listId: string;

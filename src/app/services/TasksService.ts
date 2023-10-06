@@ -7,6 +7,7 @@ import {
 	setTasksLocalStorage,
 } from "./offline/TasksOffline";
 import { TaskData } from "@/types";
+import { SmartListsIds } from "@/enums";
 
 // dar datos de una taska
 export const getTask = async (_id: string): Promise<TaskData | null> => {
@@ -21,8 +22,14 @@ export const getTasks = async (): Promise<TaskData[]> => {
 // crear una taska datos de una taska
 
 export const createTask = async (task: TaskData): Promise<TaskData> => {
+	const { listId } = task;
+
 	const temporalID = uuid();
-	const currentTask = { ...task, _id: temporalID };
+	const currentTask = {
+		...task,
+		_id: temporalID,
+		listId: listId in SmartListsIds ? SmartListsIds.task : listId,
+	};
 
 	setTaskLocalStorage(temporalID, currentTask);
 

@@ -19,11 +19,11 @@ const SmartListTitles = [
 		icon: <StarOutlineOutlinedIcon />,
 		title: SmartListsLabels.important,
 	},
-	{
-		_id: SmartListsIds.planned,
-		icon: <ViewWeekOutlinedIcon />,
-		title: SmartListsLabels.planned,
-	},
+	// {
+	// 	_id: SmartListsIds.planned,
+	// 	icon: <ViewWeekOutlinedIcon />,
+	// 	title: SmartListsLabels.planned,
+	// },
 	{
 		_id: SmartListsIds.todo,
 		icon: <AllInclusiveOutlinedIcon />,
@@ -34,16 +34,16 @@ const SmartListTitles = [
 		icon: <CheckCircleOutlinedIcon />,
 		title: SmartListsLabels.complete,
 	},
-	{
-		_id: SmartListsIds.toMyUser,
-		icon: <PersonOutlineOutlinedIcon />,
-		title: SmartListsLabels.toMyUser,
-	},
-	{
-		_id: SmartListsIds.emailMark,
-		icon: <FlagOutlinedIcon />,
-		title: SmartListsLabels.emailMark,
-	},
+	// {
+	// 	_id: SmartListsIds.toMyUser,
+	// 	icon: <PersonOutlineOutlinedIcon />,
+	// 	title: SmartListsLabels.toMyUser,
+	// },
+	// {
+	// 	_id: SmartListsIds.emailMark,
+	// 	icon: <FlagOutlinedIcon />,
+	// 	title: SmartListsLabels.emailMark,
+	// },
 	{
 		_id: SmartListsIds.task,
 		icon: <HomeOutlinedIcon />,

@@ -11,13 +11,14 @@ import { useTaskContext } from "@/app/contexts/Task.context";
 import HoverIconButtom from "./HoverIconButtom";
 import { updateTask } from "@/app/services/TasksService";
 import { updateTaskInArr } from "@/app/helper/Task.helper";
+import { SmartListsLabels } from "@/enums";
 
 interface props {
 	data: TaskData;
 }
 const TaskItemList = ({ data }: props) => {
 	const { setTaskEditing, tasks, setTasks } = useTaskContext();
-	const { _id, title, important, complete, steps } = data;
+	const { _id, title, important, complete, steps, myDay } = data;
 
 	const handleClickContent = () => {
 		setTaskEditing(data);
@@ -41,9 +42,14 @@ const TaskItemList = ({ data }: props) => {
 		setTaskEditing(null);
 	};
 
-	const textSteps = steps.length
-		? `${steps.filter((st) => st.complete).length} de ${steps.length}`
-		: "";
+	const textLittle: string[] = [];
+
+	if (steps.length)
+		textLittle.push(
+			`${steps.filter((st) => st.complete).length} de ${steps.length}`
+		);
+
+	if (myDay) textLittle.push(SmartListsLabels.myDay);
 
 	return (
 		<>
@@ -72,8 +78,19 @@ const TaskItemList = ({ data }: props) => {
 				/>
 
 				<Box sx={{ flexGrow: 1 }}>
-					<Typography sx={{ fontSize: 13 }}>{title}</Typography>
-					<Typography sx={{ fontSize: 11 }}>{textSteps}</Typography>
+					<Typography
+						sx={{
+							fontSize: 13,
+							textDecoration: complete ? "line-through" : "",
+						}}
+					>
+						{title}
+					</Typography>
+					<Typography sx={{ fontSize: 11 }}>
+						{textLittle.map((t, index) =>
+							index !== textLittle.length - 1 ? t + " - " : t
+						)}
+					</Typography>
 				</Box>
 
 				<HoverIconButtom
