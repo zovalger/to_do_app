@@ -21,9 +21,21 @@ export const getTasks = async (): Promise<TaskData[]> => {
 // crear una taska datos de una taska
 
 export const createTask = async (task: TaskData): Promise<TaskData> => {
-	const currentTask = { ...task, _id: uuid() };
+	const temporalID = uuid();
+	const currentTask = { ...task, _id: temporalID };
 
-	setTaskLocalStorage(currentTask);
+	setTaskLocalStorage(temporalID, currentTask);
+
+	return currentTask;
+};
+
+export const updateTask = async (
+	_id: string,
+	task: TaskData
+): Promise<TaskData> => {
+	const currentTask = task;
+
+	setTaskLocalStorage(_id, currentTask);
 
 	return currentTask;
 };

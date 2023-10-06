@@ -28,7 +28,8 @@ export interface FileSchema {
 	publicId: string;
 }
 
-export interface StepTask {
+export interface StepTaskData {
+	_id: string;
 	title: string;
 	complete: boolean;
 }
@@ -42,7 +43,7 @@ export interface RepeatFrequency {
 export interface TaskData {
 	_id: string;
 	title: string;
-	steps: StepTask[];
+	steps: StepTaskData[];
 	note: string;
 	remindMe: Date;
 	dueDate: Date;

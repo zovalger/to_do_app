@@ -20,7 +20,7 @@ import { useTheme } from "@mui/material/styles";
 import { TaskPanelWidth } from "@/config/UISettings";
 import { TextField } from "@mui/material";
 
-import StepTask from "./StepTask";
+import StepTaskData from "./StepTask";
 import { useGlobalContext } from "@/app/contexts/Global.context";
 import { useTaskContext } from "@/app/contexts/Task.context";
 import { DefaultTask } from "@/defaultValues";
@@ -51,8 +51,9 @@ const TaskPanelHeader = () => {
 
 	const saveTitle = () => {
 		if (!taskEditing) return;
+		if (!titleValue.trim()) return;
 
-		setTaskEditing({ ...taskEditing, title: titleValue });
+		setTaskEditing({ ...taskEditing, title: titleValue.trim() });
 
 		setTitleEditing(false);
 		setTitleValue("");

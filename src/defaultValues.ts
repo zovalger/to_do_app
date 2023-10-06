@@ -1,8 +1,11 @@
+import { Frequencys } from "./enums";
 import {
 	ConfigUser,
 	ListData,
 	ListGroupData,
+	RepeatFrequency,
 	SmartListsConfig,
+	StepTaskData,
 	TaskData,
 } from "./types";
 
@@ -25,8 +28,19 @@ export const DefaultList: ListData = {
 };
 
 // ************************************************
-// 										Lists
+// 										task
 // ************************************************
+
+export const DefaultRepeatFrequency: RepeatFrequency = {
+	frequency: Frequencys.daily,
+	skip: 1,
+	// days:
+};
+export const DefaultStepTask: StepTaskData = {
+	_id: "",
+	title: "",
+	complete: false,
+};
 
 export const DefaultTask: TaskData = {
 	_id: "",
@@ -35,7 +49,7 @@ export const DefaultTask: TaskData = {
 	note: "",
 	remindMe: new Date(),
 	dueDate: new Date(),
-	repeat: "",
+	repeat: DefaultRepeatFrequency,
 	myDay: false,
 	complete: false,
 	important: false,

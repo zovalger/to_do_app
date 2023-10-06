@@ -7,6 +7,9 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
+import { FormatListBulletedOutlined } from "@mui/icons-material";
+import { ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+
 import { useTheme } from "@mui/material/styles";
 
 import { TaskPanelWidth } from "@/config/UISettings";
@@ -15,31 +18,45 @@ import { useGlobalContext } from "@/app/contexts/Global.context";
 import { useTaskContext } from "@/app/contexts/Task.context";
 import TaskPanelHeader from "./TaskPanelHeader";
 import { useEffect } from "react";
+import { addStepToTask, updateTaskInArr } from "@/app/helper/Task.helper";
+import { updateTask } from "@/app/services/TasksService";
 
 const TaskPanelContent = () => {
 	const theme = useTheme();
 
 	const { taskPanelOpen, handleTaskPanelOpen } = useGlobalContext();
 
-	const { taskEditing, setTaskEditing } = useTaskContext();
+	const { tasks, setTasks, taskEditing, setTaskEditing } = useTaskContext();
 
 	useEffect(() => {
-		console.log("Cambio");
+		if (!taskEditing) return;
+		const { _id } = taskEditing;
+
+		updateTask(_id, taskEditing).then((t) => {
+			const newtasks = updateTaskInArr(tasks, _id, taskEditing);
+
+			setTasks(newtasks);
+		});
 	}, [taskEditing]);
 
-	if (!taskEditing) return;
+	const addStep = () => {
+		if (!taskEditing) return;
 
-	const { steps } = taskEditing;
+		const newTask = addStepToTask(taskEditing);
+
+		setTaskEditing(newTask);
+	};
 
 	return (
 		<Box sx={{ width: `${TaskPanelWidth}px`, mt: 1, position: "relative" }}>
 			<TaskPanelHeader />
 
-			{steps.map((t) => (
-				<StepTask key={uuid()} data={t} />
+			{taskEditing?.steps.map((t) => (
+				<StepTask key={t._id} data={t} />
 			))}
 
 			<Box
+				onClick={addStep}
 				sx={{
 					display: "flex",
 					alignItems: "center",
@@ -48,6 +65,7 @@ const TaskPanelContent = () => {
 					pl: 1.5,
 					// ml: 1.2,
 					":hover": { bgcolor: "#ddd" },
+					cursor: "pointer",
 				}}
 				// boxShadow={1}
 			>

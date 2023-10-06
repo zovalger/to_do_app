@@ -13,8 +13,8 @@ export const getTaskLocalStorage = (_id: string): TaskData | null => {
 	return JSON.parse(data);
 };
 
-export const setTaskLocalStorage = (Task: TaskData) => {
-	const { _id } = Task;
+export const setTaskLocalStorage = (_id: string,Task: TaskData) => {
+
 
 	const data = JSON.stringify(Task);
 

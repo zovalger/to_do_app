@@ -11,24 +11,73 @@ import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUnc
 import { useTheme } from "@mui/material/styles";
 import { TextField } from "@mui/material";
 
-import { StepTask } from "@/types";
+import { StepTaskData } from "@/types";
+import { useTaskContext } from "@/app/contexts/Task.context";
+import { updateStepOfTask } from "@/app/helper/Task.helper";
 
 interface props {
-	data: StepTask;
+	data: StepTaskData;
 }
 
 const StepTask = ({ data }: props) => {
-	const theme = useTheme();
+	const { taskEditing, setTaskEditing } = useTaskContext();
 
-	const [open, setOpen] = useState(true);
-	const [openNav, setOpenNav] = useState(false);
+	const { _id, complete, title } = data;
 
-	const [hoverCheck, setHoverCheck] = useState(false);
-	const [important, setImportant] = useState(false);
+	// *************************** modificacion de titulo ***************************
+	const [titleValue, setTitleValue] = useState("");
+	const [titleEditing, setTitleEditing] = useState(!title);
 
-	const handdleOpenNav = () => {
-		setOpenNav(!openNav);
+	const onClickTitle = () => {
+		if (!taskEditing) return;
+
+		setTitleEditing(true);
+		setTitleValue(title.trim());
 	};
+
+	const changeTitle = (value: string) => {
+		setTitleValue(value);
+	};
+
+	const saveTitle = () => {
+		if (!taskEditing) return;
+		if (!title.trim() && !titleValue.trim()) return;
+
+		const newTask = updateStepOfTask(taskEditing, _id, {
+			...data,
+			title: titleValue,
+		});
+
+		setTaskEditing(newTask);
+
+		setTitleEditing(false);
+		setTitleValue("");
+	};
+
+	// *************************** completado ***************************
+
+	const handleComplete = () => {
+		if (!taskEditing) return;
+
+		const newTask = updateStepOfTask(taskEditing, _id, {
+			...data,
+			complete: !complete,
+		});
+
+		setTaskEditing(newTask);
+	};
+
+	// *************************** estetica ***************************
+
+	const [checkHover, setCheckHover] = useState(false);
+
+	const completeIcon = complete ? (
+		<CheckCircleOutlinedIcon />
+	) : checkHover ? (
+		<CheckCircleOutlinedIcon />
+	) : (
+		<RadioButtonUncheckedOutlinedIcon />
+	);
 
 	return (
 		<>
@@ -45,23 +94,29 @@ const StepTask = ({ data }: props) => {
 				}}
 			>
 				<IconButton
-					onMouseEnter={() => {
-						setHoverCheck(true);
-					}}
-					onMouseLeave={() => {
-						setHoverCheck(false);
-					}}
+					onClick={handleComplete}
+					onMouseEnter={() => setCheckHover(true)}
+					onMouseLeave={() => setCheckHover(false)}
 				>
-					{hoverCheck ? (
-						<CheckCircleOutlinedIcon />
-					) : (
-						<RadioButtonUncheckedOutlinedIcon />
-					)}
+					{completeIcon}
 				</IconButton>
 
-				<Typography sx={{ flexGrow: 1, fontSize: 13 }}>
-					Lorem ipsum, dolor sit amet consectetur adipisicing.
-				</Typography>
+				{titleEditing ? (
+					<TextField
+						value={titleValue}
+						onChange={({ target: { value } }) => changeTitle(value)}
+						onKeyDown={(e) => {
+							if (e.key === "Enter") saveTitle();
+						}}
+						onBlur={saveTitle}
+						autoFocus
+						size="small"
+					/>
+				) : (
+					<Typography onClick={onClickTitle} sx={{ flexGrow: 1, fontSize: 13 }}>
+						{title}
+					</Typography>
+				)}
 
 				<IconButton color="secondary">
 					<MoreVertIcon />
