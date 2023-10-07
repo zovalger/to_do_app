@@ -1,6 +1,7 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
+	InputBase,
 	ListItemButton,
 	ListItemIcon,
 	ListItemText,
@@ -23,6 +24,7 @@ import TaskPanelHeader from "./TaskPanelHeader";
 import { addStepToTask, updateTaskInArr } from "@/app/helper/Task.helper";
 import { deleteTask, updateTask } from "@/app/services/TasksService";
 import { setTasksLocalStorage } from "@/app/services/offline/TasksOffline";
+import ButtonDate from "./ButtonDate";
 
 const TaskPanelContent = () => {
 	const { tasks, setTasks, taskEditing, setTaskEditing } = useTaskContext();
@@ -67,6 +69,8 @@ const TaskPanelContent = () => {
 		setTasksLocalStorage(newTask);
 		setTasks(newTask);
 	};
+
+	const [date, setDate] = useState<Date>();
 
 	return (
 		<>
@@ -134,16 +138,19 @@ const TaskPanelContent = () => {
 					<ListItemText primary={"Agregar a mi día"} />
 				</ListItemButton>
 
+				<Box sx={{ px: 2, py: 2 }}>
+					<ButtonDate />
+				</Box>
 				<Box sx={{ px: 2 }}>
 					<TextField
 						id="outlined-multiline-flexible"
-						label="Multiline"
+						label="Nota"
 						multiline
-						maxRows={4}
+						maxRows={8}
+						minRows={4}
 						fullWidth
 						// sx={{mx:1}}
 					/>
-					<TextField type="date" fullWidth />
 				</Box>
 			</Box>
 
