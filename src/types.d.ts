@@ -45,8 +45,8 @@ export interface TaskData {
 	title: string;
 	steps: StepTaskData[];
 	note: string;
-	remindMe: Date;
-	dueDate: Date;
+	remindMe: Date | null;
+	dueDate: Date | null;
 	repeat: RepeatFrequency;
 	myDay: Date | null;
 	complete: boolean;

@@ -25,6 +25,8 @@ import { addStepToTask, updateTaskInArr } from "@/app/helper/Task.helper";
 import { deleteTask, updateTask } from "@/app/services/TasksService";
 import { setTasksLocalStorage } from "@/app/services/offline/TasksOffline";
 import ButtonDate from "./ButtonDate";
+import { TaskData } from "@/types";
+import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 
 const TaskPanelContent = () => {
 	const { tasks, setTasks, taskEditing, setTaskEditing } = useTaskContext();
@@ -70,7 +72,14 @@ const TaskPanelContent = () => {
 		setTasks(newTask);
 	};
 
-	const [date, setDate] = useState<Date>();
+	// *********************** Fechas ***********************
+	const ChangeDueDate = (dueDate: Date | null) => {
+		if (!taskEditing) return;
+
+		const newTask: TaskData = { ...taskEditing, dueDate };
+
+		setTaskEditing(newTask);
+	};
 
 	return (
 		<>
@@ -113,34 +122,38 @@ const TaskPanelContent = () => {
 
 				<Divider />
 
-				<ListItemButton
-					onClick={toggleInMyDay}
-					selected={
-						!!taskEditing &&
-						!!taskEditing.myDay &&
-						moment().isSame(taskEditing.myDay, "day")
-					}
+				<Box
 					sx={{
-						["&"]: { pl: 0, my: 1 },
-						["& .MuiListItemIcon-root .MuiSvgIcon-root"]: { mx: 2 },
+						["& .MuiListItemButton-root"]: { pl: 0, my: 1 },
+						["& .MuiListItemIcon-root .MuiSvgIcon-root"]: {
+							fontSize: 18,
+							mx: 2,
+						},
 						["& .MuiTypography-root"]: { fontSize: 13 },
 					}}
 				>
-					<ListItemIcon>
-						<WbSunnyOutlinedIcon
-							sx={{
-								fontSize: 18,
-								mx: 1.3,
-							}}
-						/>
-					</ListItemIcon>
+					<ListItemButton
+						onClick={toggleInMyDay}
+						selected={
+							!!taskEditing &&
+							!!taskEditing.myDay &&
+							moment().isSame(taskEditing.myDay, "day")
+						}
+					>
+						<ListItemIcon>
+							<WbSunnyOutlinedIcon sx={{}} />
+						</ListItemIcon>
 
-					<ListItemText primary={"Agregar a mi día"} />
-				</ListItemButton>
+						<ListItemText primary={"Agregar a mi día"} />
+					</ListItemButton>
 
-				<Box sx={{ px: 2, py: 2 }}>
-					<ButtonDate />
+					<ButtonDate
+						Icon={<CalendarMonthOutlinedIcon />}
+						onChange={ChangeDueDate}
+						value={taskEditing?.dueDate}
+					/>
 				</Box>
+
 				<Box sx={{ px: 2 }}>
 					<TextField
 						id="outlined-multiline-flexible"
