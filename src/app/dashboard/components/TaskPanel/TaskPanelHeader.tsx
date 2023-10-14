@@ -62,7 +62,15 @@ const TaskPanelHeader = () => {
 	// *************************** render ***************************
 
 	return (
-		<Box sx={{ position: "sticky", top: 0, bgcolor: "#fff", zIndex: 1 }}>
+		<Box
+			sx={{
+				position: "sticky",
+				top: 0,
+				bgcolor: "#fff",
+				zIndex: 1,
+				overflowX: "hidden",
+			}}
+		>
 			<Box sx={{ display: "flex", justifyContent: "flex-end", pr: 0.8 }}>
 				<IconButton onClick={handleClose}>
 					<CloseOutlinedIcon sx={{ fontSize: 18 }} />
@@ -75,7 +83,6 @@ const TaskPanelHeader = () => {
 					py: 0.7,
 					px: 0.5,
 					mb: 0,
-
 					"& .MuiSvgIcon-root": {
 						fontSize: 20,
 					},

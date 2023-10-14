@@ -1,3 +1,4 @@
+"use client";
 import React, { ReactElement, useRef, useState } from "react";
 import moment, { Moment } from "moment";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
@@ -41,6 +42,14 @@ const ButtonDate = ({ Icon, value, onChange }: props) => {
 		setOpenCalendar(!openCalendar);
 	};
 
+	const getFirstDayOfNextWeek = () => {
+		const today = moment();
+		const nextWeek = today.clone().add(1, "week");
+		const firstDayOfNextWeek = nextWeek.startOf("isoWeek");
+
+		return firstDayOfNextWeek;
+	};
+
 	return (
 		<>
 			<ListItemButton
@@ -79,6 +88,7 @@ const ButtonDate = ({ Icon, value, onChange }: props) => {
 					onClick={() => {
 						handleCloseMoreButton();
 						// handleClickOpenConfirmDelete();
+						onChange(new Date(moment().startOf("day").format()));
 					}}
 				>
 					<ListItemIcon>
@@ -91,6 +101,7 @@ const ButtonDate = ({ Icon, value, onChange }: props) => {
 					onClick={() => {
 						handleCloseMoreButton();
 						// handleClickOpenConfirmDelete();
+						onChange(new Date(moment().add(1, "day").startOf("day").format()));
 					}}
 				>
 					<ListItemIcon>
@@ -103,6 +114,9 @@ const ButtonDate = ({ Icon, value, onChange }: props) => {
 					onClick={() => {
 						handleCloseMoreButton();
 						// handleClickOpenConfirmDelete();
+						onChange(
+							new Date(moment().add(1, "week").startOf("isoWeek").format())
+						);
 					}}
 				>
 					<ListItemIcon>
@@ -124,7 +138,7 @@ const ButtonDate = ({ Icon, value, onChange }: props) => {
 
 			{openCalendar && (
 				<DatePicker
-					sx={{ position: "absolute",opacity:0 }}
+					sx={{ position: "absolute", opacity: 0 }}
 					open={openCalendar}
 					onAccept={() => toggleCalendar()}
 					onClose={() => toggleCalendar()}
