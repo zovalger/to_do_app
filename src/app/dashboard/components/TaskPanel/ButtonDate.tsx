@@ -7,14 +7,19 @@ import TodayOutlinedIcon from "@mui/icons-material/TodayOutlined";
 import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
 import FastForwardOutlinedIcon from "@mui/icons-material/FastForwardOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+
 import {
+	Box,
 	Divider,
+	IconButton,
 	ListItemButton,
 	ListItemIcon,
 	ListItemText,
 	Menu,
 	MenuItem,
 	SvgIconTypeMap,
+	Tooltip,
 } from "@mui/material";
 import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
 import { DatePicker, DateTimePicker } from "@mui/x-date-pickers";
@@ -42,28 +47,48 @@ const ButtonDate = ({ Icon, value, onChange }: props) => {
 		setOpenCalendar(!openCalendar);
 	};
 
-	const getFirstDayOfNextWeek = () => {
-		const today = moment();
-		const nextWeek = today.clone().add(1, "week");
-		const firstDayOfNextWeek = nextWeek.startOf("isoWeek");
-
-		return firstDayOfNextWeek;
+	const handleDelete = () => {
+		onChange(null);
 	};
 
 	return (
 		<>
-			<ListItemButton
-				onClick={handleClickMoreButton}
-				// selected={
-				// 	!!taskEditing &&
-				// 	!!taskEditing.myDay &&
-				// 	moment().isSame(taskEditing.myDay, "day")
-				// }
+			<Box
+				sx={{
+					display: "flex",
+				}}
 			>
-				<ListItemIcon>{Icon}</ListItemIcon>
+				<ListItemButton
+					sx={{ flexGrow: 1 }}
+					onClick={handleClickMoreButton}
+					selected={!!value}
+				>
+					<ListItemIcon>{Icon}</ListItemIcon>
 
-				<ListItemText primary={"Fecha de vencimiento"} />
-			</ListItemButton>
+					<ListItemText
+						color="primary"
+						primary={"Fecha de vencimiento"}
+						secondary={value && moment(value).format("DD-MM-YYYY")}
+					/>
+				</ListItemButton>
+
+				{value && (
+					<Tooltip title="Eliminar Fecha">
+						<IconButton
+							onClick={handleDelete}
+							sx={{
+								borderRadius: 0,
+								flexShrink: 0,
+								width: 48,
+								my: 1,
+							}}
+							color="inherit"
+						>
+							<DeleteOutlinedIcon />
+						</IconButton>
+					</Tooltip>
+				)}
+			</Box>
 
 			<Menu
 				id="More-option-list"
@@ -126,7 +151,12 @@ const ButtonDate = ({ Icon, value, onChange }: props) => {
 				</MenuItem>
 				<Divider />
 
-				<MenuItem onClick={() => toggleCalendar()}>
+				<MenuItem
+					onClick={() => {
+						handleCloseMoreButton();
+						toggleCalendar();
+					}}
+				>
 					<ListItemIcon>
 						<CalendarMonthOutlinedIcon fontSize="small" />
 					</ListItemIcon>

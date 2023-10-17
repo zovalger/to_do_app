@@ -81,6 +81,23 @@ const TaskPanelContent = () => {
 		setTaskEditing(newTask);
 	};
 
+	// *********************** notas ***********************
+
+	const [noteValue, setNoteValue] = useState<string>(taskEditing?.note || "");
+	const onChangeNote = (note: string) => setNoteValue(note);
+
+	const SaveNote = () => {
+		if (!taskEditing) return;
+
+		const note = noteValue.trim();
+
+		if (taskEditing.note == note) return;
+
+		const newTask: TaskData = { ...taskEditing, note };
+
+		setTaskEditing(newTask);
+	};
+
 	return (
 		<>
 			<Box
@@ -156,12 +173,17 @@ const TaskPanelContent = () => {
 
 				<Box sx={{ px: 2 }}>
 					<TextField
-						id="outlined-multiline-flexible"
 						label="Nota"
 						multiline
 						maxRows={8}
 						minRows={4}
 						fullWidth
+						value={noteValue}
+						onChange={({ target: { value } }) => onChangeNote(value)}
+						onBlur={SaveNote}
+						inputProps={{ style: { fontSize: 13 } }}
+						sx={{mt:2}}
+						// sx={{fontSize:13}}
 						// sx={{mx:1}}
 					/>
 				</Box>
