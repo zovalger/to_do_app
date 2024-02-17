@@ -1,15 +1,15 @@
 import { v4 as uuid } from "uuid";
-import { DefaultStepTask } from "@/defaultValues";
+// import { DefaultStepTask } from "@/defaultValues";
 import { SmartListsIds } from "@/enums";
-import { StepTaskData, TaskData } from "@/types";
+import { StepTaskAttributes, TaskAttributes } from "@/types";
 import moment from "moment";
 
 // ************************** by smart list  *************************
 
 export const taskBySmartList = (
-	tasks: TaskData[],
+	tasks: TaskAttributes[],
 	listId: string | null
-): TaskData[] | null => {
+): TaskAttributes[] | null => {
 	if (listId == SmartListsIds.myDay)
 		return tasks.filter((t) => !!t.myDay && moment().isSame(t.myDay, "day"));
 
@@ -17,16 +17,16 @@ export const taskBySmartList = (
 		return tasks.filter((t) => t.important);
 
 	if (listId == SmartListsIds.todo) return tasks;
-	
+
 	if (listId == SmartListsIds.complete) return tasks.filter((t) => t.complete);
 
 	return null;
 };
 
 export const taskByListId = (
-	tasks: TaskData[],
+	tasks: TaskAttributes[],
 	listId: string | null
-): TaskData[] => {
+): TaskAttributes[] => {
 	if (!listId) return [];
 
 	const bySmartList = taskBySmartList(tasks, listId);
@@ -38,17 +38,24 @@ export const taskByListId = (
 
 // ************************** steps *************************
 
-export const addStepToTask = (task: TaskData): TaskData => {
+export const addStepToTask = (task: TaskAttributes): TaskAttributes => {
 	const { steps } = task;
 
-	return { ...task, steps: [...steps, { ...DefaultStepTask, _id: uuid() }] };
+	return {
+		...task,
+		steps: [
+			...steps,
+
+			// { ...DefaultStepTask, _id: uuid() }
+		],
+	};
 };
 
 export const updateStepOfTask = (
-	task: TaskData,
+	task: TaskAttributes,
 	stepId: string,
-	step: StepTaskData
-): TaskData => {
+	step: StepTaskAttributes
+): TaskAttributes => {
 	const { steps } = task;
 
 	const newSteps = steps.map((s) => (s._id !== stepId ? s : step));
@@ -59,9 +66,9 @@ export const updateStepOfTask = (
 // ************************** arrays *************************
 
 export const updateTaskInArr = (
-	tasks: TaskData[],
+	tasks: TaskAttributes[],
 	_id: string,
-	task: TaskData
-): TaskData[] => {
+	task: TaskAttributes
+): TaskAttributes[] => {
 	return tasks.map((t) => (t._id != _id ? t : task));
 };

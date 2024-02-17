@@ -1,5 +1,5 @@
 import { SmartListsIds, SmartListsLabels } from "@/enums";
-import { ListData } from "@/types";
+import { ListAttributes } from "@/types";
 
 export const getSmartListName = (smartListId: string|null): string | null => {
 	if(smartListId == null ) return null
@@ -29,7 +29,7 @@ export const getSmartListName = (smartListId: string|null): string | null => {
 };
 
 
-export const getNameList = (lists: ListData[], _id: string | null): string => {
+export const getNameList = (lists: ListAttributes[], _id: string | null): string => {
 	const smartTitle = _id && getSmartListName(_id);
 	const currentList = lists.find((l) => l._id == _id)?.title;
 
@@ -37,10 +37,10 @@ export const getNameList = (lists: ListData[], _id: string | null): string => {
 };
 
 export const uptadeListInArray = (
-	lists: ListData[],
+	lists: ListAttributes[],
 	_id: string,
-	list: ListData
-): ListData[] => {
+	list: ListAttributes
+): ListAttributes[] => {
 	const oldListIndex = lists.findIndex((l) => l._id === _id);
 
 	if (oldListIndex >=0) {

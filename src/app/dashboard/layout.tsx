@@ -1,10 +1,9 @@
-"use client"
+"use client";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 
-import { GlobalContextProvider } from "../contexts/Global.context";
-import { ListAndGroupContextProvider } from "../contexts/ListAndGroup.context";
-import { TaskContextProvider } from "../contexts/Task.context";
+import { Provider } from "react-redux";
+import { store } from "@/redux/store";
 
 export default function DashboardLayout({
 	children,
@@ -13,11 +12,7 @@ export default function DashboardLayout({
 }) {
 	return (
 		<LocalizationProvider dateAdapter={AdapterMoment}>
-			<GlobalContextProvider>
-				<ListAndGroupContextProvider>
-					<TaskContextProvider>{children}</TaskContextProvider>
-				</ListAndGroupContextProvider>
-			</GlobalContextProvider>
+			<Provider store={store}>{children}</Provider>
 		</LocalizationProvider>
 	);
 }

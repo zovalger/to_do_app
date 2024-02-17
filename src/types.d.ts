@@ -1,17 +1,28 @@
+export interface userAttributes {
+	_id: string;
+	firstName: string;
+	lastName: string;
+	username: string;
+	email: string;
+	password: string;
+	// role: Roles;
+	token: string;
+}
+
 // ************************************************
 // 										Lists
 // ************************************************
 
 import { Frequencys } from "./enums";
 
-export interface ListGroupData {
+export interface ListGroupAttributes {
 	_id: string;
 	title: string;
 	lists: string[];
 	userId: string;
 }
 
-export interface ListData {
+export interface ListAttributes {
 	_id: string;
 	title: string;
 	userId: string;
@@ -28,7 +39,7 @@ export interface FileSchema {
 	publicId: string;
 }
 
-export interface StepTaskData {
+export interface StepTaskAttributes {
 	_id: string;
 	title: string;
 	complete: boolean;
@@ -40,10 +51,10 @@ export interface RepeatFrequency {
 	// days:
 }
 
-export interface TaskData {
+export interface TaskAttributes {
 	_id: string;
 	title: string;
-	steps: StepTaskData[];
+	steps: StepTaskAttributes[];
 	note: string;
 	remindMe: Date | null;
 	dueDate: Date | null;

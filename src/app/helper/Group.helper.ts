@@ -1,15 +1,15 @@
-import { ListData, ListGroupData } from "@/types";
+import { ListAttributes, ListGroupAttributes } from "@/types";
 
 export const orderGroupAndList = () => {};
 
 export const formateGroups = (
-	listGroups: ListGroupData[],
-	lists: ListData[]
-): { groupAndLists: [ListGroupData, ListData[]][]; restLists: ListData[] } => {
+	listGroups: ListGroupAttributes[],
+	lists: ListAttributes[]
+): { groupAndLists: [ListGroupAttributes, ListAttributes[]][]; restLists: ListAttributes[] } => {
 	let restLists = lists;
 
-	const groupAndLists = listGroups.map((group): [ListGroupData, ListData[]] => {
-		const toThisGroup: ListData[] = [];
+	const groupAndLists = listGroups.map((group): [ListGroupAttributes, ListAttributes[]] => {
+		const toThisGroup: ListAttributes[] = [];
 
 		const newRest = restLists.filter((item) => {
 			const res = group.lists.includes(item._id);
@@ -31,10 +31,10 @@ export const formateGroups = (
 };
 
 export const getRemainingLists = (
-	listGroups: ListGroupData[],
-	lists: ListData[]
-): ListData[] => {
-	const listsUngrouped: ListData[] = [];
+	listGroups: ListGroupAttributes[],
+	lists: ListAttributes[]
+): ListAttributes[] => {
+	const listsUngrouped: ListAttributes[] = [];
 
 	listGroups.map((g) =>
 		lists.map((l) => {
