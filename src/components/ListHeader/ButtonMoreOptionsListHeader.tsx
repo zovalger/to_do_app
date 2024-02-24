@@ -72,7 +72,7 @@ const ButtonMoreOptionsListHeader = () => {
 		<>
 			<IconButton
 				onClick={handleClickOpen}
-				sx={{ bgcolor: "#fff0" }}
+			
 				size="small"
 			>
 				<MoreHorizOutlinedIcon />

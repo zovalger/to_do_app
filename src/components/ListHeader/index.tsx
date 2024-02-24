@@ -20,8 +20,6 @@ const ListHeader = () => {
 
 	// if (!listSelected) return <></>;
 
-	const taskEditing = true;
-
 	return (
 		<>
 			<Box
@@ -41,9 +39,10 @@ const ListHeader = () => {
 					},
 
 					px: 3,
-					pb: 1,
+					pb: 1.2,
 					pt: 1,
-					backdropFilter: "blur(16px)",
+					color: "#fff",
+					// backdropFilter: "blur(16px)",
 					// bgcolor: "#fff8",
 				}}
 				// boxShadow={3}
@@ -63,24 +62,38 @@ const ListHeader = () => {
 						sx={{
 							ml: "auto",
 							".MuiButtonBase-root": {
-								ml: 1,
+								ml: 2,
 								borderRadius: 1,
-								bgcolor: "#fff8",
+								p: 0.6,
+							},
+							".MuiSvgIcon-root": {
+								fontSize: 19,
 							},
 						}}
 					>
-						<IconButton size="small">
-							<PersonAddAlt1Icon />
-						</IconButton>
+						<Box
+							sx={{
+								ml: "auto",
+								".MuiButtonBase-root": {
+									bgcolor: "#fff8",
+								},
+							}}
+							component="span"
+						>
+							<IconButton size="small">
+								<PersonAddAlt1Icon />
+							</IconButton>
 
-						<IconButton size="small">
-							<EmojiObjectsIcon />
-						</IconButton>
+							<IconButton size="small">
+								<EmojiObjectsIcon />
+							</IconButton>
+						</Box>
 
 						<ButtonMoreOptionsListHeader />
 					</Box>
 				</Box>
-				<Typography component="div" sx={{ fontSize: 13 }}>
+
+				<Typography component="div" sx={{ fontSize: 13, mt: 1 }}>
 					{new Date().toDateString()}
 				</Typography>
 			</Box>
