@@ -1,137 +1,161 @@
-import React from "react";
+import React, { useState } from "react";
+import { FormatListBulletedOutlined } from "@mui/icons-material";
+import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import PlaylistRemoveIcon from "@mui/icons-material/PlaylistRemove";
+import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
+import PrintIcon from "@mui/icons-material/Print";
+import EmailIcon from "@mui/icons-material/Email";
+import PushPinIcon from "@mui/icons-material/PushPin";
+import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
+import Divider from "@mui/material/Divider";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-import { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
 import { ListItemIcon, Menu, MenuItem } from "@mui/material";
 
-import { getNameList,  } from "@/app/helper/List.helper";
-
+import { getNameList } from "@/app/helper/List.helper";
 
 const ButtonMoreOptionsListHeader = () => {
-	// const { lists, setLists, listSelected } = useListAndGroupContext();
-	// const { tasks, setTasks } = useTaskContext();
+	// ****************** Menu Desplegable de opciones ******************
 
-	// **************************** menu desplegable ****************************
-	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+	const openMoreOptions = Boolean(anchorEl);
 
-	const openMoreButton = Boolean(anchorEl);
-
-	const handleClickMoreButton = (event: React.MouseEvent<HTMLButtonElement>) =>
+	// todo: agregar accesibilidad para el movil (mantener pulsado)
+	const handleClickOpen = (
+		event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>
+	) => {
+		event.preventDefault();
+		event.stopPropagation();
 		setAnchorEl(event.currentTarget);
-
-	const handleCloseMoreButton = () => setAnchorEl(null);
-
-	// **************************** menu eliminar ****************************
-
-	const [openConfirmDelete, setOpenConfirmDelete] = useState(false);
-
-	const handleClickOpenConfirmDelete = () => {
-		setOpenConfirmDelete(true);
 	};
 
-	const handleCloseConfirmDelete = () => {
-		setOpenConfirmDelete(false);
+	const handleCloseMoreOptions = () => {
+		setAnchorEl(null);
+	};
+	// ****************** Cambio de nombre ******************
+
+	const handleSubmit = async () => {
+		// const newGroup = await updateListGroup(_id, { ...data, title: inputValue });
+		// const newGroupsList = listGroups.map((g) => (g._id === _id ? newGroup : g));
+		// setListGroups(newGroupsList);
+		// setListGroupsLocalStorage(newGroupsList);
+		// handleResetRename();
 	};
 
-	const handleDelete = async () => {
-		// if (!listSelected) return;
+	/* ************************* Agregar/quitar listas ****************************** */
 
-		// const newLists = await deleteList(lists, listSelected);
+	const [openListContened, setOpenListContened] = React.useState(false);
 
-		// setLists(newLists);
-
-		// const newTasks = await deleteTaskByListId(tasks, listSelected);
-
-		// setTasks(newTasks);
-
-		// handleCloseConfirmDelete();
+	const handleCloseListContened = () => {
+		setOpenListContened(false);
 	};
 
-	// **************************** render ****************************
+	// ****************** Eliminacion ******************
 
-	// if (!listSelected) return <></>;
+	const handleDeleteGroup = async () => {
+		// todo: eliminar grupo
+		// const newGroupsList = await deleteListGroup(listGroups, _id);
+		// setListGroups(newGroupsList);
+	};
 
-	const title =  "22222" // getNameList(lists, listSelected);
+	const onClick = () => {
+		// setListSelected(_id);
+		// handleAsidePanelToggle()
+	};
+
+	const title = "22222"; // getNameList(lists, listSelected);
 
 	return (
 		<>
-			<IconButton onClick={handleClickMoreButton} sx={{ borderRadius: 0 }}>
+			<IconButton
+				onClick={handleClickOpen}
+				sx={{ bgcolor: "#fff0" }}
+				size="small"
+			>
 				<MoreHorizOutlinedIcon />
 			</IconButton>
 
 			<Menu
-				id="More-option-list"
+				id="basic-menu"
 				anchorEl={anchorEl}
-				open={openMoreButton}
-				onClose={handleCloseMoreButton}
+				anchorOrigin={{
+					vertical: "top",
+					horizontal: "center",
+				}}
+				transformOrigin={{
+					vertical: "bottom",
+					horizontal: "center",
+				}}
+				open={openMoreOptions}
+				onClose={handleCloseMoreOptions}
 				MenuListProps={{
 					"aria-labelledby": "basic-button",
 				}}
-				anchorOrigin={{
-					vertical: "bottom",
-					horizontal: "right",
-				}}
-				transformOrigin={{
-					vertical: "top",
-					horizontal: "right",
-				}}
 			>
-				{/* // todo: hacer que el boton cambiar nombre funcione */}
-				{/* <MenuItem
-					onClick={() => {
-						// handleCloseMoreButton();
-						// handleClickOpenConfirmDelete();
-					}}
-				>
+				<MenuItem>
 					<ListItemIcon>
-						<DriveFileRenameOutlineOutlinedIcon fontSize="small" />
+						<DriveFileRenameOutlineIcon fontSize="small" />
 					</ListItemIcon>
-					Cambiar nombre
-				</MenuItem> */}
+					Cambiar el nombre de la lista
+				</MenuItem>
 
-				<MenuItem
-					onClick={() => {
-						handleCloseMoreButton();
-						handleClickOpenConfirmDelete();
-					}}
-				>
+				<MenuItem>
 					<ListItemIcon>
-						<DeleteOutlineOutlinedIcon fontSize="small" />
+						<AccountCircleIcon fontSize="small" />
+					</ListItemIcon>
+					Compartir la lista
+				</MenuItem>
+
+				<MenuItem>
+					<ListItemIcon>
+						<PlaylistAddIcon fontSize="small" />
+					</ListItemIcon>
+					Mover la lista a…
+				</MenuItem>
+
+				<MenuItem>
+					<ListItemIcon>
+						<PlaylistRemoveIcon fontSize="small" />
+					</ListItemIcon>
+					Quitar del grupo
+				</MenuItem>
+				<MenuItem>
+					<ListItemIcon>
+						<PrintIcon fontSize="small" />
+					</ListItemIcon>
+					Imprimir esta lista
+				</MenuItem>
+				<MenuItem>
+					<ListItemIcon>
+						<EmailIcon fontSize="small" />
+					</ListItemIcon>
+					Enviar lista por correo electrónico
+				</MenuItem>
+				<MenuItem>
+					<ListItemIcon>
+						<PushPinIcon fontSize="small" />
+					</ListItemIcon>
+					Anclar a inicio
+				</MenuItem>
+				<MenuItem>
+					<ListItemIcon>
+						<LibraryAddIcon fontSize="small" />
+					</ListItemIcon>
+					Duplicar lista
+				</MenuItem>
+
+				<Divider />
+
+				<MenuItem sx={{ color: "red" }}>
+					<ListItemIcon sx={{ color: "red" }}>
+						<DeleteIcon fontSize="small" />
 					</ListItemIcon>
 					Eliminar lista
 				</MenuItem>
 			</Menu>
-
-			<Dialog
-				open={openConfirmDelete}
-				onClose={handleCloseConfirmDelete}
-				aria-labelledby="alert-dialog-title"
-				aria-describedby="alert-dialog-description"
-			>
-				{/* <DialogTitle id="alert-dialog-title" >
-					Seguro que quiere eliminar {title}
-				</DialogTitle> */}
-				<DialogContent>
-					{/* <DialogContentText id="alert-dialog-description">
-					Seguro que quiere eliminar {title}
-					</DialogContentText> */}
-					{`Seguro que quiere eliminar "${title}"`}
-				</DialogContent>
-				<DialogActions>
-					<Button onClick={handleCloseConfirmDelete} autoFocus>
-						Cancelar
-					</Button>
-					<Button onClick={handleDelete} color="error">
-						Eliminar
-					</Button>
-				</DialogActions>
-			</Dialog>
 		</>
 	);
 };

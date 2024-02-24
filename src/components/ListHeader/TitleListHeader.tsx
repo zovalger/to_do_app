@@ -64,9 +64,14 @@ const TitleListHeader = () => {
 			}}
 		/>
 	) : (
-		<Typography onClick={() => handleClickTitle()} variant="h5" component="div">
+		<Typography
+			onClick={() => handleClickTitle()}
+			variant="h5"
+			component="div"
+			sx={{ fontWeight: 600 }}
+		>
 			{
-				"titulo " //title
+				"Titulo " //title
 			}
 		</Typography>
 	);

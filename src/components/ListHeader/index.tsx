@@ -3,15 +3,18 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+import EmojiObjectsIcon from "@mui/icons-material/EmojiObjects";
 
-import { TaskPanelWidth, ToDoNavWidth } from "@/config/UISettings";
 import TitleListHeader from "./TitleListHeader";
 import ButtonMoreOptionsListHeader from "./ButtonMoreOptionsListHeader";
+import { useAppSelector } from "@/redux/store";
 
 const ListHeader = () => {
 	// const { handleAsidePanelToggle } = useGlobalContext();
 	// const { listSelected } = useListAndGroupContext();
 	// const {taskEditing} = useTaskContext()
+	const UI_Settings = useAppSelector((e) => e.UI_Settings);
 
 	// **************************** render ****************************
 
@@ -29,26 +32,51 @@ const ListHeader = () => {
 
 					top: 0,
 
-					ml: { xs: 0, sm: `${ToDoNavWidth}px` },
-					mr: { xs: 0, sm: taskEditing ? `${TaskPanelWidth}px` : "" },
+					ml: { xs: 0, sm: `${UI_Settings.leftPanelWitdh}px` },
+					mr: {
+						xs: 0,
+						sm: UI_Settings.rightPanelOpen
+							? `${UI_Settings.rightPanelWitdh}px`
+							: "",
+					},
 
 					px: 3,
 					pb: 1,
+					pt: 1,
 					backdropFilter: "blur(16px)",
-					bgcolor: "#fff8",
+					// bgcolor: "#fff8",
 				}}
 				// boxShadow={3}
 			>
 				<Box sx={{ display: { xs: "block", sm: "none" } }}>
-					<IconButton edge="start">
+					<IconButton edge="start" sx={{ borderRadius: 1 }} size="small">
 						<MenuIcon />
 					</IconButton>
 				</Box>
 
-				<Box sx={{ display: "flex", pt: { xs: 0, sm: 2 } }}>
+				<Box
+					sx={{ display: "flex", alignItems: "center", pt: { xs: 0, sm: 2 } }}
+				>
 					<TitleListHeader />
 
-					<Box sx={{ ml: "auto" }}>
+					<Box
+						sx={{
+							ml: "auto",
+							".MuiButtonBase-root": {
+								ml: 1,
+								borderRadius: 1,
+								bgcolor: "#fff8",
+							},
+						}}
+					>
+						<IconButton size="small">
+							<PersonAddAlt1Icon />
+						</IconButton>
+
+						<IconButton size="small">
+							<EmojiObjectsIcon />
+						</IconButton>
+
 						<ButtonMoreOptionsListHeader />
 					</Box>
 				</Box>
