@@ -23,6 +23,7 @@ const ListContainedEditor = ({ open,onClose, listGroup, lists }: props) => {
 
 	/* ************************* Agregar/quitar listas ****************************** */
 
+	// todo: gestionar las listas desde aca
 
 
 	return (

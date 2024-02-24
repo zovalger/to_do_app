@@ -39,9 +39,11 @@ const GroupListInNav = ({ data, lists }: props) => {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 	const openMoreOptions = Boolean(anchorEl);
 
-	const handleClickMoreButton = (
-		event: React.MouseEvent<HTMLButtonElement>
+	// todo: agregar accesibilidad para el movil (mantener pulsado)
+	const handleRightClick = (
+		event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>
 	) => {
+		event.preventDefault();
 		event.stopPropagation();
 		setAnchorEl(event.currentTarget);
 	};
@@ -137,15 +139,12 @@ const GroupListInNav = ({ data, lists }: props) => {
 					transition: "0.2s",
 				}}
 			/>
-			<IconButton edge={"end"} onClick={handleClickMoreButton}>
-				<MoreVertOutlinedIcon />
-			</IconButton>
 		</>
 	);
 
 	return (
 		<>
-			<Box>
+			<Box onContextMenu={handleRightClick}>
 				<ListItemButton onClick={() => setUngrouped(!ungrouped)}>
 					<ListItemIcon>
 						<SourceOutlinedIcon />
@@ -164,6 +163,14 @@ const GroupListInNav = ({ data, lists }: props) => {
 			<Menu
 				id="basic-menu"
 				anchorEl={anchorEl}
+				anchorOrigin={{
+					vertical: "top",
+					horizontal: "center",
+				}}
+				transformOrigin={{
+					vertical: "bottom",
+					horizontal: "center",
+				}}
 				open={openMoreOptions}
 				onClose={handleCloseMoreOptions}
 				MenuListProps={{

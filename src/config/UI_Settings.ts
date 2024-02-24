@@ -1,7 +1,7 @@
 import colors from "./colors";
 
 const UI_Settings = {
-	leftPanelWitdh: 200,
+	leftPanelWitdh: 280,
 	leftPanelOpen: false,
 	rightPanelWitdh: 300,
 	rightPanelOpen: false,

@@ -15,6 +15,7 @@ const ToDoNav = () => {
 				variant="permanent"
 				sx={{
 					maxWidth: ToDoNavWidth,
+					width: ToDoNavWidth,
 					[theme.breakpoints.down("sm")]: {
 						display: "none",
 					},
@@ -32,6 +33,7 @@ const ToDoNav = () => {
 				}}
 				sx={{
 					maxWidth: ToDoNavWidth,
+					width: ToDoNavWidth,
 					[theme.breakpoints.up("sm")]: {
 						display: "none",
 					},

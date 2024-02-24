@@ -2,17 +2,19 @@
 import { useState } from "react";
 import Box from "@mui/material/Box";
 
-import { TaskPanelWidth, ToDoNavWidth } from "@/config/UISettings";
 import { taskByListId } from "../helper/Task.helper";
 import ToDoNav from "@/components/ToDoNav";
 import ListHeader from "@/components/ListHeader";
 import ListFooter from "@/components/ListFooter";
 import TaskPanel from "@/components/TaskPanel";
 import Image from "next/image";
-import aaaa from "@/assets/background-1.jpg";
+import aaaa from "@/assets/background-2.jpg";
+import { useAppSelector } from "@/redux/store";
 
 export default function DashboardPage() {
 	// const taskToSee = taskByListId(tasks, listSelected);
+	const UI_Settings = useAppSelector((e) => e.UI_Settings);
+
 	const taskEditing = true;
 
 	return (
@@ -23,14 +25,22 @@ export default function DashboardPage() {
 
 			{/* *********************** contenedor de tareas *********************** */}
 
-			<Box sx={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0 }}>
+			<Box
+				sx={{
+					position: "fixed",
+					top: 0,
+					left: { xs: 0, sm: `${UI_Settings.leftPanelWitdh}px` },
+					right: 0,
+					bottom: 0,
+				}}
+			>
 				<Image
 					src={aaaa}
 					alt="background"
 					style={{ width: "100%", height: "100%", objectFit: "cover" }}
 				/>
 			</Box>
-			
+
 			<Box
 				sx={{
 					display: "flex",
@@ -41,8 +51,11 @@ export default function DashboardPage() {
 			>
 				<Box
 					sx={{
-						ml: { xs: 0, sm: `${ToDoNavWidth}px` },
-						mr: { xs: 0, sm: taskEditing ? `${TaskPanelWidth}px` : "" },
+						ml: { xs: 0, sm: `${UI_Settings.leftPanelWitdh}px` },
+						mr: {
+							xs: 0,
+							sm: taskEditing ? `${UI_Settings.rightPanelWitdh}px` : "",
+						},
 						px: 2,
 						pt: 14,
 						pb: 13,
@@ -53,7 +66,6 @@ export default function DashboardPage() {
 						overflowY: "auto",
 					}}
 				>
-					bbbbb
 					{/* {taskToSee.map((t) => (
 						<TaskItemList key={t._id} data={t} />
 					))} */}

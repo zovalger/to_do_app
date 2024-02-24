@@ -19,7 +19,8 @@ import AddButton from "./AddButton";
 import ListInNav from "./ListInNav";
 import SmartListTitles from "./SmartListLabels";
 import GroupListInNav from "./GroupListInNav";
-import { formateGroups } from "../../../helper/Group.helper";
+import { useAppSelector } from "@/redux/store";
+// import { useAppSelector } from "@/redux/store";
 
 const ToDoNavListStyled = styled(List)<{ component?: React.ElementType }>({
 	"& .MuiListItemButton-root": {
@@ -58,6 +59,7 @@ const ToDoNavListStyled = styled(List)<{ component?: React.ElementType }>({
 
 const ToDoNavList = () => {
 	const theme = useTheme();
+	const UI_Settings = useAppSelector((e) => e.UI_Settings);
 
 	// const { handleAsidePanelToggle } = useGlobalContext();
 
@@ -73,6 +75,7 @@ const ToDoNavList = () => {
 				display: "flex",
 				flexDirection: "column",
 				height: "100%",
+				maxWidth: UI_Settings.leftPanelWitdh,
 			}}
 		>
 			<Box>
@@ -147,13 +150,44 @@ const ToDoNavList = () => {
 
 				{/* *********************** grupo *********************** */}
 
-				{/* {groupAndLists.map(([g, l]) => (
-					<GroupListInNav key={g._id} data={g} lists={l} />
-				))}
+				<GroupListInNav
+					key={22222}
+					data={{
+						_id: "",
+						title: "grupo 1",
+						lists: [],
+						userId: "",
+					}}
+					lists={[]}
+				/>
 
-				{restLists.map((item) => (
-					<ListInNav key={item._id} data={item} />
-				))} */}
+				<GroupListInNav
+					key={1111}
+					data={{
+						_id: "",
+						title: "grupo 2",
+						lists: [],
+						userId: "",
+					}}
+					lists={[
+						{
+							_id: "",
+							title: "Lista 11111111111111111111111111111",
+							userId: "",
+							guests: [],
+						},
+					]}
+				/>
+
+				<ListInNav
+					key={33333}
+					data={{
+						_id: "",
+						title: "Lista 22222222222222",
+						userId: "",
+						guests: [],
+					}}
+				/>
 			</Box>
 
 			{/* *********************** anadir lista o grupo *********************** */}

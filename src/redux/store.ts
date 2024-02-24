@@ -2,11 +2,13 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./Slices/UserSlice";
 import UIReducer from "./Slices/UISlice";
+import groupAndListOrderReducer from "./Slices/GroupAndListOrderSlice";
 
 export const store = configureStore({
 	reducer: {
 		UI_Settings: UIReducer,
 		user: userReducer,
+		groupAndListOrder: groupAndListOrderReducer,
 		// classEditor: classEditorReducer,
 		// sections: sectionsReducer,
 		// classForSection: classOfSectionReducer,

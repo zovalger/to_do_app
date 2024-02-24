@@ -18,7 +18,7 @@ import { Frequencys } from "./enums";
 export interface ListGroupAttributes {
 	_id: string;
 	title: string;
-	lists: string[];
+	lists: ListAttributes[];
 	userId: string;
 }
 
