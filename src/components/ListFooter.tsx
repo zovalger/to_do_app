@@ -104,13 +104,16 @@ const ListFooter = () => {
 				<Box
 					sx={{
 						display: "flex",
-						flexGrow: 1,
+						alignItems: "center",
+						flexGrow: 0.5,
+						width: 1,
+						// flexShrink: 0,
 					}}
 				>
 					{leftIcon}
 
 					<InputBase
-						sx={{ ml: 1, flex: 1, fontSize: 13, flexGrow: 1 }}
+						sx={{ ml: 1, flex: 1, fontSize: 13, flexGrow: 1, minHeight: 48 }}
 						value={title}
 						inputRef={inp}
 						onFocus={() => {
@@ -123,11 +126,29 @@ const ListFooter = () => {
 							handleChange(value);
 						}}
 						placeholder="Agregar nueva tarea"
-						inputProps={{ "aria-label": "search google maps" }}
+						inputProps={{
+							"aria-label": "search google maps",
+							sx: { flexGrow: 1 },
+						}}
 					/>
 				</Box>
 
-				<Box sx={{ display: "flex", alignItems: "center" }}>
+				<Box
+					sx={{
+						display: "flex",
+						width: 1,
+						justifyContent: "flex-end",
+
+						// flexGrow: { xs: 0, md: 0 },
+						overflowX: "auto",
+						scrollbarWidth: "thin",
+						flexShrink: 1,
+
+						".MuiButtonBase-root": {
+							flexShrink: 0,
+						},
+					}}
+				>
 					<Button variant="text" aria-label="directions">
 						<AddOutlinedIcon />
 						<Typography>tareas</Typography>
