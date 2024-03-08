@@ -5,13 +5,13 @@ import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import EventRepeatIcon from "@mui/icons-material/EventRepeat";
 import Box from "@mui/material/Box";
 import { useAppSelector } from "@/redux/store";
 import { Button, Typography } from "@mui/material";
 import DueDateButton from "./DueDateButton";
-import DateListSelector from "./DateListSelector";
 import RememberDateButton from "./RememberDateButton";
+import FrequencyRepeatDateButton from "./FrequencyRepeatDateButton";
+import TaskListButton from "./TaskListButton";
 
 const ListFooter = () => {
 	const UI_Settings = useAppSelector((e) => e.UI_Settings);
@@ -142,10 +142,12 @@ const ListFooter = () => {
 						mb: { xs: 1, md: 0 },
 						".MuiButtonBase-root": {
 							flexShrink: 0,
-							textTransform: 'none'
+							textTransform: "none",
 						},
 					}}
 				>
+					<TaskListButton />
+					
 					<Button
 						variant="text"
 						aria-label="directions"
@@ -159,9 +161,7 @@ const ListFooter = () => {
 
 					<RememberDateButton />
 
-					<Button variant="text" aria-label="directions">
-						<EventRepeatIcon />
-					</Button>
+					<FrequencyRepeatDateButton />
 				</Box>
 			</Paper>
 		</Box>

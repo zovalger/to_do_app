@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 
-import AlarmIcon from "@mui/icons-material/Alarm";
-import { Box, Button, Typography } from "@mui/material";
-
+import EventRepeatIcon from "@mui/icons-material/EventRepeat";
+import { Button, Typography } from "@mui/material";
 import moment from "moment";
-import DateAndTimeListSelector from "./DateAndTimeListSelector";
+import DateFrequencyListSelector from "./DateFrequencyListSelector";
 
-const RememberDateButton = () => {
+const FrequencyRepeatDateButton = () => {
 	// ****************** Menu Desplegable de opciones ******************
 
-	const date = new Date();
+	const date = null;
 
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -57,33 +56,17 @@ const RememberDateButton = () => {
 	};
 
 	// todo: anadir comparaciones para hoy, manana
-	const Subtitle = date
-		? moment(date).isSame(moment(), "day")
-			? "Hoy"
-			: moment(date).isSame(moment().add(1, "day"))
-			? "Mañana"
-			: moment(date).format("dd, D MMMM")
-		: "Recordatorio";
+	const title = "";
 
 	return (
 		<>
 			<Button variant="text" aria-label="directions" onClick={handleClickOpen}>
-				<AlarmIcon />
-				<Box
-					sx={{
-						display: "flex",
-						flexDirection: "column",
-						alignItems: "flex-start",
-						".MuiTypography-root:last-child": { fontSize: ".7rem" },
-					}}
-				>
-					<Typography>Avísame a las {moment(date).format("h:mm a")}</Typography>
-					<Typography>{Subtitle}</Typography>
-				</Box>
+			<EventRepeatIcon />
+				<Typography>{title}</Typography>
 			</Button>
 
-			<DateAndTimeListSelector
-				value={date}
+			<DateFrequencyListSelector
+				value={null}
 				anchorEl={anchorEl}
 				close={onClose}
 				onChange={() => {}}
@@ -92,4 +75,4 @@ const RememberDateButton = () => {
 	);
 };
 
-export default RememberDateButton;
+export default FrequencyRepeatDateButton;
