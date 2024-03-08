@@ -5,18 +5,13 @@ import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import AlarmIcon from "@mui/icons-material/Alarm";
 import EventRepeatIcon from "@mui/icons-material/EventRepeat";
 import Box from "@mui/material/Box";
 import { useAppSelector } from "@/redux/store";
-import {
-	Button,
-	ListItemButton,
-	ListItemIcon,
-	ListItemText,
-	Typography,
-} from "@mui/material";
+import { Button, Typography } from "@mui/material";
+import DueDateButton from "./DueDateButton";
+import DateListSelector from "./DateListSelector";
+import RememberDateButton from "./RememberDateButton";
 
 const ListFooter = () => {
 	const UI_Settings = useAppSelector((e) => e.UI_Settings);
@@ -137,30 +132,33 @@ const ListFooter = () => {
 					sx={{
 						display: "flex",
 						width: 1,
-						justifyContent: "flex-end",
+
+						justifyContent: { xs: "flex-start", md: "center" },
 
 						// flexGrow: { xs: 0, md: 0 },
 						overflowX: "auto",
 						scrollbarWidth: "thin",
 						flexShrink: 1,
-
+						mb: { xs: 1, md: 0 },
 						".MuiButtonBase-root": {
 							flexShrink: 0,
+							textTransform: 'none'
 						},
 					}}
 				>
-					<Button variant="text" aria-label="directions">
+					<Button
+						variant="text"
+						aria-label="directions"
+						sx={{ ".MuiButtonBase-root": { pl: 0 } }}
+					>
 						<AddOutlinedIcon />
-						<Typography>tareas</Typography>
+						<Typography>Lista</Typography>
 					</Button>
-					<Button variant="text" aria-label="directions">
-						<CalendarMonthIcon />
-						<Typography>tareas</Typography>
-					</Button>
-					<Button variant="text" aria-label="directions">
-						<AlarmIcon />
-						<Typography>tareas</Typography>
-					</Button>
+
+					<DueDateButton />
+
+					<RememberDateButton />
+
 					<Button variant="text" aria-label="directions">
 						<EventRepeatIcon />
 					</Button>
