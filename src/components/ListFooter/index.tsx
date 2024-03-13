@@ -77,9 +77,12 @@ const ListFooter = () => {
 				sx={{
 					pl: 1.5,
 					pr: 1,
+					width: 1,
 					display: "flex",
 					alignItems: { xs: "flex-start", md: "center" },
+					justifyContent: { xs: "flex-start", md: "space-between" },
 					flexDirection: { xs: "column", md: "row" },
+					// flexWrap: "nowrap",
 					minHeight: 48,
 					".MuiButtonBase-root": {
 						px: 1,
@@ -100,15 +103,18 @@ const ListFooter = () => {
 					sx={{
 						display: "flex",
 						alignItems: "center",
-						flexGrow: 0.5,
-						width: 1,
-						// flexShrink: 0,
+						flexGrow: 1,
 					}}
 				>
 					{leftIcon}
 
 					<InputBase
-						sx={{ ml: 1, flex: 1, fontSize: 13, flexGrow: 1, minHeight: 48 }}
+						sx={{
+							ml: 1,
+							fontSze: 13,
+							flexGrow: 1,
+							minHeight: 48,
+						}}
 						value={title}
 						inputRef={inp}
 						onFocus={() => {
@@ -123,7 +129,7 @@ const ListFooter = () => {
 						placeholder="Agregar nueva tarea"
 						inputProps={{
 							"aria-label": "search google maps",
-							sx: { flexGrow: 1 },
+							// sx: { flexGrow: 1 },
 						}}
 					/>
 				</Box>
@@ -131,15 +137,18 @@ const ListFooter = () => {
 				<Box
 					sx={{
 						display: "flex",
-						width: 1,
-
-						justifyContent: { xs: "flex-start", md: "center" },
-
-						// flexGrow: { xs: 0, md: 0 },
+						// overflow: "hidden",
 						overflowX: "auto",
 						scrollbarWidth: "thin",
-						flexShrink: 1,
-						mb: { xs: 1, md: 0 },
+						// width: { xs: "100%", md: "1%" },
+
+						// justifyContent: { xs: "flex-start" },
+						// flexGrow: 2,
+						// ml: "auto",
+						// flexShrink: 1,
+						// flexGrow: 1,
+						// mb: { xs: 1, md: 0 },
+
 						".MuiButtonBase-root": {
 							flexShrink: 0,
 							textTransform: "none",
@@ -147,15 +156,15 @@ const ListFooter = () => {
 					}}
 				>
 					<TaskListButton />
-					
-					<Button
+
+					{/* <Button
 						variant="text"
 						aria-label="directions"
 						sx={{ ".MuiButtonBase-root": { pl: 0 } }}
 					>
 						<AddOutlinedIcon />
 						<Typography>Lista</Typography>
-					</Button>
+					</Button> */}
 
 					<DueDateButton />
 
