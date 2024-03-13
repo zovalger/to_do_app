@@ -10,21 +10,18 @@ import CalendarViewWeekIcon from "@mui/icons-material/CalendarViewWeek";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import SwitchAccessShortcutIcon from "@mui/icons-material/SwitchAccessShortcut";
 
-import {
-	Box,
-	Divider,
-	IconButton,
-	ListItemButton,
-	ListItemIcon,
-	ListItemText,
-	Menu,
-	MenuItem,
-	SvgIconTypeMap,
-	Tooltip,
-} from "@mui/material";
-import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
-import { DatePicker, DateTimePicker } from "@mui/x-date-pickers";
-import { OverridableComponent } from "@mui/material/OverridableComponent";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+
+import { Divider, ListItemIcon, Menu, MenuItem } from "@mui/material";
 
 interface props {
 	anchorEl: HTMLElement | null;
@@ -168,15 +165,54 @@ const DateFrequencyListSelector = ({
 			</Menu>
 
 			{openCalendar && (
-				<DatePicker
-					sx={{ position: "absolute", opacity: 0 }}
+				<Dialog
 					open={openCalendar}
-					onAccept={() => toggleCalendar()}
 					onClose={() => toggleCalendar()}
-					value={moment(value)}
-					onChange={(v) => onChange(v ? new Date(v.format()) : null)}
-				/>
+					PaperProps={{
+						component: "form",
+						onSubmit: () => {
+							toggleCalendar();
+						},
+					}}
+				>
+					<DialogTitle variant="subtitle1" sx={{ fontWeight: 600, pb: 1 }}>
+						Repita cada...
+					</DialogTitle>
+					<DialogContent sx={{ pb: 1 }}>
+						<TextField
+							autoFocus
+							required
+							margin="dense"
+							type="number"
+							variant="standard"
+							sx={{ maxWidth: 48 }}
+						/>
+
+						<FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+							<Select
+								// value={10}
+								// onChange={handleChange}
+								// label="Age"
+								inputProps={{ sx: { px: 1 } }}
+							>
+								<MenuItem value={10}>días</MenuItem>
+								<MenuItem value={20}>semanas</MenuItem>
+								<MenuItem value={30}>meses</MenuItem>
+								<MenuItem value={30}>años</MenuItem>
+							</Select>
+						</FormControl>
+					</DialogContent>
+					<DialogActions>
+						<Button variant="outlined" onClick={() => toggleCalendar()}>
+							Cancelar
+						</Button>
+						<Button variant="contained" type="submit">
+							Guardar
+						</Button>
+					</DialogActions>
+				</Dialog>
 			)}
+
 			{/* </MenuItem> */}
 		</>
 	);
