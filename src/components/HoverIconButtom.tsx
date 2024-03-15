@@ -1,16 +1,15 @@
 "use client";
-import React, { useState } from "react";
-import IconButton from "@mui/material/IconButton";
+import React, { useState, forwardRef } from "react";
+import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 
-interface props {
-	onClick(): void;
-	hoverIcon: React.ReactNode;
+interface props extends IconButtonProps {
+	hoverIcon: JSX.Element;
 	idleIcon: React.ReactNode;
 	active: boolean;
 }
 
-const HoverIconButtom = (props: props & any) => {
-	const { onClick, hoverIcon, idleIcon, active }: props = props;
+const HoverIconButtom = forwardRef<HTMLButtonElement, props>((props, ref) => {
+	const { active, hoverIcon, idleIcon, size } = props;
 
 	const [hover, setHover] = useState(false);
 
@@ -18,16 +17,16 @@ const HoverIconButtom = (props: props & any) => {
 	return (
 		<IconButton
 			{...props}
-			onClick={(e) => {
-				e.stopPropagation();
-				onClick();
-			}}
+			ref={ref}
 			onMouseEnter={() => setHover(true)}
 			onMouseLeave={() => setHover(false)}
+			sx={{ ".MuiSvgIcon-root": { fontSize: size == "large" ? 24 : 20 } }}
 		>
 			{activeIcon}
 		</IconButton>
 	);
-};
+});
+
+HoverIconButtom.displayName = "HoverIconButtom";
 
 export default HoverIconButtom;

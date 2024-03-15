@@ -2,13 +2,13 @@
 import Drawer from "@mui/material/Drawer";
 import { useTheme } from "@mui/material/styles";
 
-// import { TaskPanelWidth } from "@/config/UISettings";
-// import { useTaskContext } from "@/app/contexts/Task.context";
 import TaskPanelContent from "./TaskPanelContent";
 import { useAppSelector } from "@/redux/store";
 
-const TaskPanel = () => {
-	const { rightPanelWitdh } = useAppSelector((e) => e.UI_Settings);
+const TaskEditingPanel = () => {
+	const { rightPanelWitdh, rightPanelOpen } = useAppSelector(
+		(e) => e.UI_Settings
+	);
 
 	const theme = useTheme();
 
@@ -17,15 +17,12 @@ const TaskPanel = () => {
 	return (
 		<>
 			<Drawer
-				open={
-					false
-					// !!taskEditing
-				}
+				open={rightPanelOpen}
 				variant="persistent"
 				anchor="right"
 				sx={{
 					maxWidth: rightPanelWitdh,
-					[theme.breakpoints.down("sm")]: {
+					[theme.breakpoints.down("md")]: {
 						display: "none",
 					},
 				}}
@@ -34,7 +31,7 @@ const TaskPanel = () => {
 			</Drawer>
 
 			<Drawer
-				open={false}
+				open={rightPanelOpen}
 				anchor="right"
 				variant="temporary"
 				// onClose={() => setTaskEditing(null)}
@@ -43,6 +40,27 @@ const TaskPanel = () => {
 				}}
 				sx={{
 					maxWidth: rightPanelWitdh,
+					[theme.breakpoints.down("sm")]: {
+						display: "none",
+					},
+					[theme.breakpoints.up("md")]: {
+						display: "none",
+					},
+				}}
+			>
+				{Content}
+			</Drawer>
+
+			<Drawer
+				open={rightPanelOpen}
+				anchor="right"
+				variant="temporary"
+				// onClose={() => setTaskEditing(null)}
+				ModalProps={{
+					keepMounted: true,
+				}}
+				sx={{
+					// maxWidth: rightPanelWitdh,
 					[theme.breakpoints.up("sm")]: {
 						display: "none",
 					},
@@ -54,4 +72,4 @@ const TaskPanel = () => {
 	);
 };
 
-export default TaskPanel;
+export default TaskEditingPanel;

@@ -55,7 +55,7 @@ const ListFooter = () => {
 				ml: { xs: 0, sm: `${UI_Settings.leftPanelWitdh}px` },
 				mr: {
 					xs: 0,
-					sm: UI_Settings.rightPanelOpen
+					md: UI_Settings.rightPanelOpen
 						? `${UI_Settings.rightPanelWitdh}px`
 						: "",
 				},

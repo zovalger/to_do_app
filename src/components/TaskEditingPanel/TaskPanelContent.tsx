@@ -17,6 +17,10 @@ import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import moment from "moment";
 
+import Drawer from "@mui/material/Drawer";
+import { useTheme } from "@mui/material/styles";
+
+import { useAppSelector } from "@/redux/store";
 import { TaskPanelWidth } from "@/config/UISettings";
 import StepTask from "./StepTask";
 import TaskPanelHeader from "./TaskPanelHeader";
@@ -26,6 +30,12 @@ import { TaskAttributes } from "@/types";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 
 const TaskPanelContent = () => {
+	const { rightPanelWitdh, rightPanelOpen } = useAppSelector(
+		(e) => e.UI_Settings
+	);
+
+	const theme = useTheme();
+
 	// const { tasks, setTasks, taskEditing, setTaskEditing } = useTaskContext();
 
 	// useEffect(() => {
@@ -86,6 +96,11 @@ const TaskPanelContent = () => {
 			<Box
 				sx={{
 					width: `${TaskPanelWidth}px`,
+
+					[theme.breakpoints.down("sm")]: {
+						width: `96vw`,
+					},
+
 					mt: 1,
 					mb: 5,
 					position: "relative",
@@ -152,9 +167,8 @@ const TaskPanelContent = () => {
 						Icon={<CalendarMonthOutlinedIcon />}
 						onChange={ChangeDueDate}
 						value={
-						new Date()	
+							new Date()
 							// taskEditing?.dueDate
-						
 						}
 					/>
 				</Box>

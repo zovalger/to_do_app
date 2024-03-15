@@ -9,7 +9,7 @@ import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import { TextField } from "@mui/material";
+import { InputBase, TextField } from "@mui/material";
 
 import HoverIconButtom from "../HoverIconButtom";
 
@@ -67,17 +67,18 @@ const TaskPanelHeader = () => {
 				overflowX: "hidden",
 			}}
 		>
-			<Box sx={{ display: "flex", justifyContent: "flex-end", pr: 0.8 }}>
+			<Box sx={{ display: "flex", justifyContent: "flex-end", pr: 1 }}>
 				<IconButton onClick={handleClose}>
 					<CloseOutlinedIcon sx={{ fontSize: 18 }} />
 				</IconButton>
 			</Box>
+
 			<Box
 				sx={{
 					display: "flex",
 					alignItems: "center",
 					py: 0.7,
-					px: 0.5,
+					px: 1,
 					mb: 0,
 					"& .MuiSvgIcon-root": {
 						fontSize: 20,
@@ -89,24 +90,22 @@ const TaskPanelHeader = () => {
 					hoverIcon={<CheckCircleOutlinedIcon />}
 					idleIcon={<RadioButtonUncheckedOutlinedIcon />}
 					onClick={handleComplete}
+					size="large"
 				/>
 
-				{titleEditing ? (
-					<TextField
-						value={titleValue}
-						onChange={({ target: { value } }) => changeTitle(value)}
-						onKeyDown={(e) => {
-							if (e.key === "Enter") saveTitle();
-						}}
-						onBlur={saveTitle}
-						autoFocus
-						size="small"
-					/>
-				) : (
-					<Typography onClick={onClickTitle} sx={{ flexGrow: 1, fontSize: 13 }}>
-						titulo
-					</Typography>
-				)}
+				<InputBase
+					sx={{
+						ml: 1,
+						flexGrow: 1,
+						minHeight: 48,
+					}}
+					value={"titulo de tarea"}
+					placeholder="Agregar nueva tarea"
+					inputProps={{
+						"aria-label": "search google maps",
+						sx: { fontSize: 18, py: 0, fontWeight: "600" },
+					}}
+				/>
 
 				<HoverIconButtom
 					color="secondary"
@@ -114,6 +113,7 @@ const TaskPanelHeader = () => {
 					hoverIcon={<StarOutlinedIcon />}
 					idleIcon={<StarOutlineOutlinedIcon />}
 					onClick={handleImportant}
+					size="large"
 				/>
 			</Box>
 		</Box>

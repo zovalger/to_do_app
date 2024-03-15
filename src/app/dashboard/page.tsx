@@ -6,7 +6,7 @@ import { taskByListId } from "../helper/Task.helper";
 import ToDoNav from "@/components/ToDoNav";
 import ListHeader from "@/components/ListHeader";
 import ListFooter from "@/components/ListFooter";
-import TaskPanel from "@/components/TaskPanel";
+import TaskEditingPanel from "@/components/TaskEditingPanel";
 import Image from "next/image";
 import aaaa from "@/assets/background-2.jpg";
 import { useAppSelector } from "@/redux/store";
@@ -21,7 +21,7 @@ export default function DashboardPage() {
 		<>
 			<ToDoNav />
 
-			<TaskPanel />
+			<TaskEditingPanel />
 
 			{/* *********************** contenedor de tareas *********************** */}
 
@@ -54,7 +54,7 @@ export default function DashboardPage() {
 						ml: { xs: 0, sm: `${UI_Settings.leftPanelWitdh}px` },
 						mr: {
 							xs: 0,
-							sm: taskEditing ? `${UI_Settings.rightPanelWitdh}px` : "",
+							md: taskEditing ? `${UI_Settings.rightPanelWitdh}px` : "",
 						},
 						px: 2,
 						pt: 14,
