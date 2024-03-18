@@ -68,7 +68,7 @@ const TaskPanelHeader = () => {
 			}}
 		>
 			<Box sx={{ display: "flex", justifyContent: "flex-end", pr: 1 }}>
-				<IconButton onClick={handleClose}>
+				<IconButton onClick={handleClose} sx={{ mr: 0.9 }}>
 					<CloseOutlinedIcon sx={{ fontSize: 18 }} />
 				</IconButton>
 			</Box>
@@ -79,6 +79,7 @@ const TaskPanelHeader = () => {
 					alignItems: "center",
 					py: 0.7,
 					px: 1,
+
 					mb: 0,
 					"& .MuiSvgIcon-root": {
 						fontSize: 20,
@@ -95,14 +96,13 @@ const TaskPanelHeader = () => {
 
 				<InputBase
 					sx={{
-						ml: 1,
+						ml: 0.5,
 						flexGrow: 1,
 						minHeight: 48,
 					}}
 					value={"titulo de tarea"}
 					placeholder="Agregar nueva tarea"
 					inputProps={{
-						"aria-label": "search google maps",
 						sx: { fontSize: 18, py: 0, fontWeight: "600" },
 					}}
 				/>

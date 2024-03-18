@@ -108,9 +108,16 @@ const TaskPanelContent = () => {
 			>
 				<TaskPanelHeader />
 
-				{/* {taskEditing?.steps.map((t) => (
-					<StepTask key={t._id} data={t} />
-				))} */}
+				{/* {taskEditing?.steps.map((t) => ( */}
+				<StepTask
+					key={"21321321"}
+					data={{ _id: "dasda", title: "hola", complete: false }}
+				/>
+					<StepTask
+					key={"21321321"}
+					data={{ _id: "dasda", title: "hdsdsdsdsdsdsdsdsdsdsdola", complete: true }}
+				/>
+				{/* ))} */}
 
 				<Box
 					onClick={addStep}
@@ -130,9 +137,19 @@ const TaskPanelContent = () => {
 						<AddOutlinedIcon />
 					</IconButton>
 
-					<Typography color="primary" sx={{ fontSize: 13 }}>
-						Agregar Paso
-					</Typography>
+					<InputBase
+						sx={{
+							ml: 1,
+							flexGrow: 1,
+							minHeight: 36,
+							// color:"primary"
+						}}
+						// value={"titulo de tarea"}
+						placeholder="Agregar Paso"
+						inputProps={{
+							sx: { fontSize: 13, py: 0 },
+						}}
+					/>
 				</Box>
 
 				<Divider />
