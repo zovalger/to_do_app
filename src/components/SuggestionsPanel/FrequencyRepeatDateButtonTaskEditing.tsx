@@ -1,10 +1,12 @@
 "use client";
 import React, { ReactElement, useRef, useState } from "react";
 import moment, { Moment } from "moment";
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import AlarmIcon from "@mui/icons-material/Alarm";
+
+import EventRepeatIcon from "@mui/icons-material/EventRepeat";
 
 import CloseIcon from "@mui/icons-material/Close";
-import AttachFileIcon from "@mui/icons-material/AttachFile";
-import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 
 import {
 	Box,
@@ -14,16 +16,14 @@ import {
 	ListItemText,
 	Tooltip,
 } from "@mui/material";
-import DateListSelector from "../ListFooter/DateListSelector";
-import Image from "next/image";
-import aaaa from "@/assets/background-2.jpg";
+
+import DateFrequencyListSelector from "../ListFooter/DateFrequencyListSelector";
+import { FrequencyRepeatDateTitleHelper } from "@/app/helper/TitlesDates.helper";
 
 interface props {}
 
-const AttachFileButtonTaskEditing = ({}: props) => {
+const FrequencyRepeatDateButtonTaskEditing = ({}: props) => {
 	// ****************** Menu Desplegable de opciones ******************
-
-	const inputFile = useRef<null | HTMLInputElement>(null);
 
 	const date = null;
 
@@ -35,9 +35,7 @@ const AttachFileButtonTaskEditing = ({}: props) => {
 	) => {
 		event.preventDefault();
 		event.stopPropagation();
-		// setAnchorEl(event.currentTarget);
-
-		inputFile.current?.click();
+		setAnchorEl(event.currentTarget);
 	};
 
 	const onClose = () => {
@@ -75,7 +73,7 @@ const AttachFileButtonTaskEditing = ({}: props) => {
 	};
 
 	// todo: anadir comparaciones para hoy, manana
-	const title = "Adjuntar archivo";
+	const title = FrequencyRepeatDateTitleHelper(date);
 
 	return (
 		<>
@@ -90,66 +88,38 @@ const AttachFileButtonTaskEditing = ({}: props) => {
 					selected={!!date}
 				>
 					<ListItemIcon>
-						{/* // todo: diferenciar entre imagen y archivo */}
-						{/* <FileDownloadOutlinedIcon /> */}
-						<Box
-							sx={{
-								ml: 1.5,
-								display: "flex",
-								// alignItems: "center",
-								justifyContent: "center",
-								borderRadius: 1,
-								overflow: "hidden",
-							}}
-						>
-							<Image src={aaaa} alt="prueba" width={24} height={24} />
-						</Box>
-					</ListItemIcon>
-
-					<ListItemText
-						color="primary"
-						primary={"2024-03-18_10.38.21.png"}
-						secondary={"1,3MB • Imagen"}
-					/>
-				</ListItemButton>
-
-				<Tooltip title="Eliminar archivo">
-					<IconButton
-						// onClick={handleDelete}
-						sx={{
-							borderRadius: 0,
-							flexShrink: 0,
-							width: 48,
-							// my: 1,
-						}}
-						color="inherit"
-					>
-						<CloseIcon />
-					</IconButton>
-				</Tooltip>
-			</Box>
-
-			<input type="file" hidden ref={inputFile} />
-
-			<Box
-				sx={{
-					display: "flex",
-				}}
-			>
-				<ListItemButton
-					sx={{ flexGrow: 1 }}
-					onClick={handleClickOpen}
-					selected={!!date}
-				>
-					<ListItemIcon>
-						<AttachFileIcon />
+						<EventRepeatIcon />
 					</ListItemIcon>
 
 					<ListItemText color="primary" primary={title} />
 				</ListItemButton>
+
+				{date && (
+					<Tooltip title="Eliminar Fecha">
+						<IconButton
+							// onClick={handleDelete}
+							sx={{
+								borderRadius: 0,
+								flexShrink: 0,
+								width: 48,
+								// my: 1,
+							}}
+							color="inherit"
+						>
+							<CloseIcon />
+						</IconButton>
+					</Tooltip>
+				)}
 			</Box>
+
+			<DateFrequencyListSelector
+				value={null}
+				anchorEl={anchorEl}
+				close={onClose}
+				onChange={() => {}}
+			/>
 		</>
 	);
 };
 
-export default AttachFileButtonTaskEditing;
+export default FrequencyRepeatDateButtonTaskEditing;

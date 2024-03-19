@@ -1,3 +1,17 @@
+export enum rightPanels {
+	taskEditing = "taskEditing",
+	suggestions = "suggestions",
+	
+}
+
+export enum taskListItemVariant {
+	primary = "primary",
+	suggestions = "suggestions",
+	
+}
+
+
+
 export enum SmartListsIds {
 	myDay = "myDay",
 	important = "important",

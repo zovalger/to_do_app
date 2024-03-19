@@ -20,8 +20,18 @@ import {
 	IconButton,
 	Menu,
 	MenuItem,
-	TextField,
 } from "@mui/material";
+
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 import { ListAttributes } from "@/types";
 
@@ -185,6 +195,37 @@ const ListInNav = ({ data, icon, inGroup = false }: props) => {
 					Eliminar lista
 				</MenuItem>
 			</Menu>
+
+			<Dialog
+				open={false}
+				onClose={() => {}}
+				PaperProps={{
+					component: "form",
+					onSubmit: () => {
+						// toggleCalendar();
+					},
+				}}
+			>
+				<DialogTitle variant="subtitle1" sx={{ fontWeight: 600, pb: 1 }}>
+					Eliminar Lista
+				</DialogTitle>
+				<DialogContent sx={{ pb: 1 }}>
+					{`"${"lista"}"`} se eliminará permanentemente.
+				</DialogContent>
+				<DialogActions>
+					<Button
+						variant="contained"
+						color="error"
+						onClick={
+							() => {}
+							// toggleCalendar()
+						}
+					>
+						Eliminar
+					</Button>
+					<Button variant="outlined">Cancelar</Button>
+				</DialogActions>
+			</Dialog>
 		</>
 	);
 };

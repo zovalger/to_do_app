@@ -19,14 +19,23 @@ import { useTheme } from "@mui/material/styles";
 
 import { useAppSelector } from "@/redux/store";
 import StepTask from "./StepTask";
-import TaskPanelHeader from "./TaskPanelHeader";
 import DueDateButtonTaskEditing from "./DueDateButtonTaskEditing";
 import RememberDateButtonTaskEditing from "./RememberDateButtonTaskEditing";
 import FrequencyRepeatDateButtonTaskEditing from "./FrequencyRepeatDateButtonTaskEditing";
 
 import AttachFileButtonTaskEditing from "./AttachFileButtonTaskEditing";
 
-const TaskPanelContent = () => {
+import StarOutlineOutlinedIcon from "@mui/icons-material/StarOutlineOutlined";
+import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
+import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
+import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+
+import HoverIconButtom from "../HoverIconButtom";
+import TaskItemList from "../TaskItemList";
+import { Frequencys, taskListItemVariant } from "@/enums";
+
+const SuggestionsPanelContent = () => {
 	const { rightPanelWitdh, rightPanelOpen } = useAppSelector(
 		(e) => e.UI_Settings
 	);
@@ -103,149 +112,119 @@ const TaskPanelContent = () => {
 					position: "relative",
 				}}
 			>
-				<TaskPanelHeader />
+				<Box
+					sx={{
+						position: "sticky",
+						top: 0,
+						bgcolor: "#fff",
+						zIndex: 1,
+						overflowX: "hidden",
+						py: 1,
+					}}
+				>
+					<Box
+						sx={{
+							display: "flex",
+							justifyContent: "space-between",
+							alignItems: "center",
+							pr: 1,
+							ml: 3,
+						}}
+					>
+						<Typography sx={{ fontSize: 18, py: 0, fontWeight: "600" }}>
+							Sugerencias
+						</Typography>
+						<IconButton
+							// onClick={handleClose}
+							sx={{ mr: 0.9 }}
+						>
+							<CloseOutlinedIcon sx={{ fontSize: 18 }} />
+						</IconButton>
+					</Box>
+				</Box>
 
 				{/* {taskEditing?.steps.map((t) => ( */}
 				<StepTask
 					key={"21321321"}
 					data={{ _id: "dasda", title: "hola", complete: false }}
 				/>
-				<StepTask
-					key={"21321321"}
+
+				<TaskItemList
+					key={31231313}
+					variant={taskListItemVariant.suggestions}
 					data={{
-						_id: "dasda",
-						title: "hdsdsdsdsdsdsdsdsdsdsdola",
+						_id: "31231313",
+						title: "titulo de tarea",
+						steps: [
+							{ _id: "string", title: "paso 1", complete: false },
+							{ _id: "string", title: "paso 2", complete: true },
+							{ _id: "string", title: "paso 2", complete: true },
+						],
+						note: "esta es una nota larga",
+						remindMe: new Date(),
+						dueDate: new Date(),
+						repeat: {
+							frequency: Frequencys.daily,
+							skip: 2,
+						},
+						myDay: null,
+						complete: false,
+						important: false,
+						listId: "",
+						files: [],
+						assignedUser: "dsadasdas",
+					}}
+				/>
+
+				{/* // todo: hacer el panel de opciones para los items hijos  */}
+				<Box
+					sx={{
+						display: "flex",
+						justifyContent: "space-between",
+						alignItems: "center",
+						pr: 1,
+						ml: 3,
+					}}
+				>
+					<Typography sx={{ fontSize: 14, py: 0, fontWeight: "600" }}>
+						Hoy
+					</Typography>
+					<IconButton
+						// onClick={handleClose}
+						sx={{ mr: 0.9 }}
+					>
+						<CloseOutlinedIcon sx={{ fontSize: 18 }} />
+					</IconButton>
+				</Box>
+				<TaskItemList
+					key={"dsddd"}
+					variant={taskListItemVariant.suggestions}
+					data={{
+						_id: "ddsdd",
+						title: "titulo de tarea2",
+						steps: [
+							{ _id: "string", title: "paso 1", complete: false },
+							{ _id: "string", title: "paso 2", complete: true },
+						],
+						note: "esta es una nota larga",
+						remindMe: new Date(),
+						dueDate: new Date(),
+						repeat: {
+							frequency: Frequencys.daily,
+							skip: 2,
+						},
+						myDay: new Date(),
 						complete: true,
+						important: true,
+						listId: "",
+						files: [],
+						assignedUser: "dsadasdas",
 					}}
 				/>
 				{/* ))} */}
-
-				<Box
-					onClick={addStep}
-					sx={{
-						display: "flex",
-						alignItems: "center",
-						py: 0.5,
-						pr: 0.5,
-						pl: 1.5,
-						// ml: 1.2,
-						":hover": { bgcolor: "#ddd" },
-						cursor: "pointer",
-					}}
-					// boxShadow={1}
-				>
-					<IconButton color="primary">
-						<AddOutlinedIcon />
-					</IconButton>
-
-					<InputBase
-						sx={{
-							ml: 1,
-							flexGrow: 1,
-							minHeight: 36,
-							// color:"primary"
-						}}
-						// value={"titulo de tarea"}
-						placeholder="Agregar Paso"
-						inputProps={{
-							sx: { fontSize: 13, py: 0 },
-						}}
-					/>
-				</Box>
-
-				<Divider />
-
-				<Box
-					sx={{
-						["& .MuiListItemButton-root"]: { pl: 1, py: 1, height: 50 },
-						["& .MuiListItemIcon-root .MuiSvgIcon-root"]: {
-							fontSize: 18,
-							mx: 2,
-							// mr: 0,
-						},
-						["& .MuiTypography-root"]: { fontSize: 13 },
-					}}
-				>
-					<ListItemButton
-						onClick={toggleInMyDay}
-						// sx={{ my: 1 }}
-						selected={
-							false
-							// !!taskEditing &&
-							// !!taskEditing.myDay &&
-							// moment().isSame(taskEditing.myDay, "day")
-						}
-					>
-						<ListItemIcon>
-							<WbSunnyOutlinedIcon sx={{}} />
-						</ListItemIcon>
-
-						<ListItemText primary={"Agregar a mi día"} />
-					</ListItemButton>
-
-					<Divider />
-
-					<RememberDateButtonTaskEditing />
-
-					<DueDateButtonTaskEditing />
-
-					<FrequencyRepeatDateButtonTaskEditing />
-
-					<Divider />
-
-					<AttachFileButtonTaskEditing />
-					<Divider />
-				</Box>
-
-				<Box sx={{ px: 2 }}>
-					<TextField
-						label="Nota"
-						multiline
-						maxRows={8}
-						minRows={4}
-						fullWidth
-						value={noteValue}
-						onChange={({ target: { value } }) => onChangeNote(value)}
-						onBlur={SaveNote}
-						inputProps={{ style: { fontSize: 13 } }}
-						sx={{ mt: 2 }}
-						// sx={{fontSize:13}}
-						// sx={{mx:1}}
-					/>
-				</Box>
-			</Box>
-
-			<Box
-				sx={{
-					display: "flex",
-					mt: "auto",
-					position: "sticky",
-					bottom: 0,
-					left: 0,
-					right: 0,
-					background: "#fff",
-				}}
-			>
-				<Box sx={{ flexGrow: 1, pl: 2, my: 1 }}>
-					<Typography>...</Typography>
-				</Box>
-
-				<Tooltip title="Eliminar tarea">
-					<IconButton
-						onClick={handleDelete}
-						sx={{
-							borderRadius: 0,
-							flexShrink: 0,
-							width: 48,
-						}}
-						color="inherit"
-					>
-						<DeleteOutlinedIcon />
-					</IconButton>
-				</Tooltip>
 			</Box>
 		</>
 	);
 };
 
-export default TaskPanelContent;
+export default SuggestionsPanelContent;

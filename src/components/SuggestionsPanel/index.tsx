@@ -2,20 +2,20 @@
 import Drawer from "@mui/material/Drawer";
 import { useTheme } from "@mui/material/styles";
 
-import TaskPanelContent from "./TaskPanelContent";
+import SuggestionsPanelContent from "./SuggestionsPanelContent";
 import { useAppSelector } from "@/redux/store";
 import { rightPanels } from "@/enums";
 
-const TaskEditingPanel = () => {
+const SuggestionsPanel = () => {
 	const { rightPanelWitdh, rightPanelOpen, rightPanel_Id } = useAppSelector(
 		(e) => e.UI_Settings
 	);
 
 	const theme = useTheme();
 
-	const Content = <TaskPanelContent />;
+	const Content = <SuggestionsPanelContent />;
 
-	const isOpen = rightPanelOpen && rightPanel_Id === rightPanels.taskEditing;
+	const isOpen = rightPanelOpen && rightPanel_Id === rightPanels.suggestions;
 
 	return (
 		<>
@@ -77,4 +77,4 @@ const TaskEditingPanel = () => {
 	);
 };
 
-export default TaskEditingPanel;
+export default SuggestionsPanel;

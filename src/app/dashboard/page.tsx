@@ -12,6 +12,7 @@ import aaaa from "@/assets/background-2.jpg";
 import { useAppSelector } from "@/redux/store";
 import TaskItemList from "@/components/TaskItemList";
 import { Frequencys } from "@/enums";
+import SuggestionsPanel from "@/components/SuggestionsPanel";
 
 export default function DashboardPage() {
 	// const taskToSee = taskByListId(tasks, listSelected);
@@ -24,6 +25,8 @@ export default function DashboardPage() {
 			<ToDoNav />
 
 			<TaskEditingPanel />
+
+			<SuggestionsPanel />
 
 			{/* *********************** fondo de pantalla*********************** */}
 			<Box

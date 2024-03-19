@@ -1,4 +1,3 @@
-"use client";
 import React, { useState } from "react";
 import { FormatListBulletedOutlined } from "@mui/icons-material";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
@@ -11,23 +10,21 @@ import PushPinIcon from "@mui/icons-material/PushPin";
 import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
 import Divider from "@mui/material/Divider";
 import DeleteIcon from "@mui/icons-material/Delete";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
+import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 
 import IconButton from "@mui/material/IconButton";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import { ListItemIcon, Menu, MenuItem } from "@mui/material";
 
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { getNameList } from "@/app/helper/List.helper";
 
-const ButtonMoreOptionsListHeader = () => {
+interface props {
+	complete: boolean;
+}
+const ButtonMoreOptionsStepTask = ({ complete }: props) => {
 	// ****************** Menu Desplegable de opciones ******************
 
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -80,8 +77,15 @@ const ButtonMoreOptionsListHeader = () => {
 
 	return (
 		<>
-			<IconButton onClick={handleClickOpen} size="small">
-				<MoreHorizOutlinedIcon />
+			<IconButton
+				onClick={handleClickOpen}
+				sx={{
+					mr: 1.5,
+				}}
+				size="small"
+				color="secondary"
+			>
+				<MoreVertIcon />
 			</IconButton>
 
 			<Menu
@@ -101,57 +105,30 @@ const ButtonMoreOptionsListHeader = () => {
 					"aria-labelledby": "basic-button",
 				}}
 			>
-				<MenuItem>
-					<ListItemIcon>
-						<DriveFileRenameOutlineIcon fontSize="small" />
-					</ListItemIcon>
-					Cambiar el nombre de la lista
-				</MenuItem>
+				{!complete ? (
+					<>
+						<MenuItem>
+							<ListItemIcon>
+								<CheckCircleOutlinedIcon fontSize="small" />
+							</ListItemIcon>
+							Marcar como completada
+						</MenuItem>
 
-				<MenuItem>
-					<ListItemIcon>
-						<AccountCircleIcon fontSize="small" />
-					</ListItemIcon>
-					Compartir la lista
-				</MenuItem>
-
-				<MenuItem>
-					<ListItemIcon>
-						<PlaylistAddIcon fontSize="small" />
-					</ListItemIcon>
-					Mover la lista a…
-				</MenuItem>
-
-				<MenuItem>
-					<ListItemIcon>
-						<PlaylistRemoveIcon fontSize="small" />
-					</ListItemIcon>
-					Quitar del grupo
-				</MenuItem>
-				<MenuItem>
-					<ListItemIcon>
-						<PrintIcon fontSize="small" />
-					</ListItemIcon>
-					Imprimir esta lista
-				</MenuItem>
-				<MenuItem>
-					<ListItemIcon>
-						<EmailIcon fontSize="small" />
-					</ListItemIcon>
-					Enviar lista por correo electrónico
-				</MenuItem>
-				<MenuItem>
-					<ListItemIcon>
-						<PushPinIcon fontSize="small" />
-					</ListItemIcon>
-					Anclar a inicio
-				</MenuItem>
-				<MenuItem>
-					<ListItemIcon>
-						<LibraryAddIcon fontSize="small" />
-					</ListItemIcon>
-					Duplicar lista
-				</MenuItem>
+						<MenuItem>
+							<ListItemIcon>
+								<AddOutlinedIcon fontSize="small" />
+							</ListItemIcon>
+							Promover a la tarea
+						</MenuItem>
+					</>
+				) : (
+					<MenuItem>
+						<ListItemIcon>
+							<RadioButtonUncheckedOutlinedIcon fontSize="small" />
+						</ListItemIcon>
+						Marcar como no completada
+					</MenuItem>
+				)}
 
 				<Divider />
 
@@ -159,42 +136,11 @@ const ButtonMoreOptionsListHeader = () => {
 					<ListItemIcon sx={{ color: "red" }}>
 						<DeleteIcon fontSize="small" />
 					</ListItemIcon>
-					Eliminar lista
+					Eliminar paso
 				</MenuItem>
 			</Menu>
-
-			<Dialog
-				open={false}
-				onClose={() => {}}
-				PaperProps={{
-					component: "form",
-					onSubmit: () => {
-						// toggleCalendar();
-					},
-				}}
-			>
-				<DialogTitle variant="subtitle1" sx={{ fontWeight: 600, pb: 1 }}>
-					Eliminar Lista
-				</DialogTitle>
-				<DialogContent sx={{ pb: 1 }}>
-					{`"${"lista"}"`} se eliminará permanentemente.
-				</DialogContent>
-				<DialogActions>
-					<Button
-						variant="contained"
-						color="error"
-						onClick={
-							() => {}
-							// toggleCalendar()
-						}
-					>
-						Eliminar
-					</Button>
-					<Button variant="outlined">Cancelar</Button>
-				</DialogActions>
-			</Dialog>
 		</>
 	);
 };
 
-export default ButtonMoreOptionsListHeader;
+export default ButtonMoreOptionsStepTask;

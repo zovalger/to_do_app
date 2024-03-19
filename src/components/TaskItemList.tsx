@@ -9,7 +9,7 @@ import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUnc
 import { TaskAttributes } from "@/types";
 import HoverIconButtom from "./HoverIconButtom";
 import { updateTaskInArr } from "@/app/helper/Task.helper";
-import { SmartListsLabels } from "@/enums";
+import { SmartListsLabels, taskListItemVariant } from "@/enums";
 import moment from "moment";
 import { DueDateTitleHelper } from "@/app/helper/TitlesDates.helper";
 import React from "react";
@@ -18,25 +18,21 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import NoteOutlinedIcon from "@mui/icons-material/NoteOutlined";
 import LoopOutlinedIcon from "@mui/icons-material/LoopOutlined";
+import Divider from "@mui/material/Divider";
+import TaskDescriptionItems from "./TaskDescriptionItems";
+import { IconButton, Tooltip } from "@mui/material";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 
 interface props {
 	data: TaskAttributes;
+	variant?: taskListItemVariant;
 }
-const TaskItemList = ({ data }: props) => {
+const TaskItemList = ({
+	data,
+	variant = taskListItemVariant.primary,
+}: props) => {
 	// const { setTaskEditing, tasks, setTasks } = useTaskContext();
-	const {
-		_id,
-		title,
-		important,
-		complete,
-		steps,
-		myDay,
-		dueDate,
-		repeat,
-		remindMe,
-		note,
-		files,
-	} = data;
+	const { _id, title, important, complete } = data;
 
 	const handleClickContent = () => {
 		// setTaskEditing(data);
@@ -56,53 +52,35 @@ const TaskItemList = ({ data }: props) => {
 		// setTaskEditing(null);
 	};
 
-	const textLittle: JSX.Element[] = [];
-
-	const textLittleWithoutSeparator: JSX.Element[] = [];
-
-	// todo: comparar lista seleccionada con myDay
-	// todo: para intercambiar entre nombre de lista y lista inteligente
-	if (myDay) textLittle.push(<>{SmartListsLabels.myDay}</>);
-	if (myDay) textLittle.push(<>{"Lista de tarea"}</>);
-
-	if (steps.length)
-		textLittle.push(
-			<>{`${steps.filter((st) => st.complete).length} de ${steps.length}`}</>
-		);
-
-	if (dueDate)
-		textLittle.push(
-			<>
-				<CalendarMonthIcon />
-				{DueDateTitleHelper(dueDate)}
-			</>
-		);
-
-	if (repeat) textLittleWithoutSeparator.push(<LoopOutlinedIcon />);
-	if (remindMe) textLittleWithoutSeparator.push(<NotificationsIcon />);
-	if (files.length) textLittleWithoutSeparator.push(<AttachFileIcon />);
-	if (note) textLittleWithoutSeparator.push(<NoteOutlinedIcon />);
-
-	const separatorBullet = <Box>•</Box>;
-
 	return (
 		<>
 			<Box
 				onClick={handleClickContent}
-				sx={{
-					display: "flex",
-					alignItems: "center",
-					py: 0.7,
-					px: 0.5,
-					mb: 1,
-					bgcolor: "#eee",
-					cursor: "pointer",
+				sx={
+					variant == taskListItemVariant.primary
+						? {
+								display: "flex",
+								alignItems: "center",
+								py: 0.7,
+								px: 0.5,
+								mb: 1,
+								bgcolor: "#eee",
+								cursor: "pointer",
 
-					":hover": { bgcolor: "#ddd" },
-					"& .MuiSvgIcon-root": {
-						fontSize: 20,
-					},
-				}}
+								":hover": { bgcolor: "#ddd" },
+								"& .MuiSvgIcon-root": {
+									fontSize: 20,
+								},
+						  }
+						: {
+								alignItems: "center",
+								display: "flex",
+								py: 0.7,
+								px: 1.7,
+								cursor: "pointer",
+								":hover": { bgcolor: "#ddd" },
+						  }
+				}
 			>
 				<HoverIconButtom
 					active={complete}
@@ -111,7 +89,7 @@ const TaskItemList = ({ data }: props) => {
 					onClick={handleCompleteButton}
 				/>
 
-				<Box sx={{ flexGrow: 1 }}>
+				<Box sx={{ flexGrow: 1, ml: 1 }}>
 					<Typography
 						sx={{
 							fontSize: 13,
@@ -121,50 +99,34 @@ const TaskItemList = ({ data }: props) => {
 						{title}
 					</Typography>
 
-					<Typography
-						sx={{
-							fontSize: 11,
-							".MuiBox-root": {
-								mr: 0.8,
-								display: "inline-block",
-							},
-							".MuiSvgIcon-root": {
-								fontSize: 11,
-								mr: 0.5,
-								lineHeight: 0,
-							},
-						}}
-					>
-						{textLittle.map((t, index) => (
-							<>
-								<Box key={index} component={"span"}>
-									{t}
-								</Box>
-
-								{index !== textLittle.length - 1 && (
-									<Box component={"span"}>•</Box>
-								)}
-							</>
-						))}
-
-						{textLittleWithoutSeparator.map((t, index) => (
-							<>
-								<Box key={index} component={"span"}>
-									{t}
-								</Box>
-							</>
-						))}
-					</Typography>
+					<TaskDescriptionItems data={data} variant={variant} />
 				</Box>
 
-				<HoverIconButtom
-					active={important}
-					color="secondary"
-					hoverIcon={<StarOutlinedIcon />}
-					idleIcon={<StarOutlineOutlinedIcon />}
-					onClick={handleImportantButton}
-				/>
+				{variant == taskListItemVariant.suggestions ? (
+					<Tooltip title="Agregar a mi día">
+						<IconButton
+							// onClick={handleClickOpen}
+
+							size="small"
+							color="secondary"
+						>
+							<AddOutlinedIcon />
+						</IconButton>
+					</Tooltip>
+				) : (
+					<HoverIconButtom
+						active={important}
+						color="secondary"
+						hoverIcon={<StarOutlinedIcon />}
+						idleIcon={<StarOutlineOutlinedIcon />}
+						onClick={handleImportantButton}
+					/>
+				)}
 			</Box>
+
+			{variant == taskListItemVariant.suggestions && (
+				<Divider sx={{ ml: 6, mr: 2 }} />
+			)}
 		</>
 	);
 };
