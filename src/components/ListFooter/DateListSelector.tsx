@@ -30,9 +30,16 @@ interface props {
 	onChange(date: Date | null): void;
 	close(): void;
 	value: Date | undefined | null;
+	deleteButton?: boolean;
 }
 
-const DateListSelector = ({ value, anchorEl, onChange, close }: props) => {
+const DateListSelector = ({
+	value,
+	anchorEl,
+	onChange,
+	close,
+	deleteButton,
+}: props) => {
 	const openMoreButton = Boolean(anchorEl);
 
 	const [openCalendar, setOpenCalendar] = useState(false);
@@ -119,7 +126,7 @@ const DateListSelector = ({ value, anchorEl, onChange, close }: props) => {
 					Elegir fecha
 				</MenuItem>
 
-				{value && (
+				{deleteButton && value && (
 					<>
 						<Divider />
 

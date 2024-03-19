@@ -70,6 +70,7 @@ const FrequencyRepeatDateButton = () => {
 				anchorEl={anchorEl}
 				close={onClose}
 				onChange={() => {}}
+				deleteButton={true}
 			/>
 		</>
 	);

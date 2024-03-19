@@ -1,15 +1,26 @@
-import React, { useState } from "react";
+"use client";
+import React, { ReactElement, useRef, useState } from "react";
+import moment, { Moment } from "moment";
 
-import AlarmIcon from "@mui/icons-material/Alarm";
-import { Box, Button, Typography } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
-import moment from "moment";
-import DateAndTimeListSelector from "./DateAndTimeListSelector";
+import {
+	Box,
+	IconButton,
+	ListItemButton,
+	ListItemIcon,
+	ListItemText,
+	Tooltip,
+} from "@mui/material";
+import DateListSelector from "../ListFooter/DateListSelector";
 
-const RememberDateButton = () => {
-	// ****************** Menu Desplegable de opciones ******************
+interface props {}
 
-	const date = new Date();
+const DueDateButtonTaskEditing = ({}: props) => {
+	// ***************// ****************** Menu Desplegable de opciones ******************
+
+	const date = null;
 
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -57,40 +68,59 @@ const RememberDateButton = () => {
 	};
 
 	// todo: anadir comparaciones para hoy, manana
-	const Subtitle = date
+	const title = date
 		? moment(date).isSame(moment(), "day")
 			? "Hoy"
 			: moment(date).isSame(moment().add(1, "day"))
 			? "Mañana"
 			: moment(date).format("dd, D MMMM")
-		: "Recordatorio";
+		: "Fecha de vencimiento";
 
 	return (
 		<>
-			<Button variant="text" aria-label="directions" onClick={handleClickOpen}>
-				<AlarmIcon />
-				<Box
-					sx={{
-						display: "flex",
-						flexDirection: "column",
-						alignItems: "flex-start",
-						".MuiTypography-root:last-child": { fontSize: ".7rem" },
-					}}
+			<Box
+				sx={{
+					display: "flex",
+				}}
+			>
+				<ListItemButton
+					sx={{ flexGrow: 1 }}
+					onClick={handleClickOpen}
+					selected={!!date}
 				>
-					<Typography>Avísame a las {moment(date).format("h:mm a")}</Typography>
-					<Typography>{Subtitle}</Typography>
-				</Box>
-			</Button>
+					<ListItemIcon>
+						<CalendarMonthIcon />
+					</ListItemIcon>
 
-			<DateAndTimeListSelector
-				value={date}
+					<ListItemText color="primary" primary={title} />
+				</ListItemButton>
+
+				{date && (
+					<Tooltip title="Eliminar Fecha">
+						<IconButton
+							// onClick={handleDelete}
+							sx={{
+								borderRadius: 0,
+								flexShrink: 0,
+								width: 48,
+								// my: 1,
+							}}
+							color="inherit"
+						>
+							<CloseIcon />
+						</IconButton>
+					</Tooltip>
+				)}
+			</Box>
+
+			<DateListSelector
+				value={null}
 				anchorEl={anchorEl}
 				close={onClose}
 				onChange={() => {}}
-				deleteButton={true}
 			/>
 		</>
 	);
 };
 
-export default RememberDateButton;
+export default DueDateButtonTaskEditing;

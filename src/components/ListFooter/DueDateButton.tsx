@@ -77,6 +77,7 @@ const DueDateButton = () => {
 				anchorEl={anchorEl}
 				close={onClose}
 				onChange={() => {}}
+				deleteButton={true}
 			/>
 		</>
 	);

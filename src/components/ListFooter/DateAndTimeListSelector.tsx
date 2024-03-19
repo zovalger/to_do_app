@@ -30,6 +30,7 @@ interface props {
 	onChange(date: Date | null): void;
 	close(): void;
 	value: Date | undefined | null;
+	deleteButton?: boolean;
 }
 
 const DateAndTimeListSelector = ({
@@ -37,6 +38,7 @@ const DateAndTimeListSelector = ({
 	anchorEl,
 	onChange,
 	close,
+	deleteButton,
 }: props) => {
 	const openMoreButton = Boolean(anchorEl);
 
@@ -124,7 +126,7 @@ const DateAndTimeListSelector = ({
 					Elegir fecha y hora
 				</MenuItem>
 
-				{value && (
+				{deleteButton && value && (
 					<>
 						<Divider />
 

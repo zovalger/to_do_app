@@ -27,14 +27,14 @@ interface props {
 	anchorEl: HTMLElement | null;
 	onChange(date: Date | null): void;
 	close(): void;
-	value: Date | undefined | null;
+	value: Date | undefined | null;deleteButton?: boolean;
 }
 
 const DateFrequencyListSelector = ({
 	value,
 	anchorEl,
 	onChange,
-	close,
+	close,	deleteButton,
 }: props) => {
 	const openMoreButton = Boolean(anchorEl);
 
@@ -150,7 +150,7 @@ const DateFrequencyListSelector = ({
 					Personalizado
 				</MenuItem>
 
-				{value && (
+				{deleteButton && value && (
 					<>
 						<Divider />
 

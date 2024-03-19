@@ -4,7 +4,7 @@ const UI_Settings = {
 	leftPanelWitdh: 280,
 	leftPanelOpen: false,
 	rightPanelWitdh: 300,
-	rightPanelOpen: true,
+	rightPanelOpen: false,
 	colors,
 };
 

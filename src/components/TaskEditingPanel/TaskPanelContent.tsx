@@ -25,9 +25,13 @@ import { TaskPanelWidth } from "@/config/UISettings";
 import StepTask from "./StepTask";
 import TaskPanelHeader from "./TaskPanelHeader";
 import { addStepToTask, updateTaskInArr } from "@/app/helper/Task.helper";
-import ButtonDate from "./ButtonDate";
+import DueDateButtonTaskEditing from "./DueDateButtonTaskEditing";
 import { TaskAttributes } from "@/types";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
+import RememberDateButtonTaskEditing from "./RememberDateButtonTaskEditing";
+import FrequencyRepeatDateButtonTaskEditing from "./FrequencyRepeatDateButtonTaskEditing";
+
+import AttachFileButtonTaskEditing from "./AttachFileButtonTaskEditing";
 
 const TaskPanelContent = () => {
 	const { rightPanelWitdh, rightPanelOpen } = useAppSelector(
@@ -113,9 +117,13 @@ const TaskPanelContent = () => {
 					key={"21321321"}
 					data={{ _id: "dasda", title: "hola", complete: false }}
 				/>
-					<StepTask
+				<StepTask
 					key={"21321321"}
-					data={{ _id: "dasda", title: "hdsdsdsdsdsdsdsdsdsdsdola", complete: true }}
+					data={{
+						_id: "dasda",
+						title: "hdsdsdsdsdsdsdsdsdsdsdola",
+						complete: true,
+					}}
 				/>
 				{/* ))} */}
 
@@ -156,16 +164,18 @@ const TaskPanelContent = () => {
 
 				<Box
 					sx={{
-						["& .MuiListItemButton-root"]: { pl: 0, my: 1 },
+						["& .MuiListItemButton-root"]: { pl: 1, py: 1, height: 50 },
 						["& .MuiListItemIcon-root .MuiSvgIcon-root"]: {
 							fontSize: 18,
 							mx: 2,
+							// mr: 0,
 						},
 						["& .MuiTypography-root"]: { fontSize: 13 },
 					}}
 				>
 					<ListItemButton
 						onClick={toggleInMyDay}
+						// sx={{ my: 1 }}
 						selected={
 							false
 							// !!taskEditing &&
@@ -180,14 +190,18 @@ const TaskPanelContent = () => {
 						<ListItemText primary={"Agregar a mi día"} />
 					</ListItemButton>
 
-					<ButtonDate
-						Icon={<CalendarMonthOutlinedIcon />}
-						onChange={ChangeDueDate}
-						value={
-							new Date()
-							// taskEditing?.dueDate
-						}
-					/>
+					<Divider />
+
+					<RememberDateButtonTaskEditing />
+
+					<DueDateButtonTaskEditing />
+
+					<FrequencyRepeatDateButtonTaskEditing />
+
+					<Divider />
+
+					<AttachFileButtonTaskEditing />
+					<Divider />
 				</Box>
 
 				<Box sx={{ px: 2 }}>
