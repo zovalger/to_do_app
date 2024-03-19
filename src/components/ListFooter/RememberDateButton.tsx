@@ -5,6 +5,7 @@ import { Box, Button, Typography } from "@mui/material";
 
 import moment from "moment";
 import DateAndTimeListSelector from "./DateAndTimeListSelector";
+import { RememberDateTitleHelper } from "@/app/helper/TitlesDates.helper";
 
 const RememberDateButton = () => {
 	// ****************** Menu Desplegable de opciones ******************
@@ -57,13 +58,8 @@ const RememberDateButton = () => {
 	};
 
 	// todo: anadir comparaciones para hoy, manana
-	const Subtitle = date
-		? moment(date).isSame(moment(), "day")
-			? "Hoy"
-			: moment(date).isSame(moment().add(1, "day"))
-			? "Mañana"
-			: moment(date).format("dd, D MMMM")
-		: "Recordatorio";
+	const Subtitle = RememberDateTitleHelper(date)
+
 
 	return (
 		<>

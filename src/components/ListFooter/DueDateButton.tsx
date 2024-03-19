@@ -5,6 +5,7 @@ import { Button, Typography } from "@mui/material";
 
 import DateListSelector from "./DateListSelector";
 import moment from "moment";
+import { DueDateTitleHelper } from "@/app/helper/TitlesDates.helper";
 
 const DueDateButton = () => {
 	// ****************** Menu Desplegable de opciones ******************
@@ -57,13 +58,7 @@ const DueDateButton = () => {
 	};
 
 	// todo: anadir comparaciones para hoy, manana
-	const title = date
-		? moment(date).isSame(moment(), "day")
-			? "Hoy"
-			: moment(date).isSame(moment().add(1, "day"))
-			? "Mañana"
-			: moment(date).format("dd, D MMMM")
-		: "Fecha de vencimiento";
+	const title = DueDateTitleHelper(date);
 
 	return (
 		<>

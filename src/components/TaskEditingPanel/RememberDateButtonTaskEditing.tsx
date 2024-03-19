@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 
 import DateAndTimeListSelector from "../ListFooter/DateAndTimeListSelector";
+import { RememberDateTitleHelper } from "@/app/helper/TitlesDates.helper";
 
 interface props {}
 
@@ -75,13 +76,7 @@ const RememberDateButtonTaskEditing = ({}: props) => {
 		? `Avísame a las ${moment(date).format("h:mm a")}`
 		: "Recordarme";
 
-	const Subtitle = date
-		? moment(date).isSame(moment(), "day")
-			? "Hoy"
-			: moment(date).isSame(moment().add(1, "day"))
-			? "Mañana"
-			: moment(date).format("dd, D MMMM")
-		: "";
+	const Subtitle = RememberDateTitleHelper(date);
 
 	return (
 		<>

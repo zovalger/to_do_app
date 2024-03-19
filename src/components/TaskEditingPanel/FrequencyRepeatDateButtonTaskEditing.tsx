@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 
 import DateFrequencyListSelector from "../ListFooter/DateFrequencyListSelector";
+import { FrequencyRepeatDateTitleHelper } from "@/app/helper/TitlesDates.helper";
 
 interface props {}
 
@@ -72,7 +73,7 @@ const FrequencyRepeatDateButtonTaskEditing = ({}: props) => {
 	};
 
 	// todo: anadir comparaciones para hoy, manana
-	const title = date ? moment(date).format("DD-MM-YYYY") : "Repetir";
+	const title = FrequencyRepeatDateTitleHelper(date);
 
 	return (
 		<>

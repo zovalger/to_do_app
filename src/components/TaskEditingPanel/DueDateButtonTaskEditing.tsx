@@ -14,6 +14,7 @@ import {
 	Tooltip,
 } from "@mui/material";
 import DateListSelector from "../ListFooter/DateListSelector";
+import { DueDateTitleHelper } from "@/app/helper/TitlesDates.helper";
 
 interface props {}
 
@@ -68,13 +69,7 @@ const DueDateButtonTaskEditing = ({}: props) => {
 	};
 
 	// todo: anadir comparaciones para hoy, manana
-	const title = date
-		? moment(date).isSame(moment(), "day")
-			? "Hoy"
-			: moment(date).isSame(moment().add(1, "day"))
-			? "Mañana"
-			: moment(date).format("dd, D MMMM")
-		: "Fecha de vencimiento";
+	const title = DueDateTitleHelper(date);
 
 	return (
 		<>
