@@ -1,6 +1,5 @@
 "use client";
-import React, { useState } from "react";
-import { FormatListBulletedOutlined } from "@mui/icons-material";
+import React from "react";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PlaylistRemoveIcon from "@mui/icons-material/PlaylistRemove";
@@ -17,15 +16,11 @@ import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import { ListItemIcon, Menu, MenuItem } from "@mui/material";
 
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+
 
 const ButtonMoreOptionsListHeader = () => {
 	// ****************** Menu Desplegable de opciones ******************

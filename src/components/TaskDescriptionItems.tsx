@@ -2,13 +2,7 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-import StarOutlineOutlinedIcon from "@mui/icons-material/StarOutlineOutlined";
-import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
-import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
-import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
 import { TaskAttributes } from "@/types";
-import HoverIconButtom from "./HoverIconButtom";
-import { updateTaskInArr } from "@/app/helper/Task.helper";
 import { SmartListsLabels, taskListItemVariant } from "@/enums";
 import moment from "moment";
 import { DueDateTitleHelper } from "@/app/helper/TitlesDates.helper";
@@ -54,7 +48,7 @@ const TaskDescriptionItems = ({ data, variant }: props) => {
 	if (files.length) textLittleWithoutSeparator.push(<AttachFileIcon />);
 	if (note) textLittleWithoutSeparator.push(<NoteOutlinedIcon />);
 
-	const separatorBullet = <Box>•</Box>;
+	const separatorBullet = <Box component="span">•</Box>;
 
 	return (
 		<>

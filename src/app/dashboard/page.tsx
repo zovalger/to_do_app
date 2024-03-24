@@ -13,6 +13,7 @@ import { useAppSelector } from "@/redux/store";
 import TaskItemList from "@/components/TaskItemList";
 import { Frequencys } from "@/enums";
 import SuggestionsPanel from "@/components/SuggestionsPanel";
+import TasksGroupingTab from "@/components/TasksGroupingTab";
 
 export default function DashboardPage() {
 	// const taskToSee = taskByListId(tasks, listSelected);
@@ -78,6 +79,53 @@ export default function DashboardPage() {
 						overflowY: "auto",
 					}}
 				>
+					<TasksGroupingTab
+						tasks={[
+							{
+								_id: "31231313",
+								title: "titulo de tarea",
+								steps: [
+									{ _id: "string", title: "paso 1", complete: false },
+									{ _id: "string", title: "paso 2", complete: true },
+									{ _id: "string", title: "paso 2", complete: true },
+								],
+								note: "esta es una nota larga",
+								remindMe: new Date(),
+								dueDate: new Date(),
+								repeat: {
+									frequency: Frequencys.daily,
+									skip: 2,
+								},
+								myDay: null,
+								complete: false,
+								important: false,
+								listId: "",
+								files: [],
+								assignedUser: "dsadasdas",
+							},
+							{
+								_id: "ddsdd",
+								title: "titulo de tarea2",
+								steps: [
+									{ _id: "string", title: "paso 1", complete: false },
+									{ _id: "string", title: "paso 2", complete: true },
+								],
+								note: "esta es una nota larga",
+								remindMe: new Date(),
+								dueDate: new Date(),
+								repeat: {
+									frequency: Frequencys.daily,
+									skip: 2,
+								},
+								myDay: new Date(),
+								complete: true,
+								important: true,
+								listId: "",
+								files: [],
+								assignedUser: "dsadasdas",
+							},
+						]}
+					/>
 					{/* {taskToSee.map((t) => ( */}
 					<TaskItemList
 						key={31231313}
@@ -129,6 +177,7 @@ export default function DashboardPage() {
 							assignedUser: "dsadasdas",
 						}}
 					/>
+
 					{/* ))} */}
 				</Box>
 			</Box>

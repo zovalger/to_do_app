@@ -1,27 +1,20 @@
 "use client";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-
 import StarOutlineOutlinedIcon from "@mui/icons-material/StarOutlineOutlined";
 import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
 import { TaskAttributes } from "@/types";
 import HoverIconButtom from "./HoverIconButtom";
-import { updateTaskInArr } from "@/app/helper/Task.helper";
-import { SmartListsLabels, taskListItemVariant } from "@/enums";
+import { taskListItemVariant } from "@/enums";
 import moment from "moment";
-import { DueDateTitleHelper } from "@/app/helper/TitlesDates.helper";
 import React from "react";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import AttachFileIcon from "@mui/icons-material/AttachFile";
-import NoteOutlinedIcon from "@mui/icons-material/NoteOutlined";
-import LoopOutlinedIcon from "@mui/icons-material/LoopOutlined";
 import Divider from "@mui/material/Divider";
 import TaskDescriptionItems from "./TaskDescriptionItems";
 import { IconButton, Tooltip } from "@mui/material";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import TaskOptions from "./TaskOptions";
 
 interface props {
 	data: TaskAttributes;
@@ -52,10 +45,24 @@ const TaskItemList = ({
 		// setTaskEditing(null);
 	};
 
+	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+	const handleCloseMoreOptions = () => {
+		setAnchorEl(null);
+	};
+	const handleRightClick = (
+		event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>
+	) => {
+		event.preventDefault();
+		event.stopPropagation();
+		setAnchorEl(event.currentTarget);
+	};
+
 	return (
 		<>
 			<Box
 				onClick={handleClickContent}
+				onContextMenu={handleRightClick}
 				sx={
 					variant == taskListItemVariant.primary
 						? {
@@ -63,14 +70,11 @@ const TaskItemList = ({
 								alignItems: "center",
 								py: 0.7,
 								px: 0.5,
-								mb: 1,
+								mb: 0.25,
 								bgcolor: "#eee",
 								cursor: "pointer",
 
 								":hover": { bgcolor: "#ddd" },
-								"& .MuiSvgIcon-root": {
-									fontSize: 20,
-								},
 						  }
 						: {
 								alignItems: "center",
@@ -124,8 +128,16 @@ const TaskItemList = ({
 				)}
 			</Box>
 
+			<TaskOptions
+				anchorEl={anchorEl}
+				close={handleCloseMoreOptions}
+				tasks={data}
+			/>
+
+			{/* // todo: hacer el menu desplegable con click derecho  */}
+
 			{variant == taskListItemVariant.suggestions && (
-				<Divider sx={{ ml: 6, mr: 2 }} />
+				<Divider sx={{ ml: 3, mr: 2 }} />
 			)}
 		</>
 	);
