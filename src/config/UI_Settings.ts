@@ -6,7 +6,7 @@ const UI_Settings = {
 	leftPanelOpen: false,
 
 	rightPanelWitdh: 300,
-	rightPanelOpen: true,
+	rightPanelOpen: false,
 	rightPanel_Id: rightPanels.suggestions,
 
 	colors,

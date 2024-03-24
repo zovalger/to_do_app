@@ -8,17 +8,15 @@ import EmojiObjectsIcon from "@mui/icons-material/EmojiObjects";
 
 import TitleListHeader from "./TitleListHeader";
 import ButtonMoreOptionsListHeader from "./ButtonMoreOptionsListHeader";
-import { useAppSelector } from "@/redux/store";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { toggleLeftPanel } from "@/redux/Slices/UISlice";
 
 const ListHeader = () => {
-	// const { handleAsidePanelToggle } = useGlobalContext();
-	// const { listSelected } = useListAndGroupContext();
-	// const {taskEditing} = useTaskContext()
 	const UI_Settings = useAppSelector((e) => e.UI_Settings);
 
-	// **************************** render ****************************
+	const dispatch = useAppDispatch();
 
-	// if (!listSelected) return <></>;
+	// **************************** render ****************************
 
 	return (
 		<>
@@ -48,7 +46,14 @@ const ListHeader = () => {
 				// boxShadow={3}
 			>
 				<Box sx={{ display: { xs: "block", sm: "none" } }}>
-					<IconButton edge="start" sx={{ borderRadius: 1 }} size="small">
+					<IconButton
+						onClick={() => {
+							dispatch(toggleLeftPanel());
+						}}
+						edge="start"
+						sx={{ borderRadius: 1 }}
+						size="small"
+					>
 						<MenuIcon />
 					</IconButton>
 				</Box>

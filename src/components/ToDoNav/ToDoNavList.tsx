@@ -19,7 +19,8 @@ import AddButton from "./AddButton";
 import ListInNav from "./ListInNav";
 import SmartListTitles from "./SmartListLabels";
 import GroupListInNav from "./GroupListInNav";
-import { useAppSelector } from "@/redux/store";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { toggleLeftPanel } from "@/redux/Slices/UISlice";
 // import { useAppSelector } from "@/redux/store";
 
 const ToDoNavListStyled = styled(List)<{ component?: React.ElementType }>({
@@ -59,7 +60,9 @@ const ToDoNavListStyled = styled(List)<{ component?: React.ElementType }>({
 
 const ToDoNavList = () => {
 	const theme = useTheme();
-	const UI_Settings = useAppSelector((e) => e.UI_Settings);
+	const { leftPanelWitdh } = useAppSelector((e) => e.UI_Settings);
+
+	const dispatch = useAppDispatch();
 
 	// const { handleAsidePanelToggle } = useGlobalContext();
 
@@ -75,14 +78,15 @@ const ToDoNavList = () => {
 				display: "flex",
 				flexDirection: "column",
 				height: "100%",
-				maxWidth: UI_Settings.leftPanelWitdh,
+				maxWidth: leftPanelWitdh,
+				width: `${leftPanelWitdh}px`,
 			}}
 		>
 			<Box>
 				{/* *********************** Menu icon *********************** */}
 
 				<ListItemButton
-					// onClick={handleAsidePanelToggle}
+					onClick={() => dispatch(toggleLeftPanel())}
 					sx={{
 						[theme.breakpoints.up("sm")]: { display: "none" },
 					}}
@@ -164,7 +168,7 @@ const ToDoNavList = () => {
 				<GroupListInNav
 					key={1111}
 					data={{
-						_id: "",
+						_id: "3",
 						title: "grupo 2",
 						lists: [],
 						userId: "",
@@ -182,7 +186,7 @@ const ToDoNavList = () => {
 				<ListInNav
 					key={33333}
 					data={{
-						_id: "",
+						_id: "2",
 						title: "Lista 22222222222222",
 						userId: "",
 						guests: [],

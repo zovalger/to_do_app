@@ -2,11 +2,19 @@
 import Drawer from "@mui/material/Drawer";
 import { useTheme } from "@mui/material/styles";
 import ToDoNavList from "./ToDoNavList";
-import { ToDoNavWidth } from "@/config/UISettings";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { toggleLeftPanel } from "@/redux/Slices/UISlice";
 
 const ToDoNav = () => {
 	const theme = useTheme();
-	// const { asidePanelMobileOpen, handleAsidePanelToggle } = useGlobalContext();
+
+	const { leftPanelWitdh, leftPanelOpen } = useAppSelector(
+		(e) => e.UI_Settings
+	);
+
+	const dispatch = useAppDispatch();
+
+	const Content = <ToDoNavList />;
 
 	return (
 		<>
@@ -14,32 +22,32 @@ const ToDoNav = () => {
 				open
 				variant="permanent"
 				sx={{
-					maxWidth: ToDoNavWidth,
-					width: ToDoNavWidth,
+					maxWidth: leftPanelWitdh,
+					width: leftPanelWitdh,
 					[theme.breakpoints.down("sm")]: {
 						display: "none",
 					},
 				}}
 			>
-				<ToDoNavList />
+				{Content}
 			</Drawer>
 
 			<Drawer
-				// open={asidePanelMobileOpen}
+				open={leftPanelOpen}
 				variant="temporary"
-				// onClose={handleAsidePanelToggle}
+				onClose={() => dispatch(toggleLeftPanel())}
 				ModalProps={{
 					keepMounted: true,
 				}}
 				sx={{
-					maxWidth: ToDoNavWidth,
-					width: ToDoNavWidth,
+					maxWidth: leftPanelWitdh,
+					width: leftPanelWitdh,
 					[theme.breakpoints.up("sm")]: {
 						display: "none",
 					},
 				}}
 			>
-				<ToDoNavList />
+				{Content}
 			</Drawer>
 		</>
 	);
