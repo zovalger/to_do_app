@@ -4,95 +4,30 @@ export interface userAttributes {
 	lastName: string;
 	username: string;
 	email: string;
-	password: string;
-	// role: Roles;
-	token: string;
+	// password: string;
+	createAt: Date;
+	updateAt: Date;
 }
 
-// ************************************************
-// 										Lists
-// ************************************************
-
-import { Frequencys } from "./enums";
-
-export interface ListGroupAttributes {
+export interface contactAttributes {
 	_id: string;
-	title: string;
-	lists: ListAttributes[];
-	userId: string;
-}
-
-export interface ListAttributes {
-	_id: string;
-	title: string;
-	userId: string;
-	guests: string[];
-}
-
-// ************************************************
-// 										Task
-// ************************************************
-
-export interface FileSchema {
-	_id: string;
-	url: string;
-	publicId: string;
-}
-
-export interface StepTaskAttributes {
-	_id: string;
-	title: string;
-	complete: boolean;
-}
-
-export interface RepeatFrequency {
-	frequency: Frequencys;
-	skip: number;
-	// days:
-}
-
-export interface TaskAttributes {
-	_id: string;
-	title: string;
-	steps: StepTaskAttributes[];
-	note: string;
-	remindMe: Date | null;
-	dueDate: Date | null;
-	repeat: RepeatFrequency;
-	myDay: Date | null;
-	complete: boolean;
-	important: boolean;
-	listId: string;
-	files: string[];
-	assignedUser: string;
-}
-
-// ************************************************
-// 										usuario
-// ************************************************
-
-export interface User {
-	_id: string;
-	name: string;
-	email: string;
-	password: string;
-}
-
-export interface contacts {
-	_id: string;
-	nickName: string;
+	nickname: string;
 	from: string;
 	to: string;
+	createAt: Date;
+	updateAt: Date;
 }
 
 // ************************************************
-// 									configuracion
+// 									configuracion de usuario
 // ************************************************
 export interface ConfigUser {
 	_id: string;
 	userId: string;
 	theme: string; // dark, light, system
 	smartLists: SmartListsConfig;
+	createAt: Date;
+	updateAt: Date;
 }
 
 export interface SmartListsConfig {
@@ -101,4 +36,66 @@ export interface SmartListsConfig {
 	todo: boolean;
 	complete: boolean;
 	toMyUser: boolean;
+}
+
+// ************************************************
+// 										Lists
+// ************************************************
+
+import { Frequencys, TypeList } from "./enums";
+
+export interface ListAttributes {
+	_id: string;
+	userId: string;
+	title: string;
+	parentId: string | null;
+	order: number;
+	type: TypeList;
+	createAt: Date;
+	updateAt: Date;
+}
+
+// ************************************************
+// 										Task
+// ************************************************
+
+export interface FileSchema {
+	_id: string;
+	taskId: string;
+	url: string;
+	type: string;
+	size: string;
+	createAt: Date;
+}
+
+export interface StepTaskAttributes {
+	_id: string;
+	title: string;
+	completionDate: Date;
+	createAt: Date;
+}
+
+export interface RepeatFrequency {
+	frequency: Frequencys;
+	skip: number;
+}
+
+export interface TaskAttributes {
+	_id: string;
+	listId: string;
+	title: string;
+	steps: StepTaskAttributes[];
+	note: string;
+	remindMe: Date | null;
+	dueDate: Date | null;
+	repeat: RepeatFrequency;
+	myDay: Date | null;
+	myDayOrder: number;
+	order: number;
+	completionDate: Date;
+	important: boolean;
+	files: string[];
+	assignedUser: string;
+	createAt: Date;
+	updateAt: Date;
 }

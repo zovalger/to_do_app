@@ -1,16 +1,27 @@
 export enum rightPanels {
 	taskEditing = "taskEditing",
 	suggestions = "suggestions",
-	
 }
 
 export enum taskListItemVariant {
 	primary = "primary",
 	suggestions = "suggestions",
-	
 }
 
+export enum TypeList {
+	group = "group",
+	list = "list",
+}
 
+export enum Frequencys {
+	daily = "daily",
+	businessDays = "businessDays",
+	weekly = "weekly",
+	monthly = "monthly",
+	yearly = "yearly",
+}
+
+// ********************************
 
 export enum SmartListsIds {
 	myDay = "myDay",
@@ -33,15 +44,3 @@ export enum SmartListsLabels {
 	emailMark = "Correo electronico marcado",
 	task = "Tareas",
 }
-
-export enum Frequencys {
-	daily = "daily",
-	businessDays = "businessDays",
-	weekly = "weekly",
-	monthly = "monthly",
-	yearly = "yearly",
-}
-
-// export enum WeekDays{
-
-// }
