@@ -17,18 +17,20 @@ import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRen
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { FormatListBulletedOutlined } from "@mui/icons-material";
 
-import { ListAttributes, ListGroupAttributes } from "@/types";
-import ListInNav from "../ListInNav";
+import { ListAttributes, OrderList } from "@/types";
 import { ToDoNavWidth } from "@/config/UISettings";
 import ListContainedEditor from "./ListContainedEditor";
+import { useAppSelector } from "@/redux/store";
+import ListItem from "../ListItem";
 
 interface props {
-	data: ListGroupAttributes;
-	lists: ListAttributes[];
+	data: OrderList;
 }
 
-const GroupListInNav = ({ data, lists }: props) => {
-	const { _id, title } = data;
+const GroupListItem = ({ data }: props) => {
+	const { _id, childrens } = data;
+	const listsIndexed = useAppSelector((e) => e.listsIndexed);
+	const { title, parentId } = listsIndexed[`${_id}`];
 
 	// ****************** Menu Desplegable ******************
 
@@ -142,6 +144,8 @@ const GroupListInNav = ({ data, lists }: props) => {
 		</>
 	);
 
+	if (!title) return "datos no encontrados";
+
 	return (
 		<>
 			<Box onContextMenu={handleRightClick}>
@@ -153,10 +157,7 @@ const GroupListInNav = ({ data, lists }: props) => {
 					{editingMode ? editView : normalView}
 				</ListItemButton>
 
-				{ungrouped &&
-					lists.map((list) => (
-						<ListInNav key={list._id} data={list} inGroup={true} />
-					))}
+				{ungrouped && childrens.map((l) => <ListItem key={l._id} data={l} />)}
 			</Box>
 
 			{/* ************************* menu desplegable de opciones ****************************** */}
@@ -196,20 +197,20 @@ const GroupListInNav = ({ data, lists }: props) => {
 						<DeleteOutlineOutlinedIcon fontSize="small" />
 					</ListItemIcon>
 
-					{lists.length ? "Desagrupar listas" : "Eliminar grupo"}
+					{childrens.length ? "Desagrupar listas" : "Eliminar grupo"}
 				</MenuItem>
 			</Menu>
 
 			{/* ************************* Panel para agregar/quitar listas ****************************** */}
 
-			<ListContainedEditor
+			{/* <ListContainedEditor
 				listGroup={data}
 				lists={lists}
 				open={openListContened}
 				onClose={handleCloseListContened}
-			/>
+			/> */}
 		</>
 	);
 };
 
-export default GroupListInNav;
+export default GroupListItem;

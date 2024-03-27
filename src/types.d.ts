@@ -46,7 +46,7 @@ import { Frequencys, TypeList } from "./enums";
 
 export interface ListAttributes {
 	_id: string;
-	userId: string;
+	userId?: string;
 	title: string;
 	parentId: string | null;
 	order: number;
@@ -55,6 +55,17 @@ export interface ListAttributes {
 	updateAt: Date;
 }
 
+// ***** list Logic *****
+
+export interface OrderList {
+	_id: string;
+	childrens: OrderList[];
+	type: TypeList;
+}
+
+export interface ListsIndexed {
+	[productId: string]: ListAttributes;
+}
 // ************************************************
 // 										Task
 // ************************************************

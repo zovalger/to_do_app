@@ -16,11 +16,13 @@ import InputBase from "@mui/material/InputBase";
 import { useTheme } from "@mui/material/styles";
 
 import AddButton from "./AddButton";
-import ListInNav from "./ListInNav";
 import SmartListTitles from "./SmartListLabels";
-import GroupListInNav from "./GroupListInNav";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { toggleLeftPanel } from "@/redux/Slices/UISlice";
+import GroupListItem from "./GroupListItem";
+import ListItem from "./ListItem";
+import SmartListItem from "./SmartListItem";
+import { TypeList } from "@/enums";
 // import { useAppSelector } from "@/redux/store";
 
 const ToDoNavListStyled = styled(List)<{ component?: React.ElementType }>({
@@ -61,6 +63,7 @@ const ToDoNavListStyled = styled(List)<{ component?: React.ElementType }>({
 const ToDoNavList = () => {
 	const theme = useTheme();
 	const { leftPanelWitdh } = useAppSelector((e) => e.UI_Settings);
+	const orderList = useAppSelector((e) => e.orderList);
 
 	const dispatch = useAppDispatch();
 
@@ -76,6 +79,7 @@ const ToDoNavList = () => {
 			disablePadding
 			sx={{
 				display: "flex",
+				position: "relative",
 				flexDirection: "column",
 				height: "100%",
 				maxWidth: leftPanelWitdh,
@@ -83,115 +87,94 @@ const ToDoNavList = () => {
 			}}
 		>
 			<Box>
-				{/* *********************** Menu icon *********************** */}
-
-				<ListItemButton
-					onClick={() => dispatch(toggleLeftPanel())}
+				<Box
 					sx={{
-						[theme.breakpoints.up("sm")]: { display: "none" },
+						position: "sticky",
+						top: 0,
+						left: 0,
+						right: 0,
+						pb: 0.5,
+						backgroundColor: "#fff",
+						zIndex: 100,
 					}}
 				>
-					<ListItemIcon sx={{ fontSize: 20 }}>
-						<MenuIcon />
-					</ListItemIcon>
-				</ListItemButton>
-				{/* *********************** account *********************** */}
+					{/* *********************** Menu icon *********************** */}
 
-				<ListItemButton component="a" href="#customized-list">
-					<Avatar
+					<ListItemButton
+						onClick={() => dispatch(toggleLeftPanel())}
 						sx={{
-							mr: 1,
+							[theme.breakpoints.up("sm")]: { display: "none" },
 						}}
-						src="https://res.cloudinary.com/dpqw06ajr/image/upload/v1686740484/images/frxomwefeytbcsbbaaqs.jpg"
-					/>
+					>
+						<ListItemIcon sx={{ fontSize: 20 }}>
+							<MenuIcon />
+						</ListItemIcon>
+					</ListItemButton>
+					{/* *********************** account *********************** */}
 
-					<ListItemText
-						primary={"German Castro"}
-						secondary={"germancastrov30@gmail.com"}
-					/>
-				</ListItemButton>
-
-				{/* *********************** buscador *********************** */}
-				<Paper
-					component="form"
-					sx={{
-						mx: 2,
-						mb: 2,
-						p: "2px 4px",
-						display: "flex",
-						alignItems: "center",
-
-						height: 32,
-					}}
-				>
-					<InputBase
-						sx={{ ml: 1, flex: 1, fontSize: 13 }}
-						placeholder="Buscar"
-						inputProps={{ "aria-label": "search " }}
-						// value={"hola"}
-					/>
-					<IconButton sx={{ p: "5px" }} aria-label="Clear">
-						<ClearIcon />
-					</IconButton>
-					<IconButton type="button" sx={{ p: "5px" }} aria-label="search">
-						<SearchIcon />
-					</IconButton>
-				</Paper>
-
-				{/* *********************** Inteligentes *********************** */}
-
-				<Box>
-					{SmartListTitles.map((list) => (
-						<ListInNav
-							key={list._id}
-							data={{ ...list, userId: "", guests: [] }}
-							icon={list.icon}
+					<ListItemButton component="a" href="#customized-list">
+						<Avatar
+							sx={{
+								mr: 1,
+							}}
+							src="https://res.cloudinary.com/dpqw06ajr/image/upload/v1686740484/images/frxomwefeytbcsbbaaqs.jpg"
 						/>
-					))}
+
+						<ListItemText
+							primary={"German Castro"}
+							secondary={"germancastrov30@gmail.com"}
+						/>
+					</ListItemButton>
+
+					{/* *********************** buscador *********************** */}
+					<Paper
+						component="form"
+						sx={{
+							mx: 2,
+
+							p: "2px 4px",
+							display: "flex",
+							alignItems: "center",
+
+							height: 32,
+						}}
+					>
+						<InputBase
+							sx={{ ml: 1, flex: 1, fontSize: 13 }}
+							placeholder="Buscar"
+							inputProps={{ "aria-label": "search " }}
+							// value={"hola"}
+						/>
+						<IconButton sx={{ p: "5px" }} aria-label="Clear">
+							<ClearIcon />
+						</IconButton>
+						<IconButton type="button" sx={{ p: "5px" }} aria-label="search">
+							<SearchIcon />
+						</IconButton>
+					</Paper>
 				</Box>
 
-				<Divider sx={{ my: 0.5 }} />
+				<Box sx={{ zIndex: 90 }}>
+					{/* *********************** Inteligentes *********************** */}
 
-				{/* *********************** grupo *********************** */}
+					<Box>
+						{SmartListTitles.map((list) => (
+							<SmartListItem key={list._id} data={list} />
+						))}
+					</Box>
 
-				<GroupListInNav
-					key={22222}
-					data={{
-						_id: "",
-						title: "grupo 1",
-						lists: [],
-						userId: "",
-					}}
-					lists={[]}
-				/>
+					<Divider sx={{ my: 0.5 }} />
 
-				<GroupListInNav
-					key={1111}
-					data={{
-						_id: "3",
-						title: "grupo 2",
-						lists: [],
-						userId: "",
-					}}
-					lists={[
-						{
-							_id: "",
-							title: "Lista 11111111111111111111111111111",
-							userId: "",
-							guests: [],
-						},
-					]}
-				/>
+					{/* *********************** grupo *********************** */}
 
-				<ListInNav
-					key={33333}
-					data={{
-						_id: "2",
-						title: "Lista 22222222222222",
-						userId: "",
-						guests: [],
-					}}
-				/>
+					{orderList.map((l) =>
+						l.type === TypeList.group ? (
+							<GroupListItem key={l._id} data={l} />
+						) : (
+							<ListItem key={l._id} data={l} />
+						)
+					)}
+				</Box>
 			</Box>
 
 			{/* *********************** anadir lista o grupo *********************** */}

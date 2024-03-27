@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { FormatListBulletedOutlined } from "@mui/icons-material";
+import React from "react";
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PlaylistRemoveIcon from "@mui/icons-material/PlaylistRemove";
@@ -10,40 +9,29 @@ import PushPinIcon from "@mui/icons-material/PushPin";
 import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
 import Divider from "@mui/material/Divider";
 import DeleteIcon from "@mui/icons-material/Delete";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 import {
 	ListItemButton,
 	ListItemIcon,
 	ListItemText,
-	Box,
-	IconButton,
+
 	Menu,
 	MenuItem,
 } from "@mui/material";
 
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
 
-import { ListAttributes } from "@/types";
 
 interface props {
-	data: ListAttributes;
-
-	icon?: JSX.Element;
-	inGroup?: boolean;
+	data: { _id: string; title: string; icon: JSX.Element };
 }
 
-const ListInNav = ({ data, icon, inGroup = false }: props) => {
-	const { _id, title } = data;
+const SmartListItem = ({ data }: props) => {
+	const { _id, title, icon } = data;
 
 	// ****************** Menu Desplegable ******************
 
@@ -110,9 +98,7 @@ const ListInNav = ({ data, icon, inGroup = false }: props) => {
 					// _id === listSelected
 				}
 			>
-				<ListItemIcon sx={inGroup ? { ml: 4.5 } : {}}>
-					{icon || <FormatListBulletedOutlined />}
-				</ListItemIcon>
+				<ListItemIcon>{icon}</ListItemIcon>
 
 				<ListItemText primary={title} />
 			</ListItemButton>
@@ -230,4 +216,4 @@ const ListInNav = ({ data, icon, inGroup = false }: props) => {
 	);
 };
 
-export default ListInNav;
+export default SmartListItem;

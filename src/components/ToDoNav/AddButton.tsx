@@ -10,29 +10,31 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import PlaylistAddOutlinedIcon from "@mui/icons-material/PlaylistAddOutlined";
 import Tooltip from "@mui/material/Tooltip";
 
+import useList from "@/hooks/useList";
+
 const AddButton = () => {
-	// const { lists, setLists, listGroups, setListGroups } =
-	// 	useListAndGroupContext();
+	const { createList, createGroup } = useList();
 
 	const handleClickList = async () => {
-		// const list = await createList();
-		// const newLists = [...lists, list];
-
-		// setListsLocalStorage(newLists);
-		// setLists(newLists);
+		createList();
 	};
 
 	const handleClickListGroup = async () => {
-		// const newGroup = await createListGroup();
-
-		// const newGroups = [...listGroups, newGroup];
-
-		// setListGroupsLocalStorage(newGroups);
-		// setListGroups(newGroups);
+		createGroup();
 	};
 
 	return (
-		<Box sx={{ display: "flex", mt: "auto" }}>
+		<Box
+			sx={{
+				background: "#fff",
+				bottom: 0,
+				display: "flex",
+				mt: "auto",
+				left: 0,
+				position: "sticky",
+				right: 0,
+			}}
+		>
 			<ListItemButton onClick={handleClickList}>
 				<ListItemIcon>
 					<AddOutlinedIcon />
