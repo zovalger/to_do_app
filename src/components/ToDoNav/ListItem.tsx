@@ -4,10 +4,13 @@ import { FormatListBulletedOutlined } from "@mui/icons-material";
 import { ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 import { OrderList } from "@/types";
 import { useAppSelector } from "@/redux/store";
 import ListOptions from "./ListOptions";
+import useList from "@/hooks/useList";
 
 interface props {
 	data: OrderList;
@@ -16,10 +19,20 @@ interface props {
 const ListItem = ({ data }: props) => {
 	const { _id } = data;
 	const listsIndexed = useAppSelector((e) => e.listsIndexed);
+	const listData = listsIndexed[`${_id}`];
+	const { updateList } = useList();
 
-	const { title, parentId } = listsIndexed[`${_id}`];
-
+	const { title, parentId } = listData;
 	const [isEditing, setIsEditing] = useState(false);
+
+	const formik = useFormik({
+		initialValues: listData,
+		validationSchema: Yup.object({}),
+		onSubmit: async (data) => {
+			await updateList(_id, data);
+			setIsEditing(false);
+		},
+	});
 
 	// ****************** funciones para botones ******************
 
@@ -47,6 +60,10 @@ const ListItem = ({ data }: props) => {
 		setIsEditing(true);
 		onClose();
 	};
+	const closeChangeName = () => {
+		setIsEditing(false);
+		// formik.submitForm();
+	};
 	const shareList = () => {};
 	const extractFromGroup = () => {};
 	const printList = () => {};
@@ -73,6 +90,7 @@ const ListItem = ({ data }: props) => {
 				{isEditing ? (
 					<Paper
 						component="form"
+						onSubmit={formik.handleSubmit}
 						sx={{
 							// mx: 2,
 
@@ -87,7 +105,10 @@ const ListItem = ({ data }: props) => {
 							sx={{ ml: 1, flex: 1, fontSize: 13 }}
 							placeholder="Buscar"
 							inputProps={{ "aria-label": "search " }}
-							// value={"hola"}
+							value={formik.values.title}
+							onChange={formik.handleChange}
+							name="title"
+							onBlur={closeChangeName}
 						/>
 					</Paper>
 				) : (

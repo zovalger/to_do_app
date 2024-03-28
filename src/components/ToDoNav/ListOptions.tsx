@@ -18,9 +18,9 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 
-
 import { OrderList } from "@/types";
-
+import { useAppSelector } from "@/redux/store";
+import useList from "@/hooks/useList";
 
 interface props {
 	anchorEl: HTMLElement | null;
@@ -50,10 +50,25 @@ const ListOptions = ({
 	pin,
 	duplicate,
 }: props) => {
+	const { deleteList } = useList();
+	const listsIndexed = useAppSelector((e) => e.listsIndexed);
+	const { _id, title } = listsIndexed[`${data._id}`];
+
 	const openMoreButton = Boolean(anchorEl);
 
-	const [openCalendar, setOpenCalendar] = useState(false);
+	const [dialogDelete, setDialogDelete] = useState(false);
+	const openDialogDelete = () => {
+		setDialogDelete(true);
+	};
+	const closeDialogDelete = () => {
+		setDialogDelete(true);
+	};
 
+	const deleteThisList = () => {
+		closeDialogDelete();
+		close();
+		deleteList(_id);
+	};
 	return (
 		<>
 			<Menu
@@ -130,10 +145,7 @@ const ListOptions = ({
 
 				<Divider />
 
-				<MenuItem
-					// onClick={}
-					sx={{ color: "red" }}
-				>
+				<MenuItem onClick={openDialogDelete} sx={{ color: "red" }}>
 					<ListItemIcon sx={{ color: "red" }}>
 						<DeleteIcon fontSize="small" />
 					</ListItemIcon>
@@ -142,33 +154,27 @@ const ListOptions = ({
 			</Menu>
 
 			<Dialog
-				open={false}
-				onClose={() => {}}
+				open={dialogDelete}
+				onClose={closeDialogDelete}
 				PaperProps={{
 					component: "form",
-					onSubmit: () => {
-						// toggleCalendar();
-					},
+					onSubmit: deleteThisList,
 				}}
 			>
 				<DialogTitle variant="subtitle1" sx={{ fontWeight: 600, pb: 1 }}>
 					Eliminar Lista
 				</DialogTitle>
 				<DialogContent sx={{ pb: 1 }}>
-					{`"${"lista"}"`} se eliminará permanentemente.
+					{`"${title}"`} se eliminará permanentemente.
 				</DialogContent>
 				<DialogActions>
-					<Button
-						variant="contained"
-						color="error"
-						onClick={
-							() => {}
-							// toggleCalendar()
-						}
-					>
+					<Button variant="contained" color="error" onClick={deleteThisList}>
 						Eliminar
 					</Button>
-					<Button variant="outlined">Cancelar</Button>
+
+					<Button variant="outlined" onClick={closeDialogDelete}>
+						Cancelar
+					</Button>
 				</DialogActions>
 			</Dialog>
 		</>
