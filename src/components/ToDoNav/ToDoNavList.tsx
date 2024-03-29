@@ -14,8 +14,22 @@ import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
 import InputBase from "@mui/material/InputBase";
 import { useTheme } from "@mui/material/styles";
+import {
+	DndContext,
+	KeyboardSensor,
+	PointerSensor,
+	useSensor,
+	useSensors,
+	closestCorners,
+	DragEndEvent,
+} from "@dnd-kit/core";
+import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
+import {
+	SortableContext,
+	verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 
-import AddButton from "./AddButton";
+import AddButtonAndManualOrder from "./AddButtonAndManualOrder";
 import SmartListTitles from "./SmartListLabels";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { toggleLeftPanel } from "@/redux/Slices/UISlice";
@@ -23,6 +37,11 @@ import GroupListItem from "./GroupListItem";
 import ListItem from "./ListItem";
 import SmartListItem from "./SmartListItem";
 import { TypeList } from "@/enums";
+import { setOrderListData } from "@/redux/Slices/OrderListsSlice";
+import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
+import ReorderIcon from "@mui/icons-material/Reorder";
+import { useState } from "react";
+
 // import { useAppSelector } from "@/redux/store";
 
 const ToDoNavListStyled = styled(List)<{ component?: React.ElementType }>({
@@ -67,11 +86,34 @@ const ToDoNavList = () => {
 
 	const dispatch = useAppDispatch();
 
-	// const { handleAsidePanelToggle } = useGlobalContext();
+	const sensors = useSensors(
+		useSensor(PointerSensor),
+		useSensor(KeyboardSensor, {
+			coordinateGetter: sortableKeyboardCoordinates,
+		})
+	);
 
-	// const { lists, listGroups } = useListAndGroupContext();
+	const getTaskPos = (_id: string) => orderList.findIndex((l) => l._id === _id);
 
-	// const { groupAndLists, restLists } = formateGroups(listGroups, lists);
+	const handleDragEnd = (event: DragEndEvent) => {
+		const { active, over } = event;
+
+		if (!over) return;
+		if (active.id === over.id) return;
+
+		const originalPos = getTaskPos(active.id.toString());
+		const newPos = getTaskPos(over.id.toString());
+
+		dispatch(setOrderListData(arrayMove(orderList, originalPos, newPos)));
+	};
+
+	const [dragMode, setDragMode] = useState(false);
+
+	const changeDragMode = (v: boolean) => {
+		setDragMode(v);
+
+		return;
+	};
 
 	return (
 		<ToDoNavListStyled
@@ -167,19 +209,68 @@ const ToDoNavList = () => {
 
 					{/* *********************** grupo *********************** */}
 
-					{orderList.map((l) =>
-						l.type === TypeList.group ? (
-							<GroupListItem key={l._id} data={l} />
-						) : (
-							<ListItem key={l._id} data={l} />
-						)
-					)}
+					<DndContext
+						sensors={sensors}
+						collisionDetection={closestCorners}
+						onDragEnd={handleDragEnd}
+						modifiers={[restrictToVerticalAxis]}
+					>
+						<SortableContext
+							items={orderList.map((l) => ({ ...l, id: l._id }))}
+							// children= {orderList}
+							strategy={verticalListSortingStrategy}
+						>
+							{orderList.map((l) =>
+								l.type === TypeList.group ? (
+									<GroupListItem key={l._id} data={l} />
+								) : (
+									<ListItem key={l._id} data={l} />
+								)
+							)}
+						</SortableContext>
+					</DndContext>
 				</Box>
 			</Box>
 
 			{/* *********************** anadir lista o grupo *********************** */}
 
-			<AddButton />
+			<Box
+				sx={{
+					bottom: 0,
+					left: 0,
+					position: "sticky",
+					right: 0,
+					mt: "auto",
+					background: "#fff",
+					boxShadow: 2,
+				}}
+			>
+				{/* quitar el drag mode */}
+
+				{dragMode && (
+					<ListItemButton
+						onClick={(e) => {
+							e.preventDefault();
+							changeDragMode(false);
+						}}
+						sx={{
+							".MuiListItemButton-root": {
+								pr: 0,
+							},
+						}}
+					>
+						<ListItemIcon>
+							{/* // todo: poner sort icon */}
+							<ReorderIcon />
+						</ListItemIcon>
+						<ListItemText primary={"Ordenar"} />
+
+						<ClearIcon />
+					</ListItemButton>
+				)}
+
+				<AddButtonAndManualOrder />
+			</Box>
 		</ToDoNavListStyled>
 	);
 };

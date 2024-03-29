@@ -8,9 +8,12 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import { OrderList } from "@/types";
-import { useAppSelector } from "@/redux/store";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
 import ListOptions from "./ListOptions";
 import useList from "@/hooks/useList";
+import DraggableContainer from "../DraggableContainer";
+import { setListSelected } from "@/redux/Slices/ToDoNavPropertiesSlice";
+import { closeLeftPanel } from "@/redux/Slices/UISlice";
 
 interface props {
 	data: OrderList;
@@ -18,11 +21,16 @@ interface props {
 
 const ListItem = ({ data }: props) => {
 	const { _id } = data;
+
+	const { listSelected, dragMode } = useAppSelector((e) => e.toDoNavProperties);
+
 	const listsIndexed = useAppSelector((e) => e.listsIndexed);
 	const listData = listsIndexed[`${_id}`];
-	const { updateList } = useList();
-
 	const { title, parentId } = listData;
+
+	const { updateList } = useList();
+	const dispatch = useAppDispatch();
+
 	const [isEditing, setIsEditing] = useState(false);
 
 	const formik = useFormik({
@@ -42,15 +50,18 @@ const ListItem = ({ data }: props) => {
 		setAnchorEl(null);
 	};
 
-	const onClick = () => {
-		// setListSelected(_id);
-		// handleAsidePanelToggle()
+	const handdleClick = () => {
+		if (dragMode || isEditing) return;
+
+		dispatch(closeLeftPanel());
+		dispatch(setListSelected(_id));
 	};
 
 	// todo: agregar accesibilidad para el movil (mantener pulsado)
 	const handleRightClick = (
 		event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>
 	) => {
+		if (dragMode) return;
 		event.preventDefault();
 		event.stopPropagation();
 		setAnchorEl(event.currentTarget);
@@ -62,7 +73,7 @@ const ListItem = ({ data }: props) => {
 	};
 	const closeChangeName = () => {
 		setIsEditing(false);
-		// formik.submitForm();
+		formik.submitForm();
 	};
 	const shareList = () => {};
 	const extractFromGroup = () => {};
@@ -74,61 +85,63 @@ const ListItem = ({ data }: props) => {
 	if (!title) return "datos no encontrados";
 
 	return (
-		<>
-			<ListItemButton
-				onClick={onClick}
-				onContextMenu={handleRightClick}
-				selected={
-					false
-					// _id === listSelected
-				}
-			>
-				<ListItemIcon sx={parentId ? { ml: 4.5 } : {}}>
-					<FormatListBulletedOutlined />
-				</ListItemIcon>
+		<DraggableContainer id={_id} isDraggable={dragMode}>
+			<>
+				<ListItemButton
+					// ****************
+					onClick={handdleClick}
+					// onDoubleClick={handleRightClick}
+					onContextMenu={handleRightClick}
+					selected={_id === listSelected}
+				>
+					<ListItemIcon sx={parentId ? { ml: 4.5 } : {}}>
+						<FormatListBulletedOutlined />
+					</ListItemIcon>
 
-				{isEditing ? (
-					<Paper
-						component="form"
-						onSubmit={formik.handleSubmit}
-						sx={{
-							// mx: 2,
+					{isEditing ? (
+						<Paper
+							component="form"
+							onSubmit={formik.handleSubmit}
+							sx={{
+								// mx: 2,
 
-							p: "2px 4px",
-							display: "flex",
-							alignItems: "center",
+								p: "2px 4px",
+								display: "flex",
+								alignItems: "center",
 
-							height: 32,
-						}}
-					>
-						<InputBase
-							sx={{ ml: 1, flex: 1, fontSize: 13 }}
-							placeholder="Buscar"
-							inputProps={{ "aria-label": "search " }}
-							value={formik.values.title}
-							onChange={formik.handleChange}
-							name="title"
-							onBlur={closeChangeName}
-						/>
-					</Paper>
-				) : (
-					<ListItemText primary={title} />
-				)}
-			</ListItemButton>
+								height: 32,
+							}}
+						>
+							<InputBase
+								sx={{ ml: 1, flex: 1, fontSize: 13 }}
+								placeholder="Buscar"
+								inputProps={{ "aria-label": "search " }}
+								value={formik.values.title}
+								onChange={formik.handleChange}
+								name="title"
+								onBlur={closeChangeName}
+								autoComplete="none"
+							/>
+						</Paper>
+					) : (
+						<ListItemText primary={title} />
+					)}
+				</ListItemButton>
 
-			<ListOptions
-				data={data}
-				anchorEl={anchorEl}
-				close={onClose}
-				changeName={changeName}
-				shareList={shareList}
-				extractFromGroup={extractFromGroup}
-				printList={printList}
-				sendForEmail={sendForEmail}
-				pin={pin}
-				duplicate={duplicate}
-			/>
-		</>
+				<ListOptions
+					data={data}
+					anchorEl={anchorEl}
+					close={onClose}
+					changeName={changeName}
+					shareList={shareList}
+					extractFromGroup={extractFromGroup}
+					printList={printList}
+					sendForEmail={sendForEmail}
+					pin={pin}
+					duplicate={duplicate}
+				/>
+			</>
+		</DraggableContainer>
 	);
 };
 

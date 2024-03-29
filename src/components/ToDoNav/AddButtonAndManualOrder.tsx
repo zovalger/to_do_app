@@ -10,9 +10,18 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import PlaylistAddOutlinedIcon from "@mui/icons-material/PlaylistAddOutlined";
 import Tooltip from "@mui/material/Tooltip";
 
+import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
+
+import { useAppDispatch, useAppSelector } from "@/redux/store";
+import {
+	initDragMode,
+	stopDragMode,
+} from "@/redux/Slices/ToDoNavPropertiesSlice";
 import useList from "@/hooks/useList";
 
-const AddButton = () => {
+const AddButtonAndManualOrder = () => {
+	const dispatch = useAppDispatch();
+	const { dragMode } = useAppSelector((e) => e.toDoNavProperties);
 	const { createList, createGroup } = useList();
 
 	const handleClickList = async () => {
@@ -26,13 +35,7 @@ const AddButton = () => {
 	return (
 		<Box
 			sx={{
-				background: "#fff",
-				bottom: 0,
 				display: "flex",
-				mt: "auto",
-				left: 0,
-				position: "sticky",
-				right: 0,
 			}}
 		>
 			<ListItemButton onClick={handleClickList}>
@@ -55,8 +58,22 @@ const AddButton = () => {
 					<PlaylistAddOutlinedIcon />
 				</IconButton>
 			</Tooltip>
+
+			<Tooltip title="Modo de ordenamiento">
+				<IconButton
+					onClick={() => dispatch(dragMode ? stopDragMode() : initDragMode())}
+					sx={{
+						borderRadius: 0,
+						flexShrink: 0,
+						width: 48,
+					}}
+					color={dragMode ? "primary" : "inherit"}
+				>
+					<DragIndicatorIcon />
+				</IconButton>
+			</Tooltip>
 		</Box>
 	);
 };
 
-export default AddButton;
+export default AddButtonAndManualOrder;
