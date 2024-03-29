@@ -12,6 +12,9 @@ export const UISlice = createSlice({
 			return { ...state, leftPanelOpen: !leftPanelOpen };
 		},
 
+		openLeftPanel: (state) => ({ ...state, leftPanelOpen: true }),
+		closeLeftPanel: (state) => ({ ...state, leftPanelOpen: false }),
+
 		openRightPanel: (state, actions: PayloadAction<rightPanels>) => {
 			const { payload } = actions;
 
@@ -32,7 +35,12 @@ export const UISlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { toggleLeftPanel, openRightPanel, closeRightPanel } =
-	UISlice.actions;
+export const {
+	toggleLeftPanel,
+	openLeftPanel,
+	closeLeftPanel,
+	openRightPanel,
+	closeRightPanel,
+} = UISlice.actions;
 
 export default UISlice.reducer;

@@ -66,6 +66,11 @@ export interface OrderList {
 export interface ListsIndexed {
 	[productId: string]: ListAttributes;
 }
+
+export interface ToDoNavProperties {
+	listSelected: string;
+	dragMode: boolean;
+}
 // ************************************************
 // 										Task
 // ************************************************

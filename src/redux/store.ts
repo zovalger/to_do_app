@@ -4,6 +4,7 @@ import userReducer from "./Slices/UserSlice";
 import UIReducer from "./Slices/UISlice";
 import OrderListsReducer from "./Slices/OrderListsSlice";
 import ListsIndexedReducer from "./Slices/ListsIndexedSlice";
+import ToDoNavPropertiesReducer from "./Slices/ToDoNavPropertiesSlice";
 
 export const store = configureStore({
 	reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
 		user: userReducer,
 		orderList: OrderListsReducer,
 		listsIndexed: ListsIndexedReducer,
+		toDoNavProperties: ToDoNavPropertiesReducer,
 	},
 });
 
