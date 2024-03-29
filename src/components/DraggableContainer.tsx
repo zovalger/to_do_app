@@ -23,7 +23,7 @@ const DraggableContainer = ({ id, isDraggable, children }: props) => {
 	const dragableatt = isDraggable ? { ...attributes, ...listeners } : {};
 	return (
 		<Box
-			sx={{ display: "flex", alignItems: "center", pr: 2 }}
+			sx={{ display: "flex", alignItems: "center" }}
 			ref={setNodeRef}
 			style={style}
 			{...dragableatt}
@@ -32,7 +32,7 @@ const DraggableContainer = ({ id, isDraggable, children }: props) => {
 
 			{isDraggable && (
 				// <IconButton sx={{ borderRadius: 0 }} size="small">
-				<DragIndicatorIcon />
+				<DragIndicatorIcon sx={{ mr: 2 }} />
 				// </IconButton>
 			)}
 		</Box>
