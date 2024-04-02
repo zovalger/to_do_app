@@ -4,7 +4,7 @@ import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 
 interface props extends IconButtonProps {
 	hoverIcon: JSX.Element;
-	idleIcon: React.ReactNode;
+	idleIcon:JSX.Element;
 	active: boolean;
 }
 

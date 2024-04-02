@@ -106,7 +106,7 @@ const TaskPanelContent = () => {
 				<TaskPanelHeader />
 
 				{/* {taskEditing?.steps.map((t) => ( */}
-				<StepTask
+				{/* <StepTask
 					key={"21321321"}
 					data={{ _id: "dasda", title: "hola", complete: false }}
 				/>
@@ -116,8 +116,8 @@ const TaskPanelContent = () => {
 						_id: "dasda",
 						title: "hdsdsdsdsdsdsdsdsdsdsdola",
 						complete: true,
-					}}
-				/>
+					}} */}
+				{/* /> */}
 				{/* ))} */}
 
 				<Box

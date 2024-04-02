@@ -2,6 +2,8 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
+import { v4 as uuid } from "uuid";
+
 import { TaskAttributes } from "@/types";
 import { SmartListsLabels, taskListItemVariant } from "@/enums";
 import moment from "moment";
@@ -32,16 +34,19 @@ const TaskDescriptionItems = ({ data, variant }: props) => {
 
 	if (steps.length)
 		textLittle.push(
-			<>{`${steps.filter((st) => st.complete).length} de ${steps.length}`}</>
+			<>{`${steps.filter((st) => st.completionDate).length} de ${
+				steps.length
+			}`}</>
 		);
 
-	if (dueDate)
+	if (dueDate) {
+		// textLittle.push();
 		textLittle.push(
-			<>
-				<CalendarMonthIcon />
-				{DueDateTitleHelper(dueDate)}
-			</>
+			<Box component={"span"}>
+				<CalendarMonthIcon /> {DueDateTitleHelper(dueDate)}{" "}
+			</Box>
 		);
+	}
 
 	if (repeat) textLittleWithoutSeparator.push(<LoopOutlinedIcon />);
 	if (remindMe) textLittleWithoutSeparator.push(<NotificationsIcon />);
@@ -51,44 +56,42 @@ const TaskDescriptionItems = ({ data, variant }: props) => {
 	const separatorBullet = <Box component="span">•</Box>;
 
 	return (
-		<>
-			<Typography
-				sx={{
+		<Typography
+			sx={{
+				fontSize: 11,
+				maxWidth: variant === taskListItemVariant.suggestions ? 180 : "100%",
+				whiteSpace: "nowrap",
+				overflow: "hidden",
+				// textOverflow: "ellipsis",
+				".MuiBox-root": {
+					mr: 0.8,
+					display: "inline-block",
+				},
+				".MuiSvgIcon-root": {
 					fontSize: 11,
-					maxWidth: variant === taskListItemVariant.suggestions ? 180 : "100%",
-					whiteSpace: "nowrap",
-					overflow: "hidden",
-					// textOverflow: "ellipsis",
-					".MuiBox-root": {
-						mr: 0.8,
-						display: "inline-block",
-					},
-					".MuiSvgIcon-root": {
-						fontSize: 11,
-						mr: 0.5,
-						lineHeight: 0,
-					},
-				}}
-			>
-				{textLittle.map((t, index) => (
-					<>
-						<Box key={index} component={"span"}>
-							{t}
-						</Box>
+					mr: 0.5,
+					lineHeight: 0,
+				},
+			}}
+		>
+			{textLittle.map((t, index) => [
+				<Box key={uuid()} component={"span"}>
+					{t}
+				</Box>,
 
-						{index !== textLittle.length - 1 && separatorBullet}
-					</>
-				))}
+				index !== textLittle.length - 1 && (
+					<Box component="span" key={uuid()}>
+						•
+					</Box>
+				),
+			])}
 
-				{textLittleWithoutSeparator.map((t, index) => (
-					<>
-						<Box key={index} component={"span"}>
-							{t}
-						</Box>
-					</>
-				))}
-			</Typography>
-		</>
+			{textLittleWithoutSeparator.map((t) => (
+				<Box key={uuid()} component={"span"}>
+					{t}
+				</Box>
+			))}
+		</Typography>
 	);
 };
 
