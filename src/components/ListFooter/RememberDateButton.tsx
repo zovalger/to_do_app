@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import AlarmIcon from "@mui/icons-material/Alarm";
 import { Box, Button, Typography } from "@mui/material";
@@ -58,8 +58,7 @@ const RememberDateButton = () => {
 	};
 
 	// todo: anadir comparaciones para hoy, manana
-	const Subtitle = RememberDateTitleHelper(date)
-
+	const Subtitle = RememberDateTitleHelper(date);
 
 	return (
 		<>

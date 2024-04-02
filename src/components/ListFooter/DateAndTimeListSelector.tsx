@@ -1,29 +1,16 @@
 "use client";
-import React, { ReactElement, useRef, useState } from "react";
-import moment, { Moment } from "moment";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import React, { useState } from "react";
+import moment from "moment";
 
 import TodayOutlinedIcon from "@mui/icons-material/TodayOutlined";
 import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
 import FastForwardOutlinedIcon from "@mui/icons-material/FastForwardOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import { v4 as uuid } from "uuid";
 
-import {
-	Box,
-	Divider,
-	IconButton,
-	ListItemButton,
-	ListItemIcon,
-	ListItemText,
-	Menu,
-	MenuItem,
-	SvgIconTypeMap,
-	Tooltip,
-} from "@mui/material";
-import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
-import { DatePicker, DateTimePicker } from "@mui/x-date-pickers";
-import { OverridableComponent } from "@mui/material/OverridableComponent";
+import { Divider, ListItemIcon, Menu, MenuItem } from "@mui/material";
+import { DateTimePicker } from "@mui/x-date-pickers";
 
 interface props {
 	anchorEl: HTMLElement | null;
@@ -126,18 +113,16 @@ const DateAndTimeListSelector = ({
 					Elegir fecha y hora
 				</MenuItem>
 
-				{deleteButton && value && (
-					<>
-						<Divider />
-
-						<MenuItem sx={{ color: "red" }}>
+				{deleteButton &&
+					value && [
+						<Divider key={uuid()} />,
+						<MenuItem key={uuid()} sx={{ color: "red" }}>
 							<ListItemIcon sx={{ color: "red" }}>
 								<DeleteOutlinedIcon fontSize="small" />
 							</ListItemIcon>
 							Quitar fecha
-						</MenuItem>
-					</>
-				)}
+						</MenuItem>,
+					]}
 			</Menu>
 
 			{openCalendar && (

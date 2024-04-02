@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 
 import EventRepeatIcon from "@mui/icons-material/EventRepeat";
 import { Button, Typography } from "@mui/material";
-import moment from "moment";
 import DateFrequencyListSelector from "./DateFrequencyListSelector";
 
 const FrequencyRepeatDateButton = () => {

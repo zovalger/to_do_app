@@ -1,6 +1,6 @@
 "use client";
-import React, { ReactElement, useRef, useState } from "react";
-import moment, { Moment } from "moment";
+import React, { useState } from "react";
+import moment from "moment";
 
 import TodayOutlinedIcon from "@mui/icons-material/TodayOutlined";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
@@ -9,17 +9,16 @@ import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import CalendarViewWeekIcon from "@mui/icons-material/CalendarViewWeek";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import SwitchAccessShortcutIcon from "@mui/icons-material/SwitchAccessShortcut";
+import { v4 as uuid } from "uuid";
 
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 
 import { Divider, ListItemIcon, Menu, MenuItem } from "@mui/material";
 
@@ -27,14 +26,16 @@ interface props {
 	anchorEl: HTMLElement | null;
 	onChange(date: Date | null): void;
 	close(): void;
-	value: Date | undefined | null;deleteButton?: boolean;
+	value: Date | undefined | null;
+	deleteButton?: boolean;
 }
 
 const DateFrequencyListSelector = ({
 	value,
 	anchorEl,
 	onChange,
-	close,	deleteButton,
+	close,
+	deleteButton,
 }: props) => {
 	const openMoreButton = Boolean(anchorEl);
 
@@ -150,18 +151,17 @@ const DateFrequencyListSelector = ({
 					Personalizado
 				</MenuItem>
 
-				{deleteButton && value && (
-					<>
-						<Divider />
+				{deleteButton &&
+					value && [
+						<Divider key={uuid()} />,
 
-						<MenuItem sx={{ color: "red" }}>
+						<MenuItem key={uuid()} sx={{ color: "red" }}>
 							<ListItemIcon sx={{ color: "red" }}>
 								<DeleteOutlinedIcon fontSize="small" />
 							</ListItemIcon>
 							No repetir nunca
-						</MenuItem>
-					</>
-				)}
+						</MenuItem>,
+					]}
 			</Menu>
 
 			{openCalendar && (
