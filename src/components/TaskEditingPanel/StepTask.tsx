@@ -18,7 +18,7 @@ import {
 
 import { StepTaskAttributes } from "@/types";
 import { updateStepOfTask } from "@/app/helper/Task.helper";
-import HoverIconButtom from "../HoverIconButtom";
+import HoverIconButton from "../HoverIconButton";
 import ButtonMoreOptionsStepTask from "./ButtonMoreOptionsStepTask";
 
 interface props {
@@ -28,7 +28,7 @@ interface props {
 const StepTask = ({ data }: props) => {
 	// const { taskEditing, setTaskEditing } = useTaskContext();
 
-	const { _id, complete, title } = data;
+	const { _id, completionDate, title } = data;
 
 	// *************************** modificacion de titulo ***************************
 	const [titleValue, setTitleValue] = useState("");
@@ -81,10 +81,10 @@ const StepTask = ({ data }: props) => {
 					},
 				}}
 			>
-				<HoverIconButtom
-					active={complete}
-					hoverIcon={<CheckCircleOutlinedIcon />}
-					idleIcon={<RadioButtonUncheckedOutlinedIcon />}
+				<HoverIconButton
+					is_hover={!!completionDate}
+					hover_icon={<CheckCircleOutlinedIcon />}
+					idle_icon={<RadioButtonUncheckedOutlinedIcon />}
 					onClick={handleComplete}
 				/>
 
@@ -127,14 +127,14 @@ const StepTask = ({ data }: props) => {
 							ml: 1.3,
 							flexGrow: 1,
 							fontSize: 13,
-							textDecoration: complete ? "line-through" : "none",
+							textDecoration: completionDate ? "line-through" : "none",
 						}}
 					>
 						{title}
 					</Typography>
 				)}
 
-				<ButtonMoreOptionsStepTask complete={complete} />
+				<ButtonMoreOptionsStepTask complete={!!completionDate} />
 			</Box>
 
 			<Divider sx={{ ml: 6, mr: 2 }} />

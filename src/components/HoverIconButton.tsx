@@ -3,20 +3,20 @@ import React, { useState, forwardRef } from "react";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 
 interface props extends IconButtonProps {
-	hoverIcon: JSX.Element;
-	idleIcon:JSX.Element;
-	active: boolean;
+	hover_icon: JSX.Element;
+	idle_icon: JSX.Element;
+	is_hover: boolean;
 }
 
-const HoverIconButtom = forwardRef<HTMLButtonElement, props>((props, ref) => {
-	const { active, hoverIcon, idleIcon, size } = props;
+const hover_iconButton = forwardRef<HTMLButtonElement, props>((props, ref) => {
+	const { is_hover, hover_icon, idle_icon, size } = props;
 
 	const [hover, setHover] = useState(false);
 
-	const activeIcon = active ? hoverIcon : hover ? hoverIcon : idleIcon;
+	const activeIcon = is_hover ? hover_icon : hover ? hover_icon : idle_icon;
 	return (
 		<IconButton
-			{...props}
+			{...{ ...props, is_hover: "" }}
 			ref={ref}
 			onMouseEnter={() => setHover(true)}
 			onMouseLeave={() => setHover(false)}
@@ -27,6 +27,6 @@ const HoverIconButtom = forwardRef<HTMLButtonElement, props>((props, ref) => {
 	);
 });
 
-HoverIconButtom.displayName = "HoverIconButtom";
+hover_iconButton.displayName = "hover_iconButton";
 
-export default HoverIconButtom;
+export default hover_iconButton;

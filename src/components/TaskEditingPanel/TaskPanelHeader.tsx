@@ -11,7 +11,7 @@ import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUnc
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { InputBase, TextField } from "@mui/material";
 
-import HoverIconButtom from "../HoverIconButtom";
+import HoverIconButton from "../HoverIconButton";
 
 const TaskPanelHeader = () => {
 	// const { taskEditing, setTaskEditing } = useTaskContext();
@@ -55,6 +55,7 @@ const TaskPanelHeader = () => {
 		// setTaskEditing({ ...taskEditing, important: !important });
 	};
 
+	const a = true;
 	// *************************** render ***************************
 
 	return (
@@ -86,10 +87,10 @@ const TaskPanelHeader = () => {
 					},
 				}}
 			>
-				<HoverIconButtom
-					active={false}
-					hoverIcon={<CheckCircleOutlinedIcon />}
-					idleIcon={<RadioButtonUncheckedOutlinedIcon />}
+				<HoverIconButton
+					is_hover={a}
+					hover_icon={<CheckCircleOutlinedIcon />}
+					idle_icon={<RadioButtonUncheckedOutlinedIcon />}
 					onClick={handleComplete}
 					size="large"
 				/>
@@ -107,11 +108,11 @@ const TaskPanelHeader = () => {
 					}}
 				/>
 
-				<HoverIconButtom
+				<HoverIconButton
 					color="secondary"
-					active={false}
-					hoverIcon={<StarOutlinedIcon />}
-					idleIcon={<StarOutlineOutlinedIcon />}
+					is_hover={false}
+					hover_icon={<StarOutlinedIcon />}
+					idle_icon={<StarOutlineOutlinedIcon />}
 					onClick={handleImportant}
 					size="large"
 				/>

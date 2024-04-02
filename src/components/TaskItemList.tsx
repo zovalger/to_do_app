@@ -6,7 +6,7 @@ import StarOutlinedIcon from "@mui/icons-material/StarOutlined";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
 import { TaskAttributes } from "@/types";
-import HoverIconButtom from "./HoverIconButtom";
+import HoverIconButton from "./HoverIconButton";
 import { taskListItemVariant } from "@/enums";
 import moment from "moment";
 import React from "react";
@@ -25,7 +25,7 @@ const TaskItemList = ({
 	variant = taskListItemVariant.primary,
 }: props) => {
 	// const { setTaskEditing, tasks, setTasks } = useTaskContext();
-	const { _id, title, important, complete } = data;
+	const { _id, title, important, completionDate } = data;
 
 	const handleClickContent = () => {
 		// setTaskEditing(data);
@@ -86,10 +86,10 @@ const TaskItemList = ({
 						  }
 				}
 			>
-				<HoverIconButtom
-					active={complete}
-					hoverIcon={<CheckCircleOutlinedIcon />}
-					idleIcon={<RadioButtonUncheckedOutlinedIcon />}
+				<HoverIconButton
+					is_hover={!!completionDate}
+					hover_icon={<CheckCircleOutlinedIcon />}
+					idle_icon={<RadioButtonUncheckedOutlinedIcon />}
 					onClick={handleCompleteButton}
 				/>
 
@@ -97,7 +97,7 @@ const TaskItemList = ({
 					<Typography
 						sx={{
 							fontSize: 13,
-							textDecoration: complete ? "line-through" : "",
+							textDecoration: completionDate ? "line-through" : "",
 						}}
 					>
 						{title}
@@ -118,11 +118,11 @@ const TaskItemList = ({
 						</IconButton>
 					</Tooltip>
 				) : (
-					<HoverIconButtom
-						active={important}
+					<HoverIconButton
+						is_hover={important}
 						color="secondary"
-						hoverIcon={<StarOutlinedIcon />}
-						idleIcon={<StarOutlineOutlinedIcon />}
+						hover_icon={<StarOutlinedIcon />}
+						idle_icon={<StarOutlineOutlinedIcon />}
 						onClick={handleImportantButton}
 					/>
 				)}
