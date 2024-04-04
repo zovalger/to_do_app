@@ -30,7 +30,7 @@ import {
 } from "@dnd-kit/sortable";
 
 import AddButtonAndManualOrder from "./AddButtonAndManualOrder";
-import SmartListTitles from "./SmartListLabels";
+import SmartListTitles from "../../hooks/useSmartList";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { toggleLeftPanel } from "@/redux/Slices/UISlice";
 import GroupListItem from "./GroupListItem";
@@ -41,6 +41,7 @@ import { setOrderListData } from "@/redux/Slices/OrderListsSlice";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import ReorderIcon from "@mui/icons-material/Reorder";
 import { useState } from "react";
+import useSmartList from "../../hooks/useSmartList";
 
 // import { useAppSelector } from "@/redux/store";
 
@@ -84,6 +85,8 @@ const ToDoNavList = () => {
 	const { leftPanelWitdh } = useAppSelector((e) => e.UI_Settings);
 	const orderList = useAppSelector((e) => e.orderList);
 
+	const { smartLists } = useSmartList();
+
 	const dispatch = useAppDispatch();
 
 	const sensors = useSensors(
@@ -105,14 +108,6 @@ const ToDoNavList = () => {
 		const newPos = getTaskPos(over.id.toString());
 
 		dispatch(setOrderListData(arrayMove(orderList, originalPos, newPos)));
-	};
-
-	const [dragMode, setDragMode] = useState(false);
-
-	const changeDragMode = (v: boolean) => {
-		setDragMode(v);
-
-		return;
 	};
 
 	return (
@@ -200,7 +195,7 @@ const ToDoNavList = () => {
 					{/* *********************** Inteligentes *********************** */}
 
 					<Box>
-						{SmartListTitles.map((list) => (
+						{smartLists.map((list) => (
 							<SmartListItem key={list._id} data={list} />
 						))}
 					</Box>
@@ -245,30 +240,6 @@ const ToDoNavList = () => {
 					boxShadow: 2,
 				}}
 			>
-				{/* quitar el drag mode */}
-
-				{dragMode && (
-					<ListItemButton
-						onClick={(e) => {
-							e.preventDefault();
-							changeDragMode(false);
-						}}
-						sx={{
-							".MuiListItemButton-root": {
-								pr: 0,
-							},
-						}}
-					>
-						<ListItemIcon>
-							{/* // todo: poner sort icon */}
-							<ReorderIcon />
-						</ListItemIcon>
-						<ListItemText primary={"Ordenar"} />
-
-						<ClearIcon />
-					</ListItemButton>
-				)}
-
 				<AddButtonAndManualOrder />
 			</Box>
 		</ToDoNavListStyled>

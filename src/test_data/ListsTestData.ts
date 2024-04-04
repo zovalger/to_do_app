@@ -2,7 +2,7 @@ import { TypeList } from "@/enums";
 import { ListsIndexed, OrderList } from "@/types";
 
 export const ListsIndexedTestdata: ListsIndexed = {
-	"idOne": {
+	idOne: {
 		_id: "idOne",
 		userId: "1",
 		title: "grupo dinamico ",
@@ -12,7 +12,7 @@ export const ListsIndexedTestdata: ListsIndexed = {
 		createAt: new Date(),
 		updateAt: new Date(),
 	},
-	"idTwo": {
+	idTwo: {
 		_id: "idOne",
 		userId: "1",
 		title: "segundo grupo dinamico ",
@@ -22,37 +22,37 @@ export const ListsIndexedTestdata: ListsIndexed = {
 		createAt: new Date(),
 		updateAt: new Date(),
 	},
-	"idThree": {
+	idThree: {
 		_id: "idThree",
 		userId: "1",
 		title: "lista de redux",
-		parentId: "idTwo",
+		parentId: null,
 		order: 2,
 		type: TypeList.list,
 		createAt: new Date(),
 		updateAt: new Date(),
 	},
-	"idFor": {
+	idFor: {
 		_id: "idFor",
 		userId: "1",
 		title: "lista de for",
-		parentId: "idOne",
+		parentId: null,
 		order: 1,
 		type: TypeList.list,
 		createAt: new Date(),
 		updateAt: new Date(),
 	},
-	"idFive": {
+	idFive: {
 		_id: "idFive",
 		userId: "1",
 		title: "lista de for",
-		parentId: "idTwo",
+		parentId: null,
 		order: 1,
 		type: TypeList.list,
 		createAt: new Date(),
 		updateAt: new Date(),
 	},
-	"idSix": {
+	idSix: {
 		_id: "idSix",
 		userId: "1",
 		title: "lista 6 de primera",
@@ -65,19 +65,20 @@ export const ListsIndexedTestdata: ListsIndexed = {
 };
 
 export const OrderListTestdata: OrderList[] = [
-	{
-		_id: "idTwo",
-		childrens: [
-			{ _id: "idThree", childrens: [], type: TypeList.list },
-			{ _id: "idFive", childrens: [], type: TypeList.list },
-		],
-		type: TypeList.group,
-	},
-	{
-		_id: "idOne",
-		childrens: [{ _id: "idFor", childrens: [], type: TypeList.list }],
-		type: TypeList.group,
-	},
+	{ _id: "idThree", childrens: [], type: TypeList.list },
+	{ _id: "idFive", childrens: [], type: TypeList.list },
+	// {
+	// 	_id: "idTwo",
+	// 	childrens: [],
+	// 	type: TypeList.group,
+	// },
+	{ _id: "idFor", childrens: [], type: TypeList.list },
+	// {
+	// 	_id: "idOne",
+	// 	childrens: [
+	// 	],
+	// 	type: TypeList.group,
+	// },
 	{
 		_id: "idSix",
 		childrens: [],

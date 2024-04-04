@@ -13,6 +13,14 @@ export const OrderListSlice = createSlice({
 		setOrderListData: (_state, actions: PayloadAction<OrderList[]>) => {
 			return actions.payload;
 		},
+		setOrderInGroup: (
+			state,
+			actions: PayloadAction<{ _id: string; childrens: OrderList[] }>
+		) => {
+			const { _id, childrens } = actions.payload;
+
+			return state.map((l) => (l._id === _id ? { ...l, childrens } : l));
+		},
 
 		// add list
 		addListToOrder: (state, actions: PayloadAction<ListAttributes>) => {
@@ -34,7 +42,11 @@ export const OrderListSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setOrderListData, addListToOrder, removeListFromOrder } =
-	OrderListSlice.actions;
+export const {
+	setOrderListData,
+	setOrderInGroup,
+	addListToOrder,
+	removeListFromOrder,
+} = OrderListSlice.actions;
 
 export default OrderListSlice.reducer;

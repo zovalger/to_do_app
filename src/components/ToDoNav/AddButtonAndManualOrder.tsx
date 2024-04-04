@@ -45,8 +45,9 @@ const AddButtonAndManualOrder = () => {
 				<ListItemText primary={"Nueva Lista"} />
 			</ListItemButton>
 
-			<Tooltip title="Crear nuevo grupo">
+			{/* <Tooltip title="Crear nuevo grupo"> */}
 				<IconButton
+					disabled
 					onClick={handleClickListGroup}
 					sx={{
 						borderRadius: 0,
@@ -57,7 +58,7 @@ const AddButtonAndManualOrder = () => {
 				>
 					<PlaylistAddOutlinedIcon />
 				</IconButton>
-			</Tooltip>
+			{/* </Tooltip> */}
 
 			<Tooltip title="Modo de ordenamiento">
 				<IconButton

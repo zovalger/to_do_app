@@ -1,8 +1,12 @@
+import { SmartListsIds } from "@/enums";
 import { ToDoNavProperties } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-const initialState: ToDoNavProperties = { listSelected: "", dragMode: false };
+const initialState: ToDoNavProperties = {
+	listSelected: SmartListsIds.myDay,
+	dragMode: false,
+};
 
 export const ToDoNavPropertiesSlice = createSlice({
 	name: "toDoNavProperties",

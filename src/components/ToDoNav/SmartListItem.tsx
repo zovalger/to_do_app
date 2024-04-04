@@ -1,46 +1,39 @@
 import React from "react";
-import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import PlaylistRemoveIcon from "@mui/icons-material/PlaylistRemove";
-import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
-import PrintIcon from "@mui/icons-material/Print";
-import EmailIcon from "@mui/icons-material/Email";
-import PushPinIcon from "@mui/icons-material/PushPin";
-import LibraryAddIcon from "@mui/icons-material/LibraryAdd";
-import Divider from "@mui/material/Divider";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { FormatListBulletedOutlined } from "@mui/icons-material";
 
-import {
-	ListItemButton,
-	ListItemIcon,
-	ListItemText,
+import { ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 
-	Menu,
-	MenuItem,
-} from "@mui/material";
+import { SmartListAttributes } from "@/types";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
 
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-
+import { setListSelected } from "@/redux/Slices/ToDoNavPropertiesSlice";
+import { closeLeftPanel } from "@/redux/Slices/UISlice";
+import SmartListOptions from "./SmartListOptions";
 
 interface props {
-	data: { _id: string; title: string; icon: JSX.Element };
+	data: SmartListAttributes;
 }
 
 const SmartListItem = ({ data }: props) => {
 	const { _id, title, icon } = data;
 
-	// ****************** Menu Desplegable ******************
+	const dispatch = useAppDispatch();
 
-	// ****************** Menu Desplegable de opciones ******************
+	const { listSelected } = useAppSelector((e) => e.toDoNavProperties);
+
+	// ****************** funciones para botones ******************
 
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-	const openMoreOptions = Boolean(anchorEl);
 
-	// todo: agregar accesibilidad para el movil (mantener pulsado)
+	const onClose = () => {
+		setAnchorEl(null);
+	};
+
+	const handdleClick = () => {
+		dispatch(closeLeftPanel());
+		dispatch(setListSelected(_id));
+	};
+
 	const handleRightClick = (
 		event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>
 	) => {
@@ -49,169 +42,35 @@ const SmartListItem = ({ data }: props) => {
 		setAnchorEl(event.currentTarget);
 	};
 
-	const handleCloseMoreOptions = () => {
-		setAnchorEl(null);
-	};
-	// ****************** Cambio de nombre ******************
-
-	const handleSubmit = async () => {
-		// const newGroup = await updateListGroup(_id, { ...data, title: inputValue });
-		// const newGroupsList = listGroups.map((g) => (g._id === _id ? newGroup : g));
-		// setListGroups(newGroupsList);
-		// setListGroupsLocalStorage(newGroupsList);
-		// handleResetRename();
-	};
-
-	/* ************************* Agregar/quitar listas ****************************** */
-
-	const [openListContened, setOpenListContened] = React.useState(false);
-
-	const handleClickOpen = () => {
-		setOpenListContened(true);
-		handleCloseMoreOptions();
-	};
-
-	const handleCloseListContened = () => {
-		setOpenListContened(false);
-	};
-
-	// ****************** Eliminacion ******************
-
-	const handleDeleteGroup = async () => {
-		// todo: eliminar grupo
-		// const newGroupsList = await deleteListGroup(listGroups, _id);
-		// setListGroups(newGroupsList);
-	};
-
-	const onClick = () => {
-		// setListSelected(_id);
-		// handleAsidePanelToggle()
-	};
+	const printList = () => {};
+	const sendForEmail = () => {};
+	const pin = () => {};
+	const hiddenList = () => {};
 
 	return (
 		<>
 			<ListItemButton
-				onClick={onClick}
+				sx={{
+					transition: "margin-bottom 200ms, background 200ms",
+				}}
+				onClick={handdleClick}
 				onContextMenu={handleRightClick}
-				selected={
-					false
-					// _id === listSelected
-				}
+				selected={_id === listSelected}
 			>
-				<ListItemIcon>{icon}</ListItemIcon>
+				<ListItemIcon>{icon || <FormatListBulletedOutlined />}</ListItemIcon>
 
 				<ListItemText primary={title} />
 			</ListItemButton>
 
-			<Menu
-				id="basic-menu"
+			<SmartListOptions
+				data={data}
 				anchorEl={anchorEl}
-				anchorOrigin={{
-					vertical: "top",
-					horizontal: "center",
-				}}
-				transformOrigin={{
-					vertical: "bottom",
-					horizontal: "center",
-				}}
-				open={openMoreOptions}
-				onClose={handleCloseMoreOptions}
-				MenuListProps={{
-					"aria-labelledby": "basic-button",
-				}}
-			>
-				<MenuItem>
-					<ListItemIcon>
-						<DriveFileRenameOutlineIcon fontSize="small" />
-					</ListItemIcon>
-					Cambiar el nombre de la lista
-				</MenuItem>
-
-				<MenuItem>
-					<ListItemIcon>
-						<AccountCircleIcon fontSize="small" />
-					</ListItemIcon>
-					Compartir la lista
-				</MenuItem>
-
-				<MenuItem>
-					<ListItemIcon>
-						<PlaylistAddIcon fontSize="small" />
-					</ListItemIcon>
-					Mover la lista a…
-				</MenuItem>
-
-				<MenuItem>
-					<ListItemIcon>
-						<PlaylistRemoveIcon fontSize="small" />
-					</ListItemIcon>
-					Quitar del grupo
-				</MenuItem>
-				<MenuItem>
-					<ListItemIcon>
-						<PrintIcon fontSize="small" />
-					</ListItemIcon>
-					Imprimir esta lista
-				</MenuItem>
-				<MenuItem>
-					<ListItemIcon>
-						<EmailIcon fontSize="small" />
-					</ListItemIcon>
-					Enviar lista por correo electrónico
-				</MenuItem>
-				<MenuItem>
-					<ListItemIcon>
-						<PushPinIcon fontSize="small" />
-					</ListItemIcon>
-					Anclar a inicio
-				</MenuItem>
-				<MenuItem>
-					<ListItemIcon>
-						<LibraryAddIcon fontSize="small" />
-					</ListItemIcon>
-					Duplicar lista
-				</MenuItem>
-
-				<Divider />
-
-				<MenuItem sx={{ color: "red" }}>
-					<ListItemIcon sx={{ color: "red" }}>
-						<DeleteIcon fontSize="small" />
-					</ListItemIcon>
-					Eliminar lista
-				</MenuItem>
-			</Menu>
-
-			<Dialog
-				open={false}
-				onClose={() => {}}
-				PaperProps={{
-					component: "form",
-					onSubmit: () => {
-						// toggleCalendar();
-					},
-				}}
-			>
-				<DialogTitle variant="subtitle1" sx={{ fontWeight: 600, pb: 1 }}>
-					Eliminar Lista
-				</DialogTitle>
-				<DialogContent sx={{ pb: 1 }}>
-					{`"${"lista"}"`} se eliminará permanentemente.
-				</DialogContent>
-				<DialogActions>
-					<Button
-						variant="contained"
-						color="error"
-						onClick={
-							() => {}
-							// toggleCalendar()
-						}
-					>
-						Eliminar
-					</Button>
-					<Button variant="outlined">Cancelar</Button>
-				</DialogActions>
-			</Dialog>
+				close={onClose}
+				printList={printList}
+				sendForEmail={sendForEmail}
+				pin={pin}
+				hiddeSmartList={hiddenList}
+			/>
 		</>
 	);
 };

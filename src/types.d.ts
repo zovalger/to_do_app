@@ -57,6 +57,12 @@ export interface ListAttributes {
 
 // ***** list Logic *****
 
+export interface SmartListAttributes {
+	_id: string;
+	icon?: JSX.Element;
+	title: string;
+}
+
 export interface OrderList {
 	_id: string;
 	childrens: OrderList[];

@@ -13,10 +13,13 @@ import { toggleLeftPanel } from "@/redux/Slices/UISlice";
 
 const ListHeader = () => {
 	const UI_Settings = useAppSelector((e) => e.UI_Settings);
+	const { listSelected } = useAppSelector((e) => e.toDoNavProperties);
 
 	const dispatch = useAppDispatch();
 
 	// **************************** render ****************************
+
+	if (!listSelected) return;
 
 	return (
 		<>

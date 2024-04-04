@@ -5,7 +5,6 @@ import { ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import { useFormik } from "formik";
-import * as Yup from "yup";
 
 import { OrderList } from "@/types";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
@@ -14,12 +13,14 @@ import useList from "@/hooks/useList";
 import DraggableContainer from "../DraggableContainer";
 import { setListSelected } from "@/redux/Slices/ToDoNavPropertiesSlice";
 import { closeLeftPanel } from "@/redux/Slices/UISlice";
+import TitleListValidator from "@/validators/TitleListValidator";
 
 interface props {
 	data: OrderList;
+	icon?: JSX.Element;
 }
 
-const ListItem = ({ data }: props) => {
+const ListItem = ({ data, icon }: props) => {
 	const { _id } = data;
 
 	const { listSelected, dragMode } = useAppSelector((e) => e.toDoNavProperties);
@@ -35,7 +36,7 @@ const ListItem = ({ data }: props) => {
 
 	const formik = useFormik({
 		initialValues: listData,
-		validationSchema: Yup.object({}),
+		validationSchema: TitleListValidator,
 		onSubmit: async (data) => {
 			await updateList(_id, data);
 			setIsEditing(false);
@@ -88,14 +89,18 @@ const ListItem = ({ data }: props) => {
 		<DraggableContainer id={_id} isDraggable={dragMode}>
 			<>
 				<ListItemButton
-					// ****************
+					sx={{
+						// bgcolor: dragMode ? "#e3eaee" : "inherit",
+						mb: dragMode ? 0.5 : 0,
+						transition: "margin-bottom 200ms, background 200ms",
+					}}
 					onClick={handdleClick}
 					// onDoubleClick={handleRightClick}
 					onContextMenu={handleRightClick}
 					selected={_id === listSelected}
 				>
 					<ListItemIcon sx={parentId ? { ml: 4.5 } : {}}>
-						<FormatListBulletedOutlined />
+						{icon || <FormatListBulletedOutlined />}
 					</ListItemIcon>
 
 					{isEditing ? (
