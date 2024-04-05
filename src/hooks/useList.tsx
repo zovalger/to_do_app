@@ -1,4 +1,5 @@
 import { listDefaultValues } from "@/defaultValues";
+import { SmartListsIds } from "@/enums";
 import {
 	addOrUpdateListToIndex,
 	removeListFromIndexed,
@@ -7,11 +8,13 @@ import {
 	addListToOrder,
 	removeListFromOrder,
 } from "@/redux/Slices/OrderListsSlice";
+import { setListSelected } from "@/redux/Slices/ToDoNavPropertiesSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { ListAttributes } from "@/types";
 
 const useList = () => {
 	const indexed = useAppSelector((e) => e.listsIndexed);
+	const { listSelected } = useAppSelector((e) => e.toDoNavProperties);
 	const dispatch = useAppDispatch();
 
 	const createList = async () => {
@@ -38,6 +41,8 @@ const useList = () => {
 	};
 
 	const deleteList = async (_id: string) => {
+		if (listSelected == _id) dispatch(setListSelected(SmartListsIds.myDay));
+
 		dispatch(removeListFromOrder(_id));
 		dispatch(removeListFromIndexed(_id));
 	};

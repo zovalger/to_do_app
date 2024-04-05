@@ -100,7 +100,7 @@ const ListOptions = ({
 					Cambiar el nombre de la lista
 				</MenuItem>
 
-				<MenuItem onClick={shareList}>
+				<MenuItem onClick={shareList} disabled>
 					<ListItemIcon>
 						<AccountCircleIcon fontSize="small" />
 					</ListItemIcon>
@@ -117,31 +117,31 @@ const ListOptions = ({
 					Mover la lista a…
 				</MenuItem>
 
-				<MenuItem onClick={extractFromGroup}>
+				<MenuItem onClick={extractFromGroup} disabled>
 					<ListItemIcon>
 						<PlaylistRemoveIcon fontSize="small" />
 					</ListItemIcon>
 					Quitar del grupo
 				</MenuItem>
-				<MenuItem onClick={printList}>
+				<MenuItem onClick={printList} disabled>
 					<ListItemIcon>
 						<PrintIcon fontSize="small" />
 					</ListItemIcon>
 					Imprimir esta lista
 				</MenuItem>
-				<MenuItem onClick={sendForEmail}>
+				<MenuItem onClick={sendForEmail} disabled>
 					<ListItemIcon>
 						<EmailIcon fontSize="small" />
 					</ListItemIcon>
 					Enviar lista por correo electrónico
 				</MenuItem>
-				<MenuItem onClick={pin}>
+				<MenuItem onClick={pin} disabled>
 					<ListItemIcon>
 						<PushPinIcon fontSize="small" />
 					</ListItemIcon>
 					Anclar a inicio
 				</MenuItem>
-				<MenuItem onClick={duplicate}>
+				<MenuItem onClick={duplicate} disabled>
 					<ListItemIcon>
 						<LibraryAddIcon fontSize="small" />
 					</ListItemIcon>

@@ -56,25 +56,25 @@ const SmartListOptions = ({
 					horizontal: "center",
 				}}
 			>
-				<MenuItem onClick={printList}>
+				<MenuItem onClick={printList}  disabled>
 					<ListItemIcon>
 						<PrintIcon fontSize="small" />
 					</ListItemIcon>
 					Imprimir esta lista
 				</MenuItem>
-				<MenuItem onClick={sendForEmail}>
+				<MenuItem onClick={sendForEmail} disabled>
 					<ListItemIcon>
 						<EmailIcon fontSize="small" />
 					</ListItemIcon>
 					Enviar lista por correo electrónico
 				</MenuItem>
-				<MenuItem onClick={pin}>
+				<MenuItem onClick={pin} disabled>
 					<ListItemIcon>
 						<PushPinIcon fontSize="small" />
 					</ListItemIcon>
 					Anclar a inicio
 				</MenuItem>
-				<MenuItem onClick={hiddeSmartList}>
+				<MenuItem onClick={hiddeSmartList} disabled>
 					<ListItemIcon>
 						<VisibilityOffIcon fontSize="small" />
 					</ListItemIcon>
