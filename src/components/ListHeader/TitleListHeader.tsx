@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Typography from "@mui/material/Typography";
 import { Box, InputBase } from "@mui/material";
 
@@ -9,7 +9,12 @@ import { useFormik } from "formik";
 import TitleListValidator from "@/validators/TitleListValidator";
 import useList from "@/hooks/useList";
 
-const TitleListHeader = () => {
+interface props {
+	isEditing: boolean;
+	changeIsEditing(v: boolean): void;
+}
+
+const TitleListHeader = ({ isEditing, changeIsEditing }: props) => {
 	// obtener datos de la lista smart o personalizada
 
 	const { listSelected } = useAppSelector((e) => e.toDoNavProperties);
@@ -27,15 +32,13 @@ const TitleListHeader = () => {
 
 	const { updateList } = useList();
 
-	const [isEditing, setIsEditing] = useState(false);
-
 	const inputRef = useRef<HTMLInputElement>(null);
 
 	const formik = useFormik({
 		initialValues: listData,
 		validationSchema: TitleListValidator,
 		onSubmit: async (data) => {
-			setIsEditing(false);
+			changeIsEditing(false);
 
 			const t = data.title.trim();
 
@@ -50,45 +53,25 @@ const TitleListHeader = () => {
 	const handleClickTitle = () => {
 		if (smartData) return;
 
-		formik.setFieldValue("title", title);
-		setIsEditing(true);
-
-		// if (inputRef.current) {
-		// 	console.log(1);
-
-		// 	inputRef.current.focus();
-		// 	inputRef.current.selectionStart = 0;
-		// 	inputRef.current.selectionEnd = title.length;
-		// }
+		formik.setValues(listData);
+		// formik.setFieldValue("title", title);
+		changeIsEditing(true);
 	};
 
-	// const handleSubmit = async () => {
-	// if (!listSelected) return;
-	// const oldList = lists.find((l) => l._id == listSelected);
-	// if (!oldList) return;
-	// const newList = await updateList(listSelected, {
-	// 	...oldList,
-	// 	title: inputValue,
-	// });
-	// const newArr = uptadeListInArray(lists, oldList._id, newList);
-	// setListsLocalStorage(newArr);
-	// setLists(newArr);
-	// setEditingMode(false);
-	// };
+	useEffect(() => {
+		if (isEditing) handleClickTitle();
+	}, [isEditing]);
 
-	// useEffect(() => {
-	// 	setInputValue("");
-	// 	setEditingMode(false);
-
-	// 	return () => {};
-	// }, [listSelected]);
+	useEffect(() => {
+		if (isEditing) changeIsEditing(false);
+	}, [_id]);
 
 	return (
 		<Box>
 			{isEditing ? (
 				<Box component={"form"} onSubmit={formik.handleSubmit}>
 					<InputBase
-						value={formik.values.title}
+						value={formik.values?.title}
 						name="title"
 						ref={inputRef}
 						sx={{
@@ -112,7 +95,7 @@ const TitleListHeader = () => {
 				</Box>
 			) : (
 				<Typography
-					onClick={() => handleClickTitle()}
+					onClick={handleClickTitle}
 					variant="h5"
 					component="div"
 					sx={{ fontWeight: 600, textShadow: "1px 2px 3px #0008" }}

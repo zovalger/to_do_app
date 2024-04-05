@@ -10,6 +10,7 @@ import TitleListHeader from "./TitleListHeader";
 import ButtonMoreOptionsListHeader from "./ButtonMoreOptionsListHeader";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { toggleLeftPanel } from "@/redux/Slices/UISlice";
+import { useState } from "react";
 
 const ListHeader = () => {
 	const UI_Settings = useAppSelector((e) => e.UI_Settings);
@@ -18,6 +19,26 @@ const ListHeader = () => {
 	const dispatch = useAppDispatch();
 
 	// **************************** render ****************************
+
+	const [isEditing, setIsEditing] = useState(false);
+
+	const changeIsEditing = (v: boolean) => {
+		setIsEditing(v);
+	};
+	const changeName = () => {
+		setIsEditing(true);
+		// onClose();
+	};
+	const closeChangeName = () => {
+		setIsEditing(false);
+		// formik.submitForm();
+	};
+	const shareList = () => {};
+	const extractFromGroup = () => {};
+	const printList = () => {};
+	const sendForEmail = () => {};
+	const pin = () => {};
+	const duplicate = () => {};
 
 	if (!listSelected) return;
 
@@ -64,7 +85,10 @@ const ListHeader = () => {
 				<Box
 					sx={{ display: "flex", alignItems: "center", pt: { xs: 0, sm: 2 } }}
 				>
-					<TitleListHeader />
+					<TitleListHeader
+						isEditing={isEditing}
+						changeIsEditing={changeIsEditing}
+					/>
 
 					<Box
 						sx={{
@@ -97,11 +121,14 @@ const ListHeader = () => {
 							</IconButton>
 						</Box>
 
-						<ButtonMoreOptionsListHeader />
+						<ButtonMoreOptionsListHeader changeIsEditing={changeIsEditing} />
 					</Box>
 				</Box>
 
-				<Typography component="div" sx={{ fontSize: 13, mt: 1 }}>
+				<Typography
+					component="div"
+					sx={{ fontSize: 13, mt: 1, textShadow: "1px 2px 3px #0008" }}
+				>
 					{new Date().toDateString()}
 				</Typography>
 			</Box>

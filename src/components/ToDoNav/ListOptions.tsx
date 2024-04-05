@@ -18,14 +18,14 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 
-import { OrderList } from "@/types";
+import { ListAttributes, OrderList } from "@/types";
 import { useAppSelector } from "@/redux/store";
 import useList from "@/hooks/useList";
 
 interface props {
 	anchorEl: HTMLElement | null;
 	close(): void;
-	data: OrderList;
+	data: OrderList | ListAttributes;
 
 	// functions
 	changeName(): void;
@@ -88,7 +88,12 @@ const ListOptions = ({
 					horizontal: "center",
 				}}
 			>
-				<MenuItem onClick={changeName}>
+				<MenuItem
+					onClick={() => {
+						changeName();
+						close();
+					}}
+				>
 					<ListItemIcon>
 						<DriveFileRenameOutlineIcon fontSize="small" />
 					</ListItemIcon>

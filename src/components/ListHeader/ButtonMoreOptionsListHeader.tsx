@@ -20,9 +20,27 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import ListOptions from "../ToDoNav/ListOptions";
+import SmartListOptions from "../ToDoNav/SmartListOptions";
+import { useAppSelector } from "@/redux/store";
+import useSmartList from "@/hooks/useSmartList";
+import { SmartListsIds } from "@/enums";
 
+interface props {
+	changeIsEditing(v: boolean): void;
+}
 
-const ButtonMoreOptionsListHeader = () => {
+const ButtonMoreOptionsListHeader = ({ changeIsEditing }: props) => {
+	const { listSelected } = useAppSelector((e) => e.toDoNavProperties);
+	const listsIndexed = useAppSelector((e) => e.listsIndexed);
+
+	const { isAnSmartList } = useSmartList();
+	const smartId = listSelected as SmartListsIds;
+	const smartData = isAnSmartList(smartId);
+
+	const listData = listsIndexed[listSelected];
+
+	const data = smartData || listData;
 	// ****************** Menu Desplegable de opciones ******************
 
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -37,41 +55,20 @@ const ButtonMoreOptionsListHeader = () => {
 		setAnchorEl(event.currentTarget);
 	};
 
-	const handleCloseMoreOptions = () => {
+	const onClose = () => {
 		setAnchorEl(null);
 	};
-	// ****************** Cambio de nombre ******************
 
-	const handleSubmit = async () => {
-		// const newGroup = await updateListGroup(_id, { ...data, title: inputValue });
-		// const newGroupsList = listGroups.map((g) => (g._id === _id ? newGroup : g));
-		// setListGroups(newGroupsList);
-		// setListGroupsLocalStorage(newGroupsList);
-		// handleResetRename();
+	const changeName = () => {
+		changeIsEditing(true);
 	};
-
-	/* ************************* Agregar/quitar listas ****************************** */
-
-	const [openListContened, setOpenListContened] = React.useState(false);
-
-	const handleCloseListContened = () => {
-		setOpenListContened(false);
-	};
-
-	// ****************** Eliminacion ******************
-
-	const handleDeleteGroup = async () => {
-		// todo: eliminar grupo
-		// const newGroupsList = await deleteListGroup(listGroups, _id);
-		// setListGroups(newGroupsList);
-	};
-
-	const onClick = () => {
-		// setListSelected(_id);
-		// handleAsidePanelToggle()
-	};
-
-	const title = "22222"; // getNameList(lists, listSelected);
+	const shareList = () => {};
+	const extractFromGroup = () => {};
+	const printList = () => {};
+	const sendForEmail = () => {};
+	const pin = () => {};
+	const duplicate = () => {};
+	const hidden = () => {};
 
 	return (
 		<>
@@ -79,115 +76,32 @@ const ButtonMoreOptionsListHeader = () => {
 				<MoreHorizOutlinedIcon />
 			</IconButton>
 
-			<Menu
-				id="basic-menu"
-				anchorEl={anchorEl}
-				anchorOrigin={{
-					vertical: "top",
-					horizontal: "center",
-				}}
-				transformOrigin={{
-					vertical: "bottom",
-					horizontal: "center",
-				}}
-				open={openMoreOptions}
-				onClose={handleCloseMoreOptions}
-				MenuListProps={{
-					"aria-labelledby": "basic-button",
-				}}
-			>
-				<MenuItem>
-					<ListItemIcon>
-						<DriveFileRenameOutlineIcon fontSize="small" />
-					</ListItemIcon>
-					Cambiar el nombre de la lista
-				</MenuItem>
-
-				<MenuItem>
-					<ListItemIcon>
-						<AccountCircleIcon fontSize="small" />
-					</ListItemIcon>
-					Compartir la lista
-				</MenuItem>
-
-				<MenuItem>
-					<ListItemIcon>
-						<PlaylistAddIcon fontSize="small" />
-					</ListItemIcon>
-					Mover la lista a…
-				</MenuItem>
-
-				<MenuItem>
-					<ListItemIcon>
-						<PlaylistRemoveIcon fontSize="small" />
-					</ListItemIcon>
-					Quitar del grupo
-				</MenuItem>
-				<MenuItem>
-					<ListItemIcon>
-						<PrintIcon fontSize="small" />
-					</ListItemIcon>
-					Imprimir esta lista
-				</MenuItem>
-				<MenuItem>
-					<ListItemIcon>
-						<EmailIcon fontSize="small" />
-					</ListItemIcon>
-					Enviar lista por correo electrónico
-				</MenuItem>
-				<MenuItem>
-					<ListItemIcon>
-						<PushPinIcon fontSize="small" />
-					</ListItemIcon>
-					Anclar a inicio
-				</MenuItem>
-				<MenuItem>
-					<ListItemIcon>
-						<LibraryAddIcon fontSize="small" />
-					</ListItemIcon>
-					Duplicar lista
-				</MenuItem>
-
-				<Divider />
-
-				<MenuItem sx={{ color: "red" }}>
-					<ListItemIcon sx={{ color: "red" }}>
-						<DeleteIcon fontSize="small" />
-					</ListItemIcon>
-					Eliminar lista
-				</MenuItem>
-			</Menu>
-
-			<Dialog
-				open={false}
-				onClose={() => {}}
-				PaperProps={{
-					component: "form",
-					onSubmit: () => {
-						// toggleCalendar();
-					},
-				}}
-			>
-				<DialogTitle variant="subtitle1" sx={{ fontWeight: 600, pb: 1 }}>
-					Eliminar Lista
-				</DialogTitle>
-				<DialogContent sx={{ pb: 1 }}>
-					{`"${"lista"}"`} se eliminará permanentemente.
-				</DialogContent>
-				<DialogActions>
-					<Button
-						variant="contained"
-						color="error"
-						onClick={
-							() => {}
-							// toggleCalendar()
-						}
-					>
-						Eliminar
-					</Button>
-					<Button variant="outlined">Cancelar</Button>
-				</DialogActions>
-			</Dialog>
+			{smartData ? (
+				<SmartListOptions
+					anchorEl={anchorEl}
+					close={onClose}
+					data={data}
+					// 
+					hiddeSmartList={hidden}
+					printList={printList}
+					sendForEmail={sendForEmail}
+					pin={pin}
+				/>
+			) : (
+				<ListOptions
+					anchorEl={anchorEl}
+					close={onClose}
+					data={listData}
+					// 
+					changeName={changeName}
+					shareList={shareList}
+					extractFromGroup={extractFromGroup}
+					printList={printList}
+					sendForEmail={sendForEmail}
+					pin={pin}
+					duplicate={duplicate}
+				/>
+			)}
 		</>
 	);
 };

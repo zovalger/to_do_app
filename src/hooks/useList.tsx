@@ -42,11 +42,25 @@ const useList = () => {
 		dispatch(removeListFromIndexed(_id));
 	};
 
+	// ************* funciones avanzadas *************
+
+	const extraListFunctions = {
+		changeName: () => {},
+		shareList: () => {},
+		extractFromGroup: () => {},
+		printList: () => {},
+		sendForEmail: () => {},
+		moveTo: () => {},
+		pin: () => {},
+		duplicate: () => {},
+	};
+
 	return {
 		createList,
 		createGroup,
 		updateList,
 		deleteList,
+		extraListFunctions,
 	};
 };
 

@@ -13,7 +13,7 @@ import useList from "@/hooks/useList";
 interface props {
 	anchorEl: HTMLElement | null;
 	close(): void;
-	data: SmartListAttributes;
+	data: Pick<SmartListAttributes, "title" | "_id">;
 
 	printList(): void;
 	sendForEmail(): void;
@@ -24,6 +24,7 @@ interface props {
 const SmartListOptions = ({
 	data,
 	anchorEl,
+
 	close,
 	printList,
 	sendForEmail,
@@ -33,6 +34,8 @@ const SmartListOptions = ({
 	const { _id, title } = data;
 
 	const openMoreButton = Boolean(anchorEl);
+
+	// **********************************
 
 	return (
 		<>
