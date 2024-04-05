@@ -9,8 +9,9 @@ import EmojiObjectsIcon from "@mui/icons-material/EmojiObjects";
 import TitleListHeader from "./TitleListHeader";
 import ButtonMoreOptionsListHeader from "./ButtonMoreOptionsListHeader";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
-import { toggleLeftPanel } from "@/redux/Slices/UISlice";
+import { openRightPanel, toggleLeftPanel } from "@/redux/Slices/UISlice";
 import { useState } from "react";
+import { rightPanels } from "@/enums";
 
 const ListHeader = () => {
 	const UI_Settings = useAppSelector((e) => e.UI_Settings);
@@ -25,20 +26,10 @@ const ListHeader = () => {
 	const changeIsEditing = (v: boolean) => {
 		setIsEditing(v);
 	};
-	const changeName = () => {
-		setIsEditing(true);
-		// onClose();
+
+	const handleSuggestionClick = () => {
+		dispatch(openRightPanel(rightPanels.suggestions));
 	};
-	const closeChangeName = () => {
-		setIsEditing(false);
-		// formik.submitForm();
-	};
-	const shareList = () => {};
-	const extractFromGroup = () => {};
-	const printList = () => {};
-	const sendForEmail = () => {};
-	const pin = () => {};
-	const duplicate = () => {};
 
 	if (!listSelected) return;
 
@@ -112,11 +103,11 @@ const ListHeader = () => {
 							}}
 							component="span"
 						>
-							<IconButton size="small">
+							<IconButton size="small" disabled>
 								<PersonAddAlt1Icon />
 							</IconButton>
 
-							<IconButton size="small">
+							<IconButton size="small" onClick={handleSuggestionClick}>
 								<EmojiObjectsIcon />
 							</IconButton>
 						</Box>

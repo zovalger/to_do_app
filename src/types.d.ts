@@ -94,7 +94,6 @@ export interface StepTaskAttributes {
 	_id: string;
 	title: string;
 	completionDate: Date;
-	createAt: Date;
 }
 
 export interface RepeatFrequency {
@@ -114,7 +113,7 @@ export interface TaskAttributes {
 	myDay: Date | null;
 	myDayOrder: number;
 	order: number;
-	completionDate: Date;
+	completionDate: Date | null;
 	important: boolean;
 	files: string[];
 	assignedUser: string;
