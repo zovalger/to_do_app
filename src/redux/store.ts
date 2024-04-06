@@ -5,6 +5,8 @@ import UIReducer from "./Slices/UISlice";
 import OrderListsReducer from "./Slices/OrderListsSlice";
 import ListsIndexedReducer from "./Slices/ListsIndexedSlice";
 import ToDoNavPropertiesReducer from "./Slices/ToDoNavPropertiesSlice";
+import TasksIndexedReducer from "./Slices/TasksIndexedSlice";
+import TasksToViewReducer from "./Slices/TasksToViewSlice";
 
 export const store = configureStore({
 	reducer: {
@@ -13,6 +15,8 @@ export const store = configureStore({
 		orderList: OrderListsReducer,
 		listsIndexed: ListsIndexedReducer,
 		toDoNavProperties: ToDoNavPropertiesReducer,
+		tasksIndexed: TasksIndexedReducer,
+		tasksToView: TasksToViewReducer,
 	},
 });
 

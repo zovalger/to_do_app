@@ -18,8 +18,7 @@ import TasksGroupingTab from "@/components/TasksGroupingTab";
 export default function DashboardPage() {
 	// const taskToSee = taskByListId(tasks, listSelected);
 	const UI_Settings = useAppSelector((e) => e.UI_Settings);
-
-	const taskEditing = true;
+	const tasksToView = useAppSelector((e) => e.tasksToView);
 
 	return (
 		<>
@@ -79,106 +78,9 @@ export default function DashboardPage() {
 						overflowY: "auto",
 					}}
 				>
-					<TasksGroupingTab
-						tasks={[
-							{
-								_id: "31231313",
-								title: "titulo de tarea",
-								steps: [
-									{ _id: "string", title: "paso 1", complete: false },
-									{ _id: "string", title: "paso 2", complete: true },
-									{ _id: "string", title: "paso 2", complete: true },
-								],
-								note: "esta es una nota larga",
-								remindMe: new Date(),
-								dueDate: new Date(),
-								repeat: {
-									frequency: Frequencys.daily,
-									skip: 2,
-								},
-								myDay: null,
-								complete: false,
-								important: false,
-								listId: "",
-								files: [],
-								assignedUser: "dsadasdas",
-							},
-							{
-								_id: "ddsdd",
-								title: "titulo de tarea2",
-								steps: [
-									{ _id: "string", title: "paso 1", complete: false },
-									{ _id: "string", title: "paso 2", complete: true },
-								],
-								note: "esta es una nota larga",
-								remindMe: new Date(),
-								dueDate: new Date(),
-								repeat: {
-									frequency: Frequencys.daily,
-									skip: 2,
-								},
-								myDay: new Date(),
-								complete: true,
-								important: true,
-								listId: "",
-								files: [],
-								assignedUser: "dsadasdas",
-							},
-						]}
-					/>
-					{/* {taskToSee.map((t) => ( */}
-					<TaskItemList
-						key={31231313}
-						data={{
-							_id: "31231313",
-							title: "titulo de tarea",
-							steps: [
-								{ _id: "string", title: "paso 1", complete: false },
-								{ _id: "string", title: "paso 2", complete: true },
-								{ _id: "string", title: "paso 2", complete: true },
-							],
-							note: "esta es una nota larga",
-							remindMe: new Date(),
-							dueDate: new Date(),
-							repeat: {
-								frequency: Frequencys.daily,
-								skip: 2,
-							},
-							myDay: null,
-							complete: false,
-							important: false,
-							listId: "",
-							files: [],
-							assignedUser: "dsadasdas",
-						}}
-					/>
-
-					<TaskItemList
-						key={"dsddd"}
-						data={{
-							_id: "ddsdd",
-							title: "titulo de tarea2",
-							steps: [
-								{ _id: "string", title: "paso 1", complete: false },
-								{ _id: "string", title: "paso 2", complete: true },
-							],
-							note: "esta es una nota larga",
-							remindMe: new Date(),
-							dueDate: new Date(),
-							repeat: {
-								frequency: Frequencys.daily,
-								skip: 2,
-							},
-							myDay: new Date(),
-							complete: true,
-							important: true,
-							listId: "",
-							files: [],
-							assignedUser: "dsadasdas",
-						}}
-					/>
-
-					{/* ))} */}
+					{tasksToView.map((l) => (
+						<TasksGroupingTab key={l.listId} data={l} />
+					))}
 				</Box>
 			</Box>
 

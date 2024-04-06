@@ -29,7 +29,7 @@ import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUnc
 interface props {
 	anchorEl: null | HTMLElement;
 	close(): void;
-	tasks: TaskAttributes[] | TaskAttributes;
+	tasks: string[] | string;
 	variant?: taskListItemVariant;
 }
 
@@ -69,11 +69,12 @@ const TaskOptions = ({
 				}}
 			>
 				<MenuItem
-					onClick={() => {
-						close();
-						// handleClickOpenConfirmDelete();
-						// onChange(new Date(moment().startOf("day").format()));
-					}}
+					// onClick={() => {
+					// 	close();
+					// 	// handleClickOpenConfirmDelete();
+					// 	// onChange(new Date(moment().startOf("day").format()));
+					// }}
+					disabled
 				>
 					<ListItemIcon>
 						<LightModeOutlinedIcon fontSize="small" />
@@ -82,11 +83,12 @@ const TaskOptions = ({
 				</MenuItem>
 
 				<MenuItem
-					onClick={() => {
-						close();
-						// handleClickOpenConfirmDelete();
-						// onChange(new Date(moment().startOf("day").format()));
-					}}
+					// onClick={() => {
+					// 	close();
+					// 	// handleClickOpenConfirmDelete();
+					// 	// onChange(new Date(moment().startOf("day").format()));
+					// }}
+					disabled
 				>
 					<ListItemIcon>
 						<HighlightOffOutlinedIcon fontSize="small" />
@@ -95,11 +97,12 @@ const TaskOptions = ({
 				</MenuItem>
 
 				<MenuItem
-					onClick={() => {
-						close();
-						// handleClickOpenConfirmDelete();
-						// onChange(new Date(moment().startOf("day").format()));
-					}}
+					// onClick={() => {
+					// 	close();
+					// 	// handleClickOpenConfirmDelete();
+					// 	// onChange(new Date(moment().startOf("day").format()));
+					// }}
+					disabled
 				>
 					<ListItemIcon>
 						<StarOutlinedIcon fontSize="small" />
@@ -108,11 +111,12 @@ const TaskOptions = ({
 				</MenuItem>
 
 				<MenuItem
-					onClick={() => {
-						close();
-						// handleClickOpenConfirmDelete();
-						// onChange(new Date(moment().startOf("day").format()));
-					}}
+					// onClick={() => {
+					// 	close();
+					// 	// handleClickOpenConfirmDelete();
+					// 	// onChange(new Date(moment().startOf("day").format()));
+					// }}
+					disabled
 				>
 					<ListItemIcon>
 						<StarOutlineOutlinedIcon fontSize="small" />
@@ -121,11 +125,12 @@ const TaskOptions = ({
 				</MenuItem>
 
 				<MenuItem
-					onClick={() => {
-						close();
-						// handleClickOpenConfirmDelete();
-						// onChange(new Date(moment().startOf("day").format()));
-					}}
+					// onClick={() => {
+					// 	close();
+					// 	// handleClickOpenConfirmDelete();
+					// 	// onChange(new Date(moment().startOf("day").format()));
+					// }}
+					disabled
 				>
 					<ListItemIcon>
 						<CheckCircleOutlinedIcon fontSize="small" />
@@ -134,11 +139,12 @@ const TaskOptions = ({
 				</MenuItem>
 
 				<MenuItem
-					onClick={() => {
-						close();
-						// handleClickOpenConfirmDelete();
-						// onChange(new Date(moment().startOf("day").format()));
-					}}
+					// onClick={() => {
+					// 	close();
+					// 	// handleClickOpenConfirmDelete();
+					// 	// onChange(new Date(moment().startOf("day").format()));
+					// }}
+					disabled
 				>
 					<ListItemIcon>
 						<RadioButtonUncheckedOutlinedIcon fontSize="small" />
@@ -149,11 +155,12 @@ const TaskOptions = ({
 				<Divider />
 
 				<MenuItem
-					onClick={() => {
-						close();
-						// handleClickOpenConfirmDelete();
-						// onChange(new Date(moment().startOf("day").format()));
-					}}
+					// onClick={() => {
+					// 	close();
+					// 	// handleClickOpenConfirmDelete();
+					// 	// onChange(new Date(moment().startOf("day").format()));
+					// }}
+					disabled
 				>
 					<ListItemIcon>
 						<TodayOutlinedIcon fontSize="small" />
@@ -162,10 +169,12 @@ const TaskOptions = ({
 				</MenuItem>
 
 				<MenuItem
-					onClick={() => {
-						close();
-						// onChange(new Date(moment().add(1, "day").startOf("day").format()));
-					}}
+					// onClick={() => {
+					// 	close();
+					// 	// handleClickOpenConfirmDelete();
+					// 	// onChange(new Date(moment().startOf("day").format()));
+					// }}
+					disabled
 				>
 					<ListItemIcon>
 						<EventOutlinedIcon fontSize="small" />
@@ -174,10 +183,12 @@ const TaskOptions = ({
 				</MenuItem>
 
 				<MenuItem
-					onClick={() => {
-						close();
-						// toggleCalendar();
-					}}
+				// onClick={() => {
+					// 	close();
+					// 	// handleClickOpenConfirmDelete();
+					// 	// onChange(new Date(moment().startOf("day").format()));
+					// }}
+					disabled
 				>
 					<ListItemIcon>
 						<CalendarMonthOutlinedIcon fontSize="small" />
@@ -186,10 +197,12 @@ const TaskOptions = ({
 				</MenuItem>
 
 				<MenuItem
-					onClick={() => {
-						close();
-						// toggleCalendar();
-					}}
+					// onClick={() => {
+					// 	close();
+					// 	// handleClickOpenConfirmDelete();
+					// 	// onChange(new Date(moment().startOf("day").format()));
+					// }}
+					disabled
 				>
 					<ListItemIcon>
 						<CalendarMonthOutlinedIcon fontSize="small" />
@@ -199,7 +212,13 @@ const TaskOptions = ({
 
 				<Divider />
 
-				<MenuItem>
+				<MenuItem
+				// onClick={() => {
+					// 	close();
+					// 	// handleClickOpenConfirmDelete();
+					// 	// onChange(new Date(moment().startOf("day").format()));
+					// }}
+					disabled>
 					<ListItemIcon>
 						<PlaylistAddIcon fontSize="small" />
 					</ListItemIcon>
@@ -208,7 +227,12 @@ const TaskOptions = ({
 
 				<Divider />
 
-				<MenuItem sx={{ color: "red" }}>
+				<MenuItem sx={{ color: "red" }}// onClick={() => {
+					// 	close();
+					// 	// handleClickOpenConfirmDelete();
+					// 	// onChange(new Date(moment().startOf("day").format()));
+					// }}
+					disabled>
 					<ListItemIcon sx={{ color: "red" }}>
 						<DeleteIcon fontSize="small" />
 					</ListItemIcon>

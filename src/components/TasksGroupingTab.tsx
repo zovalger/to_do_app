@@ -1,45 +1,43 @@
 import React, { useState } from "react";
-import {
-	Typography,
-	Box,
-	IconButton,
-	ListItemButton,
-	ListItemIcon,
-	ListItemText,
-	Menu,
-	MenuItem,
-	TextField,
-} from "@mui/material";
+import { Typography, Box, IconButton } from "@mui/material";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 
 import { taskListItemVariant } from "@/enums";
-import { TaskAttributes } from "@/types";
+import { TasksToView } from "@/types";
 import TaskItemList from "./TaskItemList";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 
-import DriveFileRenameOutlineOutlinedIcon from "@mui/icons-material/DriveFileRenameOutlineOutlined";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import { FormatListBulletedOutlined } from "@mui/icons-material";
 import TaskOptions from "./TaskOptions";
+import useList from "@/hooks/useList";
 
 interface props {
-	tasks: TaskAttributes[];
+	title?: string;
+	data: TasksToView;
 	variant?: taskListItemVariant;
 }
 
 const TasksGroupingTab = ({
-	tasks,
+	title: displayTitle,
+	data,
 	variant = taskListItemVariant.primary,
 }: props) => {
-	// ****************** Menu Desplegable ******************
+	const { listId, tasks } = data;
 
-	const [ungrouped, setUngrouped] = useState(true);
+	const { listData, loanding } = useList(listId);
+
+	// ****************** Desplegable ******************
+
+	const [grouped, setGrouped] = useState(false);
+
+	const handleClick = () => {
+		setGrouped((s) => !s);
+		// handleCloseMoreOptions();
+	};
 
 	// ****************** Menu Desplegable de opciones ******************
 
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-	// todo: agregar accesibilidad para el movil (mantener pulsado)
 	const handleRightClick = (
 		event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>
 	) => {
@@ -51,54 +49,13 @@ const TasksGroupingTab = ({
 	const handleCloseMoreOptions = () => {
 		setAnchorEl(null);
 	};
-	// ****************** Cambio de nombre ******************
 
-	const [editingMode, setEditingMode] = useState(false);
-	const [inputValue, setInputValue] = useState("");
+	if (loanding) return "loading";
 
-	// const buttonChangeName = () => {
-	// 	setEditingMode(true);
-	// 	setInputValue(title);
-	// 	handleCloseMoreOptions();
-	// };
+	// todo: colocar placeholder
+	if (!loanding && listData == null && !displayTitle) return "fallo al cargar.";
 
-	const onChangeInput = (value: string) => {
-		setInputValue(value);
-	};
-
-	const handleResetRename = () => {
-		setEditingMode(false);
-		setInputValue("");
-	};
-
-	const handleSubmit = async () => {
-		// const newGroup = await updateListGroup(_id, { ...data, title: inputValue });
-		// const newGroupsList = listGroups.map((g) => (g._id === _id ? newGroup : g));
-		// setListGroups(newGroupsList);
-		// setListGroupsLocalStorage(newGroupsList);
-		// handleResetRename();
-	};
-
-	/* ************************* Agregar/quitar listas ****************************** */
-
-	const [openListContened, setOpenListContened] = React.useState(false);
-
-	const handleClickOpen = () => {
-		setOpenListContened(true);
-		handleCloseMoreOptions();
-	};
-
-	const handleCloseListContened = () => {
-		setOpenListContened(false);
-	};
-
-	// ****************** Eliminacion ******************
-
-	const handleDeleteGroup = async () => {
-		// todo: eliminar grupo
-		// const newGroupsList = await deleteListGroup(listGroups, _id);
-		// setListGroups(newGroupsList);
-	};
+	const title = displayTitle || listData?.title;
 
 	const mainListView = (
 		<Box
@@ -111,6 +68,7 @@ const TasksGroupingTab = ({
 				px: 1,
 				py: 0.6,
 			}}
+			onClick={handleClick}
 			onContextMenu={handleRightClick}
 		>
 			<KeyboardArrowDown
@@ -118,12 +76,12 @@ const TasksGroupingTab = ({
 					mr: 0.5,
 					fontSize: 18,
 					// opacity:,
-					transform: ungrouped ? "rotate(-90deg)" : "rotate(0)",
+					transform: grouped ? "rotate(-90deg)" : "rotate(0)",
 					transition: "transform 0.2s",
 				}}
 			/>
 
-			<Typography sx={{ fontSize: 13 }}>titulo de lista</Typography>
+			<Typography sx={{ fontSize: 13 }}>{title}</Typography>
 		</Box>
 	);
 
@@ -137,11 +95,10 @@ const TasksGroupingTab = ({
 				pl: 3,
 				pr: 1.25,
 			}}
+			// onClick={handleClick}
 			onContextMenu={handleRightClick}
 		>
-			<Typography sx={{ fontSize: 14, fontWeight: "600" }}>
-				titulo de lista
-			</Typography>
+			<Typography sx={{ fontSize: 14, fontWeight: "600" }}>{title}</Typography>
 
 			<IconButton sx={{ mr: 0.5 }} onClick={handleRightClick}>
 				<MoreHorizOutlinedIcon
@@ -160,9 +117,8 @@ const TasksGroupingTab = ({
 		<>
 			<Box sx={{}}>
 				{view}
-				{tasks.map((t) => (
-					<TaskItemList key={t._id} data={t} variant={variant} />
-				))}
+				{!grouped &&
+					tasks.map((t) => <TaskItemList key={t} _id={t} variant={variant} />)}
 			</Box>
 
 			{/* ************************* menu desplegable de opciones ****************************** */}

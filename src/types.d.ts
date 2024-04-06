@@ -111,7 +111,7 @@ export interface TaskAttributes {
 	dueDate: Date | null;
 	repeat: RepeatFrequency;
 	myDay: Date | null;
-	myDayOrder: number;
+	myDayOrder: number | null;
 	order: number;
 	completionDate: Date | null;
 	important: boolean;
@@ -119,4 +119,15 @@ export interface TaskAttributes {
 	assignedUser: string;
 	createAt: Date;
 	updateAt: Date;
+}
+
+// ***** task Logic *****
+
+export interface TasksIndexed {
+	[productId: string]: TaskAttributes;
+}
+
+export interface TasksToView {
+	listId: string;
+	tasks: string[];
 }

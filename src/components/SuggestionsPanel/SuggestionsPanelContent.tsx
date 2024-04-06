@@ -1,15 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
-import {
-	InputBase,
-	ListItemButton,
-	ListItemIcon,
-	ListItemText,
-	TextField,
-	Tooltip,
-} from "@mui/material";
+
 import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
@@ -17,11 +8,10 @@ import { useTheme } from "@mui/material/styles";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
-import TaskItemList from "../TaskItemList";
-import { Frequencys, taskListItemVariant } from "@/enums";
+import { taskListItemVariant } from "@/enums";
 import TasksGroupingTab from "../TasksGroupingTab";
 import { closeRightPanel } from "@/redux/Slices/UISlice";
-import tasks from "@/test_data/TaskTestData";
+// import tasks from "@/test_data/TaskTestData";
 
 const SuggestionsPanelContent = () => {
 	const { rightPanelWitdh } = useAppSelector((e) => e.UI_Settings);
@@ -78,7 +68,11 @@ const SuggestionsPanelContent = () => {
 
 				<TasksGroupingTab
 					variant={taskListItemVariant.suggestions}
-					tasks={tasks}
+					title="hoy"
+					data={{
+						listId: "",
+						tasks: ["dddddd"],
+					}}
 				/>
 
 				{/* ))} */}

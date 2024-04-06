@@ -15,17 +15,17 @@ import TaskDescriptionItems from "./TaskDescriptionItems";
 import { IconButton, Tooltip } from "@mui/material";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import TaskOptions from "./TaskOptions";
+import useTask from "@/hooks/useTask";
 
 interface props {
-	data: TaskAttributes;
+	_id: string;
 	variant?: taskListItemVariant;
 }
 const TaskItemList = ({
-	data,
+	_id,
 	variant = taskListItemVariant.primary,
 }: props) => {
-	// const { setTaskEditing, tasks, setTasks } = useTaskContext();
-	const { _id, title, important, completionDate } = data;
+	const { taskData, loanding } = useTask(_id);
 
 	const handleClickContent = () => {
 		// setTaskEditing(data);
@@ -57,6 +57,12 @@ const TaskItemList = ({
 		event.stopPropagation();
 		setAnchorEl(event.currentTarget);
 	};
+
+	if (loanding) return "loading";
+	if (!loanding && taskData == null) return "fallo al cargar";
+	if (!taskData) return "No existe lista";
+
+	const { title, important, completionDate } = taskData;
 
 	return (
 		<>
@@ -103,7 +109,7 @@ const TaskItemList = ({
 						{title}
 					</Typography>
 
-					<TaskDescriptionItems data={data} variant={variant} />
+					<TaskDescriptionItems data={taskData} variant={variant} />
 				</Box>
 
 				{variant == taskListItemVariant.suggestions ? (
@@ -131,7 +137,7 @@ const TaskItemList = ({
 			<TaskOptions
 				anchorEl={anchorEl}
 				close={handleCloseMoreOptions}
-				tasks={data}
+				tasks={_id}
 			/>
 
 			{/* // todo: hacer el menu desplegable con click derecho  */}
