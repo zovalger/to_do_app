@@ -3,16 +3,16 @@ import React from "react";
 import { Button, Typography } from "@mui/material";
 
 import TaskListSelector from "./TaskListSelector";
+import { TaskAttributes } from "@/types";
 
-const TaskListButton = () => {
-	// ****************** Menu Desplegable de opciones ******************
+interface props {
+	data: TaskAttributes;
+}
 
-	const date = null;
-
+const TaskListButton = ({ data }: props) => {
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-	// todo: agregar accesibilidad para el movil (mantener pulsado)
-	const handleClickOpen = (
+	const handleClick = (
 		event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>
 	) => {
 		event.preventDefault();
@@ -23,17 +23,6 @@ const TaskListButton = () => {
 	const onClose = () => {
 		setAnchorEl(null);
 	};
-	// ****************** Cambio de nombre ******************
-
-	const handleSubmit = async () => {
-		// const newGroup = await updateListGroup(_id, { ...data, title: inputValue });
-		// const newGroupsList = listGroups.map((g) => (g._id === _id ? newGroup : g));
-		// setListGroups(newGroupsList);
-		// setListGroupsLocalStorage(newGroupsList);
-		// handleResetRename();
-	};
-
-	/* ************************* Agregar/quitar listas ****************************** */
 
 	const [openListContened, setOpenListContened] = React.useState(false);
 
@@ -59,13 +48,13 @@ const TaskListButton = () => {
 
 	return (
 		<>
-			<Button variant="text" aria-label="directions" onClick={handleClickOpen}>
+			<Button variant="text" aria-label="directions" onClick={handleClick}>
 				{/* <CalendarMonthIcon /> */}
 				<Typography>{title}</Typography>
 			</Button>
 
 			<TaskListSelector
-				value={null}
+				value={data.listId}
 				anchorEl={anchorEl}
 				close={onClose}
 				onChange={() => {}}

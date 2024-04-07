@@ -4,9 +4,9 @@ import { Menu, MenuItem } from "@mui/material";
 
 interface props {
 	anchorEl: HTMLElement | null;
-	onChange(date: Date | null): void;
+	onChange(value: string): void;
 	close(): void;
-	value: Date | undefined | null;
+	value: string;
 }
 
 const TaskListSelector = ({ value, anchorEl, onChange, close }: props) => {

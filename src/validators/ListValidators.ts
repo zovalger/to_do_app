@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-const TitleListValidator = Yup.object({
+const ListValidator = Yup.object({
 	title: Yup.string().trim().min(1, "Minimo una letra"),
 });
-export default TitleListValidator;
+export default ListValidator;

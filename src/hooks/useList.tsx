@@ -42,6 +42,8 @@ const useList = (_id?: string) => {
 		}
 	};
 
+	const getAllListId = () => Object.values(listsIndexed).map((l) => l._id);
+
 	useEffect(() => {
 		if (!_id) return;
 
@@ -102,11 +104,20 @@ const useList = (_id?: string) => {
 	return {
 		listData,
 		loanding,
+
+		// *************
+
+		getAllListId,
+
+		// *************
+
 		createList,
 		createGroup,
 		updateList,
 		deleteList,
+
 		// *****************
+
 		extraListFunctions,
 		selectList,
 	};

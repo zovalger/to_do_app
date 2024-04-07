@@ -109,14 +109,14 @@ export interface TaskAttributes {
 	note: string;
 	remindMe: string | null;
 	dueDate: string | null;
-	repeat: RepeatFrequency;
+	repeat: RepeatFrequency | null;
 	myDay: string | null;
 	myDayOrder: number | null;
 	order: number;
 	completionDate: string | null;
 	important: boolean;
 	files: string[];
-	assignedUser: string;
+	assignedUser: string | null;
 	createAt: string;
 	updateAt: string;
 }

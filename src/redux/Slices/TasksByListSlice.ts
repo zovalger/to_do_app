@@ -10,6 +10,7 @@ export const TasksByListSlice = createSlice({
 	initialState,
 	reducers: {
 		// set data
+
 		setTaskByList_By_ServerData: (
 			_state,
 			actions: PayloadAction<TasksByList>
@@ -48,13 +49,13 @@ export const TasksByListSlice = createSlice({
 
 		addTask_To_List_TaskByList: (
 			state,
-			actions: PayloadAction<{ listId: string; task: string }>
+			actions: PayloadAction<{ listId: string; taskId: string }>
 		) => {
-			const { listId, task } = actions.payload;
+			const { listId, taskId } = actions.payload;
 
 			const list = state[listId];
 
-			const newState = { ...state, [listId]: [...list, task] };
+			const newState = { ...state, [listId]: [...list, taskId] };
 
 			return newState;
 		},

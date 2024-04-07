@@ -6,42 +6,44 @@ import InputBase from "@mui/material/InputBase";
 import RadioButtonUncheckedOutlinedIcon from "@mui/icons-material/RadioButtonUncheckedOutlined";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import Box from "@mui/material/Box";
+import { Formik, useFormik } from "formik";
+
 import { useAppSelector } from "@/redux/store";
 import DueDateButton from "./DueDateButton";
 import RememberDateButton from "./RememberDateButton";
 import FrequencyRepeatDateButton from "./FrequencyRepeatDateButton";
 import TaskListButton from "./TaskListButton";
 
+import TaskValidator from "@/validators/TaskValidators";
+import { taskDefaultValues } from "@/defaultValues";
+import useTask from "@/hooks/useTask";
+
 const ListFooter = () => {
 	const UI_Settings = useAppSelector((e) => e.UI_Settings);
 
-	const inp = useRef<HTMLInputElement>(null);
+	const { createTask } = useTask();
 
+	const inp = useRef<HTMLInputElement>(null);
 	const [focus, setFocus] = useState(false);
 
-	const [title, setTitle] = useState("");
+	const formik = useFormik({
+		initialValues: taskDefaultValues(),
+		validationSchema: TaskValidator,
+		onSubmit: async (data) => {
+			const { listId } = data;
 
-	const handleChange = (value: string) => {
-		setTitle(value);
-	};
+			createTask(listId, data);
 
-	const handleSubmit = async () => {
-		// const newTask = await createTask({
-		// 	...DefaultTask,
-		// 	title,
-		// 	listId: listSelected,
-		// });
-		// const newarr = [...tasks, newTask];
-		// setTasks(newarr);
-		// setTasksLocalStorage(newarr);
-		// setTitle("");
-	};
+			formik.setValues(taskDefaultValues());
+		},
+	});
 
-	const leftIcon = focus ? (
-		<RadioButtonUncheckedOutlinedIcon sx={{ fontSize: 20 }} />
-	) : (
-		<AddOutlinedIcon sx={{ fontSize: 20 }} />
-	);
+	const leftIcon =
+		focus || formik.values.title ? (
+			<RadioButtonUncheckedOutlinedIcon />
+		) : (
+			<AddOutlinedIcon />
+		);
 
 	return (
 		<Box
@@ -69,10 +71,7 @@ const ListFooter = () => {
 		>
 			<Paper
 				component="form"
-				onSubmit={(e) => {
-					e.preventDefault();
-					handleSubmit();
-				}}
+				onSubmit={formik.handleSubmit}
 				sx={{
 					pl: 1.5,
 					pr: 1,
@@ -103,6 +102,7 @@ const ListFooter = () => {
 						display: "flex",
 						alignItems: "center",
 						flexGrow: 1,
+						width: { xs: "100%", md: "" },
 					}}
 				>
 					{leftIcon}
@@ -114,22 +114,20 @@ const ListFooter = () => {
 							flexGrow: 1,
 							minHeight: 48,
 						}}
-						value={title}
+						name="title"
+						value={formik.values.title}
+						onChange={formik.handleChange}
 						inputRef={inp}
-						onFocus={() => {
-							setFocus(true);
-						}}
-						onBlur={() => {
-							setFocus(false);
-						}}
-						onChange={({ target: { value } }) => {
-							handleChange(value);
-						}}
+						onFocus={() => setFocus(true)}
+						onBlur={() => setFocus(false)}
+						// onKeyDown={(e) => {
+						// 	if (e.key === "Enter") formik.handleSubmit();
+						// }}
 						placeholder="Agregar nueva tarea"
 						inputProps={{
-							"aria-label": "search google maps",
-							// sx: { flexGrow: 1 },
+							style: { fontSize: 13 },
 						}}
+						autoComplete="none"
 					/>
 				</Box>
 
@@ -154,7 +152,7 @@ const ListFooter = () => {
 						},
 					}}
 				>
-					<TaskListButton />
+					<TaskListButton data={formik.values} />
 
 					{/* <Button
 						variant="text"

@@ -6,7 +6,7 @@ import { useAppSelector } from "@/redux/store";
 import { SmartListsIds } from "@/enums";
 import useSmartList from "@/hooks/useSmartList";
 import { useFormik } from "formik";
-import TitleListValidator from "@/validators/TitleListValidator";
+import ListValidator from "@/validators/ListValidators";
 import useList from "@/hooks/useList";
 
 interface props {
@@ -36,7 +36,7 @@ const TitleListHeader = ({ isEditing, changeIsEditing }: props) => {
 
 	const formik = useFormik({
 		initialValues: listData,
-		validationSchema: TitleListValidator,
+		validationSchema: ListValidator,
 		onSubmit: async (data) => {
 			changeIsEditing(false);
 

@@ -1,5 +1,9 @@
+import { addTask_To_List_TaskByList } from "@/redux/Slices/TasksByListSlice";
+import { addOrUpdateTaskToIndex } from "@/redux/Slices/TasksIndexedSlice";
+import { addTaskToListView } from "@/redux/Slices/TasksToViewSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { TaskAttributes } from "@/types";
+import TaskValidator from "@/validators/TaskValidators";
 import { useEffect, useState } from "react";
 
 // interface props {}
@@ -34,10 +38,23 @@ const useTask = (_id?: string) => {
 		getData();
 	}, [_id]);
 
-	const createTask = async () => {
-		// const newTask = { ...taskDefaultValues() };
-		// dispatch(addOrUpdateTaskToIndex({ _id: newTask._id, data: newTask }));
-		// dispatch(addTaskToOrder(newTask));
+	const createTask = async (listId: string, data: TaskAttributes) => {
+		const sanitizedData: TaskAttributes = {
+			...data,
+			...TaskValidator.cast(data),
+		};
+
+		// todo: sincronizacion con el server
+
+		dispatch(addOrUpdateTaskToIndex({ _id: data._id, data: sanitizedData }));
+
+		dispatch(
+			addTask_To_List_TaskByList({
+				listId,
+				taskId: sanitizedData._id,
+			})
+		);
+		dispatch(addTaskToListView({ listId, taskId: sanitizedData._id }));
 	};
 
 	const updateTask = async (_id: string, taskData: Partial<TaskAttributes>) => {

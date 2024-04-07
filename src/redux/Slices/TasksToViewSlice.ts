@@ -12,10 +12,23 @@ export const TasksToViewSlice = createSlice({
 		setTasksToView: (state, actions: PayloadAction<TasksToView[]>) => {
 			return actions.payload;
 		},
+
+		addTaskToListView: (
+			state,
+			actions: PayloadAction<{ listId: string; taskId: string }>
+		) => {
+			const { listId, taskId } = actions.payload;
+
+			const newState = state.map((l) =>
+				l.listId === listId ? { ...l, tasks: [...l.tasks, taskId] } : l
+			);
+
+			return newState;
+		},
 	},
 });
 
 // Action creators are generated for each case reducer function
-export const { setTasksToView } = TasksToViewSlice.actions;
+export const { setTasksToView, addTaskToListView } = TasksToViewSlice.actions;
 
 export default TasksToViewSlice.reducer;

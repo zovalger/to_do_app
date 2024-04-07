@@ -13,7 +13,7 @@ import useList from "@/hooks/useList";
 import DraggableContainer from "../DraggableContainer";
 import { setListSelected } from "@/redux/Slices/ToDoNavPropertiesSlice";
 import { closeLeftPanel } from "@/redux/Slices/UISlice";
-import TitleListValidator from "@/validators/TitleListValidator";
+import ListValidator from "@/validators/ListValidators";
 
 interface props {
 	data: OrderList;
@@ -36,7 +36,7 @@ const ListItem = ({ data, icon }: props) => {
 
 	const formik = useFormik({
 		initialValues: listData,
-		validationSchema: TitleListValidator,
+		validationSchema: ListValidator,
 		onSubmit: async (data) => {
 			await updateList(_id, data);
 			setIsEditing(false);
