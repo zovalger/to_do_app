@@ -4,12 +4,19 @@ import { Button, Typography } from "@mui/material";
 
 import TaskListSelector from "./TaskListSelector";
 import { TaskAttributes } from "@/types";
+import useList from "@/hooks/useList";
+import { useAppDispatch } from "@/redux/store";
 
 interface props {
 	data: TaskAttributes;
+	setData(data: TaskAttributes): void;
 }
 
-const TaskListButton = ({ data }: props) => {
+const TaskListButton = ({ data, setData }: props) => {
+	const dispatch = useAppDispatch();
+
+	const { listData, loanding } = useList(data.listId);
+
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
 	const handleClick = (
@@ -24,27 +31,14 @@ const TaskListButton = ({ data }: props) => {
 		setAnchorEl(null);
 	};
 
-	const [openListContened, setOpenListContened] = React.useState(false);
+	const handdleChange = (listId: string) => {
+		const newData = { ...data, listId };
 
-	const handleCloseListContened = () => {
-		setOpenListContened(false);
-	};
-
-	// ****************** Eliminacion ******************
-
-	const handleDeleteGroup = async () => {
-		// todo: eliminar grupo
-		// const newGroupsList = await deleteListGroup(listGroups, _id);
-		// setListGroups(newGroupsList);
-	};
-
-	const onClick = () => {
-		// setListSelected(_id);
-		// handleAsidePanelToggle()
+		setData(newData);
 	};
 
 	// todo: anadir comparaciones para hoy, manana
-	const title = "Nombre de lista";
+	const title = loanding ? "Cargando..." : listData ? listData.title : "....";
 
 	return (
 		<>
@@ -57,7 +51,7 @@ const TaskListButton = ({ data }: props) => {
 				value={data.listId}
 				anchorEl={anchorEl}
 				close={onClose}
-				onChange={() => {}}
+				onChange={handdleChange}
 			/>
 		</>
 	);

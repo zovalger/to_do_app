@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { Menu, MenuItem } from "@mui/material";
+import useList from "@/hooks/useList";
 
 interface props {
 	anchorEl: HTMLElement | null;
@@ -10,6 +11,10 @@ interface props {
 }
 
 const TaskListSelector = ({ value, anchorEl, onChange, close }: props) => {
+	const { getAllList_Title_And_Ids } = useList();
+
+	const allList = getAllList_Title_And_Ids();
+
 	const openMoreButton = Boolean(anchorEl);
 
 	return (
@@ -31,46 +36,21 @@ const TaskListSelector = ({ value, anchorEl, onChange, close }: props) => {
 					horizontal: "center",
 				}}
 			>
-				{/* // todo: hacer que el boton cambiar nombre funcione */}
-
-				<MenuItem
-					onClick={() => {
-						close();
-						// handleClickOpenConfirmDelete();
-						// onChange(new Date(moment().startOf("day").format()));
-					}}
-				>
-					{/* <ListItemIcon>
+				{allList.map(({ _id, title }) => (
+					<MenuItem
+						key={_id}
+						onClick={() => {
+							close();
+							onChange(_id);
+						}}
+						selected={value == _id}
+					>
+						{/* <ListItemIcon>
 						<TodayOutlinedIcon fontSize="small" />
 					</ListItemIcon> */}
-					Tareas
-				</MenuItem>
-
-				<MenuItem
-					onClick={() => {
-						close();
-						// onChange(new Date(moment().add(1, "day").startOf("day").format()));
-					}}
-				>
-					{/* <ListItemIcon>
-						<EventOutlinedIcon fontSize="small" />
-					</ListItemIcon> */}
-					Lista 1
-				</MenuItem>
-
-				<MenuItem
-					onClick={() => {
-						close();
-						// onChange(
-						// 	new Date(moment().add(1, "week").startOf("isoWeek").format())
-						// );
-					}}
-				>
-					{/* <ListItemIcon>
-						<FastForwardOutlinedIcon fontSize="small" />
-					</ListItemIcon> */}
-					Lista 2
-				</MenuItem>
+						{title}
+					</MenuItem>
+				))}
 			</Menu>
 		</>
 	);

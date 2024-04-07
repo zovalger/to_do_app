@@ -9,7 +9,6 @@ export const TasksIndexedSlice = createSlice({
 	name: "tasksIndexed",
 	initialState,
 	reducers: {
-		
 		// set data
 		setTaskIndexedData: (_state, actions: PayloadAction<TaskAttributes[]>) => {
 			const tasks = actions.payload;

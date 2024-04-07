@@ -1,5 +1,5 @@
 import { listDefaultValues } from "@/defaultValues";
-import { SmartListsIds } from "@/enums";
+import { SmartListsIds, TypeList } from "@/enums";
 import {
 	addOrUpdateListToIndex,
 	removeListFromIndexed,
@@ -42,7 +42,19 @@ const useList = (_id?: string) => {
 		}
 	};
 
-	const getAllListId = () => Object.values(listsIndexed).map((l) => l._id);
+	// todo: solo las Listas no grupos
+
+	const getAllListId = (andGroup = false) =>
+		Object.values(listsIndexed)
+			.filter(({ type }) => andGroup || type != TypeList.group)
+			.map((l) => l._id);
+
+	// todo: solo las Listas no grupos
+
+	const getAllList_Title_And_Ids = (andGroup = false) =>
+		Object.values(listsIndexed)
+			.filter(({ type }) => andGroup || type != TypeList.group)
+			.map(({ _id, title }) => ({ _id, title }));
 
 	useEffect(() => {
 		if (!_id) return;
@@ -108,6 +120,7 @@ const useList = (_id?: string) => {
 		// *************
 
 		getAllListId,
+		getAllList_Title_And_Ids,
 
 		// *************
 

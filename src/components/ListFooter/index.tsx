@@ -17,6 +17,7 @@ import TaskListButton from "./TaskListButton";
 import TaskValidator from "@/validators/TaskValidators";
 import { taskDefaultValues } from "@/defaultValues";
 import useTask from "@/hooks/useTask";
+import { TaskAttributes } from "@/types";
 
 const ListFooter = () => {
 	const UI_Settings = useAppSelector((e) => e.UI_Settings);
@@ -37,6 +38,8 @@ const ListFooter = () => {
 			formik.setValues(taskDefaultValues());
 		},
 	});
+
+	const setDataToFormik = (data: TaskAttributes) => formik.setValues(data);
 
 	const leftIcon =
 		focus || formik.values.title ? (
@@ -152,7 +155,7 @@ const ListFooter = () => {
 						},
 					}}
 				>
-					<TaskListButton data={formik.values} />
+					<TaskListButton data={formik.values} setData={setDataToFormik} />
 
 					{/* <Button
 						variant="text"
