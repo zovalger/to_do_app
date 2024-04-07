@@ -65,7 +65,7 @@ const SuggestionsPanelContent = () => {
 						</IconButton>
 					</Box>
 				</Box>
-
+				{/* // todo: sacar los datos para esta pestana  */}
 				<TasksGroupingTab
 					variant={taskListItemVariant.suggestions}
 					title="hoy"

@@ -1,8 +1,3 @@
-import {
-	addOrUpdateTaskToIndex,
-	removeTaskFromIndexed,
-} from "@/redux/Slices/TasksIndexedSlice";
-
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { TaskAttributes } from "@/types";
 import { useEffect, useState } from "react";
@@ -45,12 +40,6 @@ const useTask = (_id?: string) => {
 		// dispatch(addTaskToOrder(newTask));
 	};
 
-	const createGroup = async () => {
-		// const newGroup = { ...taskDefaultValues(true) };
-		// dispatch(addOrUpdateTaskToIndex({ _id: newGroup._id, data: newGroup }));
-		// dispatch(addTaskToOrder(newGroup));
-	};
-
 	const updateTask = async (_id: string, taskData: Partial<TaskAttributes>) => {
 		// const oldTask = tasksIndexed[`${_id}`];
 		// const task = { ...oldTask, ...taskData };
@@ -66,21 +55,21 @@ const useTask = (_id?: string) => {
 	// ************* funciones avanzadas *************
 
 	const extraTaskFunctions = {
-		changeName: () => {},
-		shareTask: () => {},
-		extractFromGroup: () => {},
-		printTask: () => {},
-		sendForEmail: () => {},
-		moveTo: () => {},
-		pin: () => {},
-		duplicate: () => {},
+		// changeName: () => {},
+		// shareTask: () => {},
+		// extractFromGroup: () => {},
+		// printTask: () => {},
+		// sendForEmail: () => {},
+		// moveTo: () => {},
+		// pin: () => {},
+		// duplicate: () => {},
 	};
 
 	return {
 		taskData,
 		loanding,
 		createTask,
-		createGroup,
+		// createGroup,
 		updateTask,
 		deleteTask,
 		extraTaskFunctions,

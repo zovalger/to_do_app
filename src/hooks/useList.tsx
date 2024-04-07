@@ -8,6 +8,7 @@ import {
 	addListToOrder,
 	removeListFromOrder,
 } from "@/redux/Slices/OrderListsSlice";
+import { setTasksToView } from "@/redux/Slices/TasksToViewSlice";
 import { setListSelected } from "@/redux/Slices/ToDoNavPropertiesSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { ListAttributes } from "@/types";
@@ -18,6 +19,8 @@ import { useEffect, useState } from "react";
 const useList = (_id?: string) => {
 	const listsIndexed = useAppSelector((e) => e.listsIndexed);
 	const { listSelected } = useAppSelector((e) => e.toDoNavProperties);
+	const tasksByList = useAppSelector((e) => e.tasksByList);
+
 	const dispatch = useAppDispatch();
 
 	const [listData, setListData] = useState<ListAttributes | null>(null);
@@ -31,12 +34,9 @@ const useList = (_id?: string) => {
 			// todo: hacer peticiones al servidor
 			// todo: solo si no se encuentra
 
-			setTimeout(() => {
-				setListData(listData);
+			setListData(listData);
 
-				setLoanding(false);
-			}, 1000);
-			
+			setLoanding(false);
 		} catch (error) {
 			console.log(error);
 		}
@@ -80,6 +80,14 @@ const useList = (_id?: string) => {
 
 	// ************* funciones avanzadas *************
 
+	const selectList = (_id: string) => {
+		const tasks = tasksByList[_id];
+
+		dispatch(setListSelected(_id));
+
+		dispatch(setTasksToView([{ listId: _id, tasks }]));
+	};
+
 	const extraListFunctions = {
 		changeName: () => {},
 		shareList: () => {},
@@ -98,7 +106,9 @@ const useList = (_id?: string) => {
 		createGroup,
 		updateList,
 		deleteList,
+		// *****************
 		extraListFunctions,
+		selectList,
 	};
 };
 

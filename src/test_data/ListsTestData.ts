@@ -9,8 +9,8 @@ export const ListsIndexedTestdata: ListsIndexed = {
 		parentId: null,
 		order: 3,
 		type: TypeList.group,
-		createAt: new Date(),
-		updateAt: new Date(),
+		createAt: (new Date()).toString(),
+		updateAt: (new Date()).toString(),
 	},
 	idTwo: {
 		_id: "idOne",
@@ -19,8 +19,8 @@ export const ListsIndexedTestdata: ListsIndexed = {
 		parentId: null,
 		order: 5,
 		type: TypeList.group,
-		createAt: new Date(),
-		updateAt: new Date(),
+		createAt: (new Date()).toString(),
+		updateAt: (new Date()).toString(),
 	},
 	idThree: {
 		_id: "idThree",
@@ -29,8 +29,8 @@ export const ListsIndexedTestdata: ListsIndexed = {
 		parentId: null,
 		order: 2,
 		type: TypeList.list,
-		createAt: new Date(),
-		updateAt: new Date(),
+		createAt: (new Date()).toString(),
+		updateAt: (new Date()).toString(),
 	},
 	idFor: {
 		_id: "idFor",
@@ -39,8 +39,8 @@ export const ListsIndexedTestdata: ListsIndexed = {
 		parentId: null,
 		order: 1,
 		type: TypeList.list,
-		createAt: new Date(),
-		updateAt: new Date(),
+		createAt: (new Date()).toString(),
+		updateAt: (new Date()).toString(),
 	},
 	idFive: {
 		_id: "idFive",
@@ -49,8 +49,8 @@ export const ListsIndexedTestdata: ListsIndexed = {
 		parentId: null,
 		order: 1,
 		type: TypeList.list,
-		createAt: new Date(),
-		updateAt: new Date(),
+		createAt: (new Date()).toString(),
+		updateAt: (new Date()).toString(),
 	},
 	idSix: {
 		_id: "idSix",
@@ -59,8 +59,8 @@ export const ListsIndexedTestdata: ListsIndexed = {
 		parentId: null,
 		order: 0,
 		type: TypeList.list,
-		createAt: new Date(),
-		updateAt: new Date(),
+		createAt: (new Date()).toString(),
+		updateAt: (new Date()).toString(),
 	},
 };
 

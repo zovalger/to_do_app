@@ -7,6 +7,7 @@ import ListsIndexedReducer from "./Slices/ListsIndexedSlice";
 import ToDoNavPropertiesReducer from "./Slices/ToDoNavPropertiesSlice";
 import TasksIndexedReducer from "./Slices/TasksIndexedSlice";
 import TasksToViewReducer from "./Slices/TasksToViewSlice";
+import TasksByListReducer from "./Slices/TasksByListSlice";
 
 export const store = configureStore({
 	reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
 		toDoNavProperties: ToDoNavPropertiesReducer,
 		tasksIndexed: TasksIndexedReducer,
 		tasksToView: TasksToViewReducer,
+		tasksByList: TasksByListReducer,
 	},
 });
 

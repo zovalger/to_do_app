@@ -11,12 +11,14 @@ import TaskOptions from "./TaskOptions";
 import useList from "@/hooks/useList";
 
 interface props {
+	showTap?: boolean;
 	title?: string;
 	data: TasksToView;
 	variant?: taskListItemVariant;
 }
 
 const TasksGroupingTab = ({
+	showTap = true,
 	title: displayTitle,
 	data,
 	variant = taskListItemVariant.primary,
@@ -67,6 +69,7 @@ const TasksGroupingTab = ({
 				mb: 1,
 				px: 1,
 				py: 0.6,
+				cursor: "pointer",
 			}}
 			onClick={handleClick}
 			onContextMenu={handleRightClick}
@@ -81,7 +84,7 @@ const TasksGroupingTab = ({
 				}}
 			/>
 
-			<Typography sx={{ fontSize: 13 }}>{title}</Typography>
+			<Typography sx={{ fontSize: 13, userSelect: "none" }}>{title}</Typography>
 		</Box>
 	);
 
@@ -116,9 +119,9 @@ const TasksGroupingTab = ({
 	return (
 		<>
 			<Box sx={{}}>
-				{view}
+				{showTap && view}
 				{!grouped &&
-					tasks.map((t) => <TaskItemList key={t} _id={t} variant={variant} />)}
+					tasks?.map((t) => <TaskItemList key={t} _id={t} variant={variant} />)}
 			</Box>
 
 			{/* ************************* menu desplegable de opciones ****************************** */}

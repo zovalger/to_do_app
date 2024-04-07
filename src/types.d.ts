@@ -5,8 +5,8 @@ export interface userAttributes {
 	username: string;
 	email: string;
 	// password: string;
-	createAt: Date;
-	updateAt: Date;
+	createAt: string;
+	updateAt: string;
 }
 
 export interface contactAttributes {
@@ -14,8 +14,8 @@ export interface contactAttributes {
 	nickname: string;
 	from: string;
 	to: string;
-	createAt: Date;
-	updateAt: Date;
+	createAt: string;
+	updateAt: string;
 }
 
 // ************************************************
@@ -26,8 +26,8 @@ export interface ConfigUser {
 	userId: string;
 	theme: string; // dark, light, system
 	smartLists: SmartListsConfig;
-	createAt: Date;
-	updateAt: Date;
+	createAt: string;
+	updateAt: string;
 }
 
 export interface SmartListsConfig {
@@ -51,8 +51,8 @@ export interface ListAttributes {
 	parentId: string | null;
 	order: number;
 	type: TypeList;
-	createAt: Date;
-	updateAt: Date;
+	createAt: string;
+	updateAt: string;
 }
 
 // ***** list Logic *****
@@ -70,7 +70,7 @@ export interface OrderList {
 }
 
 export interface ListsIndexed {
-	[productId: string]: ListAttributes;
+	[listId: string]: ListAttributes;
 }
 
 export interface ToDoNavProperties {
@@ -87,13 +87,13 @@ export interface FileSchema {
 	url: string;
 	type: string;
 	size: string;
-	createAt: Date;
+	createAt: string;
 }
 
 export interface StepTaskAttributes {
 	_id: string;
 	title: string;
-	completionDate: Date;
+	completionDate: string;
 }
 
 export interface RepeatFrequency {
@@ -107,26 +107,29 @@ export interface TaskAttributes {
 	title: string;
 	steps: StepTaskAttributes[];
 	note: string;
-	remindMe: Date | null;
-	dueDate: Date | null;
+	remindMe: string | null;
+	dueDate: string | null;
 	repeat: RepeatFrequency;
-	myDay: Date | null;
+	myDay: string | null;
 	myDayOrder: number | null;
 	order: number;
-	completionDate: Date | null;
+	completionDate: string | null;
 	important: boolean;
 	files: string[];
 	assignedUser: string;
-	createAt: Date;
-	updateAt: Date;
+	createAt: string;
+	updateAt: string;
 }
 
 // ***** task Logic *****
 
 export interface TasksIndexed {
-	[productId: string]: TaskAttributes;
+	[taskId: string]: TaskAttributes;
 }
 
+export interface TasksByList {
+	[listId: string]: string[];
+}
 export interface TasksToView {
 	listId: string;
 	tasks: string[];

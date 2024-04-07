@@ -29,7 +29,7 @@ const ListItem = ({ data, icon }: props) => {
 	const listData = listsIndexed[`${_id}`];
 	const { title, parentId } = listData;
 
-	const { updateList } = useList();
+	const { updateList, selectList } = useList();
 	const dispatch = useAppDispatch();
 
 	const [isEditing, setIsEditing] = useState(false);
@@ -55,7 +55,7 @@ const ListItem = ({ data, icon }: props) => {
 		if (dragMode || isEditing) return;
 
 		dispatch(closeLeftPanel());
-		dispatch(setListSelected(_id));
+		selectList(_id);
 	};
 
 	// todo: agregar accesibilidad para el movil (mantener pulsado)

@@ -78,8 +78,12 @@ export default function DashboardPage() {
 						overflowY: "auto",
 					}}
 				>
-					{tasksToView.map((l) => (
-						<TasksGroupingTab key={l.listId} data={l} />
+					{tasksToView.map((l, i) => (
+						<TasksGroupingTab
+							key={l.listId}
+							data={l}
+							showTap={tasksToView.length != 1}
+						/>
 					))}
 				</Box>
 			</Box>
