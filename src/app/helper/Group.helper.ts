@@ -1,48 +1,48 @@
-import { ListAttributes, ListGroupAttributes } from "@/types";
+// import { ListAttributes, ListGroupAttributes } from "@/types";
 
-export const orderGroupAndList = () => {};
+// export const orderGroupAndList = () => {};
 
-export const formateGroups = (
-	listGroups: ListGroupAttributes[],
-	lists: ListAttributes[]
-): { groupAndLists: [ListGroupAttributes, ListAttributes[]][]; restLists: ListAttributes[] } => {
-	let restLists = lists;
+// export const formateGroups = (
+// 	listGroups: ListGroupAttributes[],
+// 	lists: ListAttributes[]
+// ): { groupAndLists: [ListGroupAttributes, ListAttributes[]][]; restLists: ListAttributes[] } => {
+// 	let restLists = lists;
 
-	const groupAndLists = listGroups.map((group): [ListGroupAttributes, ListAttributes[]] => {
-		const toThisGroup: ListAttributes[] = [];
+// 	const groupAndLists = listGroups.map((group): [ListGroupAttributes, ListAttributes[]] => {
+// 		const toThisGroup: ListAttributes[] = [];
 
-		const newRest = restLists.filter((item) => {
-			const res = group.lists.includes(item._id);
+// 		const newRest = restLists.filter((item) => {
+// 			const res = group.lists.includes(item._id);
 
-			if (res) toThisGroup.push(item);
+// 			if (res) toThisGroup.push(item);
 
-			return !res;
-		});
+// 			return !res;
+// 		});
 
-		restLists = newRest;
+// 		restLists = newRest;
 
-		return [group, toThisGroup];
-	});
+// 		return [group, toThisGroup];
+// 	});
 
-	return {
-		groupAndLists,
-		restLists,
-	};
-};
+// 	return {
+// 		groupAndLists,
+// 		restLists,
+// 	};
+// };
 
-export const getRemainingLists = (
-	listGroups: ListGroupAttributes[],
-	lists: ListAttributes[]
-): ListAttributes[] => {
-	const listsUngrouped: ListAttributes[] = [];
+// export const getRemainingLists = (
+// 	listGroups: ListGroupAttributes[],
+// 	lists: ListAttributes[]
+// ): ListAttributes[] => {
+// 	const listsUngrouped: ListAttributes[] = [];
 
-	listGroups.map((g) =>
-		lists.map((l) => {
-			if (!g.lists.includes(l._id)) listsUngrouped.push(l);
-		})
-	);
+// 	listGroups.map((g) =>
+// 		lists.map((l) => {
+// 			if (!g.lists.includes(l._id)) listsUngrouped.push(l);
+// 		})
+// 	);
 
-	console.log(listsUngrouped);
+// 	console.log(listsUngrouped);
 
-	return listsUngrouped;
-};
+// 	return listsUngrouped;
+// };

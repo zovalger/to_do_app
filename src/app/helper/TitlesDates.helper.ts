@@ -1,6 +1,6 @@
 import moment from "moment";
 
-export const DueDateTitleHelper = (date: Date | null) =>
+export const DueDateTitleHelper = (date: string | null) =>
 	date
 		? moment(date).isSame(moment(), "day")
 			? "Hoy"

@@ -8,8 +8,8 @@ const nullUser: userAttributes = {
 	lastName: "",
 	username: "",
 	email: "",
-	password: "",
-	token: "",
+	createAt: "",
+	updateAt: "",
 };
 
 const initialState = nullUser;

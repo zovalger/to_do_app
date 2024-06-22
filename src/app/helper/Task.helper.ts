@@ -18,7 +18,7 @@ export const taskBySmartList = (
 
 	if (listId == SmartListsIds.todo) return tasks;
 
-	if (listId == SmartListsIds.complete) return tasks.filter((t) => t.complete);
+	if (listId == SmartListsIds.complete) return tasks.filter((t) => t.completionDate);
 
 	return null;
 };
